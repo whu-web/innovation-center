@@ -1,0 +1,101 @@
+.main {
+}
+
+// 轮播图
+.main--carousel {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    user-select: none;
+
+    // 轮播图内容指示器
+    .main--carousel--dots {
+        margin: 0 auto;
+        left: auto;
+        right: 5%;
+        width: 150px;
+        align-items: center;
+
+        // 所有内容项
+        li {
+            margin: 0 10px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            // 内容项按钮
+            button {
+                opacity: 0.5;
+                width: 15px;
+                height: 15px;
+                border-radius: 2px;
+                background-color: white;
+            }
+        }
+
+        // 激活的内容项
+        li.slick-active {
+            margin: 0 10px;
+            width: 20px;
+            // 激活的内容项按钮
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                color: var(--clr-blue);
+                font-size: 15px;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+// * 下拉指示器
+.main--scroll-down {
+    position: absolute;
+    bottom: 10px;
+    margin: auto;
+    left: 50%;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+.main--scroll-down:hover {
+    transform: scale(1.25);
+}
+
+.main--scroll-down--icon {
+    z-index: 100;
+    width: 20px;
+    height: 20px;
+    fill: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+.main--scroll-down--icon--upper {
+    transform: translate(0, 10px);
+    animation: blink 3s ease-in-out infinite;
+}
+
+.main--scroll-down--icon--lower {
+    animation: blink 3s ease-in-out 1.5s infinite;
+}
+
+.main--content {
+    z-index: 101;
+    position: relative;
+    top: 100vh;
+    background-color: var(--clr-gs-0_5);
+}

@@ -2,12 +2,86 @@
 
 html,
 body,
-#root {
+#root,
+p {
     padding: 0;
     margin: 0;
+}
+
+body {
+    // * 设置背景色
+    background-color: var(--clr-gs-0_5);
 }
 
 * {
     box-sizing: border-box;
 }
 
+:root {
+    // 功能色
+    --clr-fn-error: #f53d3d;
+    --clr-fn-warn: #f9af2f;
+    --clr-fn-success: #81dc47;
+    --clr-fn-link: #369eff;
+
+    // 灰阶
+    --clr-gs-0: white;
+    --clr-gs-0_5: #efefef;
+    --clr-gs-1: #dfdfdf;
+    --clr-gs-2: #bfbfbf;
+    --clr-gs-3: #9f9f9f;
+    --clr-gs-4: #7f7f7f;
+    --clr-gs-5: #5f5f5f;
+    --clr-gs-6: #3f3f3f;
+    --clr-gs-7: #1f1f1f;
+    --clr-gs-8: black;
+
+    // 透明灰
+    --clr-gsop-0: rgba(0, 0, 0, 0);
+    --clr-gsop-1: rgba(0, 0, 0, 0.1);
+    --clr-gsop-2: rgba(0, 0, 0, 0.2);
+    --clr-gsop-3: rgba(0, 0, 0, 0.3);
+    --clr-gsop-4: rgba(0, 0, 0, 0.4);
+    --clr-gsop-5: rgba(0, 0, 0, 0.5);
+    --clr-gsop-6: rgba(0, 0, 0, 0.5);
+    --clr-gsop-7: rgba(0, 0, 0, 0.7);
+    --clr-gsop-8: rgba(0, 0, 0, 0.8);
+    --clr-gsop-9: rgba(0, 0, 0, 0.9);
+
+    // 主题色
+    --clr-blue: #287ecc;
+    --clr-megenta: #eb2f96;
+    --clr-megenta-dark: #c41d7f;
+
+    --fsz-base: 20px;
+}
+
+// * 配套设施
+@mixin ClampText($lines: 2) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+}
+
+.text-line-clamp-1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-line-clamp-2 {
+    @include ClampText($lines: 2);
+}
+
+.text-line-clamp-3 {
+    @include ClampText($lines: 3);
+}
+
+.text-line-clamp-4 {
+    @include ClampText($lines: 4);
+}
+
+.text-line-clamp-5 {
+    @include ClampText($lines: 5);
+}

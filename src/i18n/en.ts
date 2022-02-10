@@ -7,6 +7,19 @@ export default {
     'title': 'RS+ Club - Innovation Center of Remote Sensing',
     'innoCenter': 'Innovation Center of Remote Sensing',
     'rsClub': 'RS+ Club',
+    'rs': 'RS',
+    'news': 'News',
+    'events': 'Events',
+    'mentors': 'Mentors',
+    'members': 'Members',
+    'clubOverview': '武汉大学具有雄厚的遥感科学与技术学科优势和师资优势，为武汉大学的本科教学发展提供了强有力的支撑。2021年，遥感信息大学生创新创业中心成立，旨在创造师生可以利用的创新创业空间环境，探索有效的全过程大学生创新创业项目指导与管理措施，研究对大学生创新创业热情的引导和激励机制，培养培育出一批优秀大学生创新创业人才及项目成果。',
+    'clubFunction': '中心职能',
+    'clubFunction0': '创新创业项目孵化及俱乐部的组织管理',
+    'clubFunction1': '相关创新创业竞赛的组织管理',
+    'clubFunction2': '创新创业讲座沙龙的组织管理',
+    'clubFunction3': '大学生创新创业项目的组织管理',
+    'clubFunction4': '创新学分审核',
+    'clubFunction5': '其他大学生课外创新创业实践活动的组织管理',
 
     'navbar.menuitem.news': 'News',
     'navbar.menuitem.events': 'Events',
@@ -17,5 +30,27 @@ export default {
     'navbar.menuitem.language.zh-CN': '简体中文',
     'navbar.menuitem.language.zh-HK': '繁體中文',
     'navbar.menuitem.language.en': 'English',
+
+    'clubResources.offices': 'Offices',
+    'clubResources.mentors': 'Mentors',
+    'clubResources.regulations': 'Regulations',
+
+    'clubResources.offices.mainOffice.title': '大创中心入驻团队主要办公地',
+    'clubResources.offices.mainOffice.descrip': '欧式大别墅两套，电器设施齐全，办公桌电脑椅服务器，Mac电脑，XBOX，PS5',
+    'clubResources.offices.mainOffice.location': '光谷高新区',
+
+    'clubResources.offices.coffee.title': '“遥感+”咖啡馆',
+    'clubResources.offices.coffee.descrip': '大佬们讨论问题的休闲场所，闲人免进',
+    'clubResources.offices.coffee.location': '银泰第0层',
+
+    'card.panorama': 'Show Panorama',
+
+    'locationCard.showMap': 'Show Navigation Map',
+
+    'amap.toNavigationMapApp': 'Click to open in AMap',
+
+    'news.more': 'Read More',
+
+    'event.mapHint': 'Click to show location on AMap'
 
 };

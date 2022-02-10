@@ -1,0 +1,98 @@
+.resouces {
+    height: 100%;
+    background: var(--clr-gs-0);
+    box-shadow: var(--clr-gsop-5) 0px 4px 12px 0px;
+}
+
+.resources--content-wrapper {
+    overflow: auto;
+    transition: opacity 400ms ease-in-out;
+
+    box-shadow: var(--clr-gsop-5) 0px -1px 12px 0px;
+    clip-path: inset(-30px 0 0 0);
+    z-index: 0;
+}
+//* 标签页面板内容过渡
+.resources--tab-pane {
+    padding: 10px 10px 0 10px;
+    transition: opacity 400ms ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.resources--active-tab-pane {
+    animation: fadeIn 600ms ease-in-out;
+}
+
+.resources--offices--loc-card {
+}
+
+//* 标签页页签
+.resources--tab-wrapper--tab {
+    background-color: var(--clr-gs-2);
+    transition: background-color 400ms ease-in-out;
+
+    padding: 10px;
+    // 页签文本
+    span {
+        color: var(--clr-gs-5);
+        font-weight: bold;
+        font-size: calc(0.8 * var(--fsz-base));
+        transition: transform 300ms ease-in-out, color 300ms ease-in-out;
+    }
+
+    // 页签图标
+    svg {
+        width: 50px;
+        height: 50px;
+        fill: var(--clr-gs-4);
+        transition: transform 300ms ease-in-out, fill 300ms ease-in-out;
+    }
+}
+
+//* 激活时的标签
+.resources--active-tab-wrapper .resources--tab-wrapper--tab {
+    background-color: var(--clr-gs-0);
+    // 页签文本
+    span {
+        color: var(--clr-blue);
+        transform: scale(1.1);
+    }
+
+    // 页签图标
+    svg {
+        fill: var(--clr-blue-light);
+        transform: scale(1.1);
+    }
+}
+
+//* 设置激活页签的阴影
+.resources--active-tab-wrapper {
+    clip-path: inset(0 -30px 0 -30px);
+    box-shadow: var(--clr-gsop-5) 0px 0 12px 0.5px;
+    z-index: 1;
+}
+
+.resources--active-tab-wrapper:first-child {
+    clip-path: inset(0 -30px 0 0);
+}
+
+.resources--active-tab-wrapper:last-child {
+    clip-path: inset(0 0 0 -30px);
+}
+
+//* 页签激活时过渡
+.resources--tab-wrapper:not(.resources--active-tab-wrapper):hover {
+    span,
+    svg {
+        transform: scale(1.1);
+    }
+}

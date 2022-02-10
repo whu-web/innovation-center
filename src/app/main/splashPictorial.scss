@@ -1,5 +1,7 @@
 //* Pictorial组件样式
 .splash {
+    width: 100vw;
+    height: 100vh;
 }
 
 //* 首屏画报上层内容样式
@@ -18,10 +20,20 @@
 
 .splash--content--title {
     font-size: calc(var(--fsz-base) * 2.5);
-    text-shadow: 0 2px 5px var(--clr-gsop-5);
+    text-shadow: 2px 4px 6px var(--clr-gsop-5);
+    font-weight: 500;
 }
 
 .splash--content--descrip {
-    font-size: calc(var(--fsz-base) * 1.5);
-    text-shadow: 0 1px 5px var(--clr-gsop-5);
+    font-size: calc(var(--fsz-base) * 1.25);
+    text-shadow: 1px 2px 3px var(--clr-gsop-5);
+    font-weight: 300;
+}
+
+.splash--link {
+    color: white;
+}
+
+.splash--link:hover {
+    color: white;
 }

@@ -15,6 +15,7 @@ body {
 
 * {
     box-sizing: border-box;
+    font-size: var(--fsz-base);
 }
 
 :root {
@@ -28,6 +29,7 @@ body {
     --clr-gs-0: white;
     --clr-gs-0_5: #efefef;
     --clr-gs-1: #dfdfdf;
+    --clr-gs-1_5: #d8d8d8;
     --clr-gs-2: #bfbfbf;
     --clr-gs-3: #9f9f9f;
     --clr-gs-4: #7f7f7f;
@@ -43,15 +45,25 @@ body {
     --clr-gsop-3: rgba(0, 0, 0, 0.3);
     --clr-gsop-4: rgba(0, 0, 0, 0.4);
     --clr-gsop-5: rgba(0, 0, 0, 0.5);
-    --clr-gsop-6: rgba(0, 0, 0, 0.5);
+    --clr-gsop-5_5: rgba(0, 0, 0, 0.55);
+    --clr-gsop-6: rgba(0, 0, 0, 0.6);
     --clr-gsop-7: rgba(0, 0, 0, 0.7);
     --clr-gsop-8: rgba(0, 0, 0, 0.8);
     --clr-gsop-9: rgba(0, 0, 0, 0.9);
+    --clr-gsop-10: rgba(0, 0, 0, 1);
 
     // 主题色
     --clr-blue: #287ecc;
+    --clr-blue-light: #bed8ef;
+    --clr-blue-dark: #165fa3;
+    --clr-blue-darker: #0f3a61;
+    --clr-blue-dark-op: #165fa380;
+
     --clr-megenta: #eb2f96;
     --clr-megenta-dark: #c41d7f;
+
+    // 背景色
+    --clr-bg-cream: #c6c2ba;
 
     --fsz-base: 20px;
 }

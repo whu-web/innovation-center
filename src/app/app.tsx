@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, useRef, useMemo, useCallback, CSSProperties, useEffect } from 'react';
+import React, { useState, FunctionComponent, useRef, useMemo, useCallback, useEffect } from 'react';
 
 // Components
 import Main from './main/main';
@@ -31,6 +31,7 @@ const App: FunctionComponent<AppProps> = (props) => {
     // 导航栏显示控制
     const [showNavbar, setShowNavbar] = useState<boolean>(true);
 
+    // 国际化翻译文本
     const message = useMemo(() => locale2Message(locale), [locale]);
 
     // 处理语言/地区切换事件

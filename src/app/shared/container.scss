@@ -1,12 +1,31 @@
 //* Shared CSS classes
-.container {
+@mixin containerBase($justify: flex-start, $align: center, $direction: row) {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+.container {
+    @include containerBase();
 }
 
 .container-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include containerBase($justify: center);
+}
+
+.container-end {
+    @include containerBase($justify: flex-end);
+}
+
+.container-column {
+    @include containerBase($direction: column);
+}
+
+.container-column-center {
+    @include containerBase($justify: center, $direction: column);
+}
+
+.container-column-end {
+    @include containerBase($justify: flex-end, $direction: column);
 }

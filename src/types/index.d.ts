@@ -2,16 +2,30 @@
 export interface ContentBase {
     id: string;
     title: string;
-    descrip: string;
+    descrip?: string;
     imgUrl: string;
+    link?: string;
 }
 
 export interface EventType extends ContentBase {
-
+    location: string;
+    startTime: Date;
+    endTime?: Date;
+    lonLat?: [number, number];
 }
 
 export interface NewsType extends ContentBase {
+    publishTime: Date;
+}
 
+export interface MentorInfo {
+    id: string;
+    name: string;
+    titles: string;
+    department: string;
+    intro: string;
+    imgUrl: string;
+    link?: string;
 }
 
 // 支持的语言/地区

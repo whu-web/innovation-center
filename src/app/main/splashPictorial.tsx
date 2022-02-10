@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { ContentBase } from '../../types';
 
 // Components
 import Pictorial from '../shared/pictorial';
@@ -8,21 +9,19 @@ import Pictorial from '../shared/pictorial';
 // Stylesheet
 import './splashPictorial.scss';
 
-export interface SplashPictorialProps {
-    imgUrl: string;
-    imgAlt: string;
-    title: string;
-    descrip: string;
+export interface SplashPictorialProps extends Omit<ContentBase, 'id'> {
 }
 
 const SplashPictorial: FunctionComponent<SplashPictorialProps> = (props) => {
-    const { imgUrl, imgAlt, title, descrip } = props;
+    const { imgUrl, title, descrip, link } = props;
 
     return (
-        <Pictorial className='splash' imgUrl={imgUrl} imgAlt={imgAlt}>
+        <Pictorial className='splash' imgUrl={imgUrl} imgAlt={title} disableTransition>
             <div className='splash--content'>
-                <p className='splash--content--title text-line-clamp-1'>{title}</p>
-                <p className='splash--content--descrip text-line-clamp-2'>{descrip}</p>
+                <a href={link} className='splash--link' target='_blank'>
+                    <p className='splash--content--title text-line-clamp-1'>{title}</p>
+                    <p className='splash--content--descrip text-line-clamp-2'>{descrip}</p>
+                </a>
             </div>
         </Pictorial>
     );

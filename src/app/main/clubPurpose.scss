@@ -1,0 +1,58 @@
+.purpose {
+    background: var(--clr-gs-0);
+    box-shadow: var(--clr-gsop-5) 0px 4px 12px 0px;
+    border-image: linear-gradient(115deg, var(--clr-blue) 0%, var(--clr-megenta) 120%) 2;
+    border-style: solid;
+    border-width: 3px;
+    padding: 25px 20px;
+
+    color: var(--clr-gs-6);
+    height: 100%;
+}
+
+%purposeElemBase {
+    margin: 10px 0;
+}
+
+.purpose--title {
+    font-size: calc(1.75 * var(--fsz-base));
+    color: var(--clr-blue);
+    font-weight: bold;
+}
+
+.purpose--sep-line {
+    @extend %purposeElemBase;
+    width: 20%;
+    height: 2px;
+    background-color: var(--clr-gs-1);
+}
+
+.purpose--descrip {
+    @extend %purposeElemBase;
+    font-size: calc(0.85 * var(--fsz-base));
+    font-weight: 400;
+}
+
+.purpose--function-heading {
+    @extend %purposeElemBase;
+    color: var(--clr-blue);
+    font-size: calc(1.25 * var(--fsz-base));
+    font-weight: bold;
+}
+
+.purpose--functions {
+    @extend %purposeElemBase;
+}
+
+.purpose--functions--item {
+    margin: 5px 0;
+    font-size: calc(0.85 * var(--fsz-base));
+    font-weight: 400;
+}
+
+.purpose--functions--item::marker {
+    font-size: calc(0.75 * var(--fsz-base));
+    font-weight: bold;
+    font-style: italic;
+    color: var(--clr-gs-3);
+}

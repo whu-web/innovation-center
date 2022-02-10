@@ -1,0 +1,132 @@
+$mapTransitionTime: 0.4s;
+
+.event-card {
+    background-color: var(--clr-gs-0);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    cursor: pointer;
+
+    .ant-image {
+        height: 45%;
+        width: 100%;
+        clip-path: inset(0 0 0 0);
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 500ms ease-in-out;
+        }
+    }
+}
+
+.event-card:hover {
+    .ant-image img {
+        transform: scale(1.15);
+    }
+}
+
+.event-card--link-wrapper {
+    width: 100%;
+    flex: 1;
+    position: relative;
+}
+
+.event-card--map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+
+    z-index: -1;
+
+    transform: rotateY(180deg);
+    transition: transform $mapTransitionTime ease-in-out;
+}
+
+.event-card--content {
+    width: 100%;
+    height: 100%;
+    padding: 15px 20px;
+
+    transition: transform $mapTransitionTime ease-in-out;
+}
+
+.event-card--content--hidden {
+    transform: rotateY(-180deg);
+}
+
+.event-card--map--visible {
+    z-index: 1;
+}
+
+.event-card--map--transform {
+    transform: none;
+}
+
+.event-card--content--title {
+    color: var(--clr-gs-6);
+    font-weight: bold;
+    font-size: calc(1.3 * var(--fsz-base));
+    flex: 1;
+}
+
+.event-card--content--descrip {
+    color: var(--clr-gs-4);
+    font-size: calc(0.9 * var(--fsz-base));
+    font-weight: 600;
+}
+
+.event-card--content--time,
+.event-card--content--location {
+    margin-top: 4px;
+    svg {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+    }
+    span {
+        font-size: calc(0.8 * var(--fsz-base));
+        font-weight: 600;
+    }
+}
+
+.event-card--content--time {
+    svg {
+        fill: var(--clr-blue);
+    }
+    span {
+        color: var(--clr-blue);
+    }
+}
+
+.event-card--content--location {
+    svg {
+        fill: var(--clr-megenta);
+    }
+    span {
+        color: var(--clr-megenta);
+    }
+}
+
+@keyframes blinkBlink {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    35% {
+        opacity: 1;
+    }
+    65% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.event-card--content--location--text-animation {
+    animation: blinkBlink 6000ms ease-in-out;
+}

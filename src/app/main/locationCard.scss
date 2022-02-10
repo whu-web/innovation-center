@@ -1,0 +1,114 @@
+.loc-card {
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px;
+    user-select: none;
+    margin-bottom: 20px;
+
+    //*调整antd组件样式，创建自适应裁剪图片
+    .ant-image {
+        width: 100%;
+    }
+}
+
+.loc-card--image {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.loc-card--content {
+    background-color: var(--clr-gs-0);
+    padding: 10px 15px 15px 15px;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+.loc-card--content-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.loc-card--content:hover {
+    transform: scale(1.02);
+}
+
+.loc-card--content--location {
+    width: 100%;
+}
+
+.loc-card--content--location--expand-icon {
+    fill: var(--clr-gs-4);
+    width: 18px;
+    height: 18px;
+}
+
+.loc-card--content--location--text {
+    color: var(--clr-gs-5);
+    font-size: calc(0.9 * var(--fsz-base));
+    margin: 0 7px;
+}
+
+.loc-card--content--location--loc-icon {
+    fill: var(--clr-megenta);
+    width: 22px;
+    height: 22px;
+}
+
+.loc-card--content--title {
+    width: 100%;
+    font-weight: bold;
+    color: var(--clr-blue);
+    font-size: calc(1.5 * var(--fsz-base));
+}
+
+.loc-card--content--descrip {
+    color: var(--clr-gs-5);
+    width: 100%;
+    font-weight: 400;
+}
+
+//* 导航地图
+.loc-card--content--amap {
+    width: 100%;
+    height: 0;
+    transition: height 300ms ease-in-out, margin 200ms ease-in-out;
+}
+
+.loc-card--content--amap--visible {
+    height: 200px;
+    margin-top: 20px;
+    border: 1px solid var(--clr-gs-4);
+}
+
+//* 鼠标悬浮时的叠加层（提示单击可以展开地图）
+.loc-card--content-mask {
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-gsop-7);
+
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+}
+
+.loc-card--content-wrapper:hover .loc-card--content-mask {
+    opacity: 1;
+}
+
+.loc-card--content-mask--map-icon {
+    width: 40px;
+    height: 40px;
+    fill: white;
+    margin-bottom: 10px;
+}
+
+.loc-card--content-mask--text {
+    color: white;
+    font-size: calc(1.25 * var(--fsz-base));
+}
+
+.loc-card--mask--visible {
+    opacity: 1;
+}

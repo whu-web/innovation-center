@@ -1,0 +1,104 @@
+$mapTransitionTime: 0.4s;
+
+.event-pic {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    clip-path: inset(0 0 0 0);
+    img {
+        transition: transform 500ms ease-in-out;
+    }
+}
+
+.event-pic:hover {
+    img {
+        transform: scale(1.15);
+    }
+}
+
+.event-pic--layer--link-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-gsop-4);
+    position: relative;
+}
+
+.event-pic--layer--map {
+    position: absolute;
+    margin: auto;
+    width: 80%;
+    height: 60%;
+    box-shadow: var(--clr-gsop-5) 0px 0px 12px 3px;
+
+    opacity: 0;
+    z-index: -1;
+    transform: scale(0.9);
+    transition: all $mapTransitionTime ease-in-out 200ms;
+}
+
+.event-pic--layer--map:hover {
+    transform: scale(1.1);
+}
+
+.event-pic--layer--info-wrapper {
+    transition: all $mapTransitionTime ease-in-out;
+}
+
+.event-pic--elem-hidden {
+    opacity: 0;
+}
+
+.event-pic--elem-visible {
+    opacity: 1;
+    transform: none;
+    z-index: 1;
+}
+
+.event-pic--layer--title {
+    color: white;
+    text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
+    font-size: calc(1.5 * var(--fsz-base));
+    letter-spacing: 2px;
+}
+
+.event-pic--layer--time {
+}
+
+.event-pic--layer--time--line {
+    height: 1.5px;
+    width: 40px;
+    background-color: white;
+}
+
+.event-pic--layer--time--text {
+    margin: 0 10px;
+    color: white;
+    text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
+    font-size: calc(0.8 * var(--fsz-base));
+}
+
+.event-pic--layer--location {
+    color: white;
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: all 400ms ease-in-out;
+    border: none;
+    padding: 5px;
+}
+
+.event-pic--layer--location:hover {
+    transform: scale(1.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.event-pic--layer--location--icon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    filter: drop-shadow(0px 1px 3px var(--clr-gsop-4));
+    margin-right: 5px;
+}
+
+.event-pic--layer--location--text {
+    text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
+}

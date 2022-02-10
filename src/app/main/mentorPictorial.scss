@@ -1,0 +1,64 @@
+.mentor {
+    box-shadow: rgba(50, 50, 93, 0.4) 0px 13px 27px -5px, rgba(0, 0, 0, 0.5) 0px 8px 16px -8px;
+}
+
+.mentor--layer {
+}
+
+.mentor--link-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -14px;
+    height: 100%;
+    width: 15px;
+    background-color: var(--clr-blue);
+    box-shadow: 0 -2px 0px 15px var(--clr-blue-darker);
+    clip-path: polygon(0 0, 100% -15px, 100% 100%, 0 100%);
+}
+
+.mentor--link-wrapper {
+    position: relative;
+    background-color: var(--clr-blue);
+    width: 100%;
+    padding: 10px 0;
+}
+
+.mentor--line {
+    color: white;
+    width: 100%;
+    font-weight: 200;
+}
+
+.mentor--line1 {
+}
+
+.mentor--line1--name {
+    font-size: calc(1.35 * var(--fsz-base));
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.mentor--line1--titles {
+    font-weight: 400;
+    font-size: calc(0.8 * var(--fsz-base));
+}
+
+.mentor--line2 {
+    font-size: calc(0.75 * var(--fsz-base));
+}
+
+.mentor--line3 {
+    font-size: calc(0.6 * var(--fsz-base));
+    opacity: 0;
+    max-height: 0;
+    transition: max-height 800ms ease-in-out, margin 300ms ease-in-out, opacity 400ms ease-in-out;
+}
+
+.mentor:hover {
+    .mentor--line3 {
+        opacity: 1;
+        margin-top: 10px;
+        max-height: 1000px;
+    }
+}

@@ -4,7 +4,8 @@
  * 
  * @author shepard
  */
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState, useEffect, useRef, FunctionComponent, LegacyRef, MutableRefObject } from 'react';
+import { useIntersetionObserver, useTransition } from './hooks';
 
 // Components
 
@@ -19,14 +20,32 @@ export interface PictorialProps {
     className?: string;
     imageClass?: string;
     layerClass?: string;
-    imgRef?: React.LegacyRef<HTMLImageElement>;
+    imgRef?: LegacyRef<HTMLImageElement>;
+    // 香蕉检测过渡动画
+    disableTransition?: boolean;
+    // 香蕉检测过渡动画延时(ms)
+    transitionDelay?: number;
 }
 
 const Pictorial: FunctionComponent<PictorialProps> = (props) => {
-    const { imgUrl, imgAlt, className, imageClass, layerClass, children, imgRef } = props;
+    const {
+        imgUrl,
+        disableTransition,
+        transitionDelay,
+        imgAlt,
+        className,
+        imageClass,
+        layerClass,
+        children,
+        imgRef
+    } = props;
+
+    const rootNodeRef = useRef<HTMLDivElement>(null);
+
+    useTransition(rootNodeRef, 'pictorial--hidden', disableTransition, transitionDelay);
 
     return (
-        <div className={`pictorial ${className || ''}`}>
+        <div className={`pictorial ${className || ''} ${disableTransition ? '' : 'pictorial--hidden'}`} ref={rootNodeRef}>
             <img ref={imgRef} className={`pictorial--bg-img ${imageClass || ''}`} src={imgUrl} alt={imgAlt} />
             <div className={`pictorial--layer ${layerClass || ''}`}>
                 {children}

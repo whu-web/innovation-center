@@ -13,19 +13,20 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     className?: string;
     justify?: 'center' | 'start' | 'end';
     align?: 'center' | 'start' | 'end';
-    direction?: 'row' | 'column';
+    direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
     innerRef?: React.LegacyRef<HTMLDivElement>;
 }
 
 const Container: FunctionComponent<ContainerProps> = (props) => {
-    const { className, justify, align, children, innerRef, direction, ...otherProps } = props;
+    const { className, justify, align, children, innerRef, direction, style, ...otherProps } = props;
 
     return (
         <div className={`container ${className || ''}`} {...otherProps}
             style={{
                 justifyContent: prefixFlex(justify),
                 alignItems: prefixFlex(align),
-                flexDirection: direction
+                flexDirection: direction,
+                ...style
             }}
             ref={innerRef} >
             {children}

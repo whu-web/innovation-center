@@ -3,6 +3,8 @@
  * 图标为可选项
  * 1. 带有图标时，外层会被封装一层Container，此时className会被赋给外层Container
  * 2. 不带图标时，该组件等同于span
+ * 
+ * @author shepard
  */
 
 import React, { ReactNode, FunctionComponent, CSSProperties } from 'react';
@@ -26,7 +28,7 @@ export interface IconTextProps extends
 }
 
 const Text: FunctionComponent<IconTextProps> = (props) => {
-    const { className, textClass, icon, style, textStyle, justify, align, innerRef, ...msgProps } = props;
+    const { className, textClass, icon, style, textStyle, justify, align, direction, innerRef, ...msgProps } = props;
 
     const textFinalClass = icon ? textClass : textClass || className;
     const textFinalStyle = icon ? textStyle : textStyle || style;
@@ -35,7 +37,7 @@ const Text: FunctionComponent<IconTextProps> = (props) => {
     </span >);
 
     return icon ? (
-        <Container className={className} justify={justify} align={align} innerRef={innerRef}>
+        <Container className={className} justify={justify} align={align} direction={direction} innerRef={innerRef}>
             {icon}
             {textComponent}
         </Container>

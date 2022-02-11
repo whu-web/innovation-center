@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 .amap-container {
     margin: 0;
     padding: 0;
@@ -65,4 +67,26 @@
 .amap--back-btn:hover {
     transform: scale(1.1);
     border: 1.5px solid white;
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+}
+
+@include media($sm...) {
+    .amap-container .amap-marker-label {
+        max-width: 250px;
+        font-size: calc(0.6 * var(--fsz-base));
+        word-wrap: normal;
+    }
+}
+
+@include media($xs...) {
+    .amap-container .amap-marker-label {
+        max-width: 200px;
+        font-size: calc(0.45 * var(--fsz-base));
+        word-wrap: normal;
+    }
 }

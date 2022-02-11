@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 $mapTransitionTime: 0.4s;
 
 .event-pic {
@@ -101,4 +103,37 @@ $mapTransitionTime: 0.4s;
 
 .event-pic--layer--location--text {
     text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+}
+
+@include media($sm...) {
+    .event-pic--layer--title {
+        font-size: calc(1.05 * var(--fsz-base));
+    }
+    .event-pic--layer--time--text {
+        font-size: calc(0.6 * var(--fsz-base));
+    }
+    .event-pic--layer--location--text {
+    }
+}
+
+@include media($xs...) {
+    .event-pic {
+        aspect-ratio: 5/4;
+    }
+
+    .event-pic--layer--title {
+        font-size: calc(0.75 * var(--fsz-base));
+    }
+    .event-pic--layer--time--text {
+        font-size: calc(0.4 * var(--fsz-base));
+    }
+    .event-pic--layer--location--text {
+        font-size: calc(0.5 * var(--fsz-base));
+    }
 }

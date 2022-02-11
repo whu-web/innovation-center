@@ -51,5 +51,15 @@ export default {
 
     'news.more': '更多资讯',
 
-    'event.mapHint': '点击查看导航地图'
+    'event.mapHint': '点击查看导航地图',
+
+    'footer.copyright': '版权所有 © 遥感信息大学生创新创业中心',
+    'footer.address': '湖北省武汉市武汉大学',
+    'footer.icp': '备案 ｜ ICP',
+    'footer.whu': '武汉大学',
+    'footer.rs': '遥感信息工程学院',
+    'footer.devTeam': '大创中心网站开发工作组'
+
 };
+
+//* 简体中文翻译文件

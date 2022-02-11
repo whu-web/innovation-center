@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Pictorial from '../shared/pictorial';
 
 // Components

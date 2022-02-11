@@ -4,8 +4,8 @@
  * 
  * @author shepard
  */
-import React, { useState, useEffect, useRef, FunctionComponent, LegacyRef, MutableRefObject } from 'react';
-import { useIntersetionObserver, useTransition } from './hooks';
+import React, { useRef, FunctionComponent, LegacyRef } from 'react';
+import { useTransition } from './hooks';
 
 // Components
 

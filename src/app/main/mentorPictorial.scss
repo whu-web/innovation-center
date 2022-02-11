@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 .mentor {
     box-shadow: rgba(50, 50, 93, 0.4) 0px 13px 27px -5px, rgba(0, 0, 0, 0.5) 0px 8px 16px -8px;
 }
@@ -12,16 +14,16 @@
     left: -14px;
     height: 100%;
     width: 15px;
-    background-color: var(--clr-blue);
-    box-shadow: 0 -2px 0px 15px var(--clr-blue-darker);
+    background-color: var(--clr-blue-u);
+    box-shadow: 0 -2px 0px 15px var(--clr-blue-darker-u);
     clip-path: polygon(0 0, 100% -15px, 100% 100%, 0 100%);
 }
 
 .mentor--link-wrapper {
     position: relative;
-    background-color: var(--clr-blue);
+    background-color: var(--clr-blue-u);
     width: 100%;
-    padding: 10px 0;
+    padding: 10px 5px 10px 0;
 }
 
 .mentor--line {
@@ -60,5 +62,29 @@
         opacity: 1;
         margin-top: 10px;
         max-height: 1000px;
+    }
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+}
+
+@include media($sm...) {
+}
+
+@include media($xs...) {
+    .mentor--line1--name {
+        font-size: calc(1.15 * var(--fsz-base));
+    }
+    .mentor--line1--titles {
+        font-size: calc(0.65 * var(--fsz-base));
+    }
+    .mentor--line2 {
+        font-size: calc(0.6 * var(--fsz-base));
+    }
+    .mentor--line3 {
+        font-size: calc(0.45 * var(--fsz-base));
     }
 }

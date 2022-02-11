@@ -1,3 +1,4 @@
+@use "../../include-media" as *;
 $fadeInTime: 500ms;
 
 .card {
@@ -23,5 +24,8 @@ $fadeInTime: 500ms;
 }
 
 .card--image-mask--text {
-    font-size: calc(1.25 * var(--fsz-base));
+    font-size: calc(1.25 * var(--fsz-base-u));
+}
+
+@include media($xs...) {
 }

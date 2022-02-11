@@ -1,0 +1,60 @@
+@use "../include-media" as *;
+
+.footer {
+    background-color: #3f3f3f;
+    color: white;
+    padding: 30px 0 50px 0;
+}
+.footer--logo {
+    width: 50%;
+    max-width: 300px;
+    min-width: 20%;
+}
+
+.footer--contact {
+    padding: 0 24px 0 16px;
+    align-items: flex-start;
+    width: 100%;
+    div {
+        flex: 1;
+    }
+    svg {
+        width: 40px;
+        height: 40px;
+        fill: white;
+        margin-left: 12px;
+    }
+    margin-bottom: 24px;
+}
+
+.footer--row {
+}
+
+.footer--col {
+    padding-left: 24px;
+}
+
+.footer--col1 {
+    span {
+        color: white;
+        display: block;
+        text-decoration: underline;
+        font-size: calc(0.85 * var(--fsz-base-u));
+        padding: 5px 0;
+    }
+}
+
+.footer--col2 {
+    align-items: flex-start;
+    span {
+        font-size: calc(0.85 * var(--fsz-base-u));
+        padding: 5px 0;
+    }
+}
+
+@include media($xs...) {
+    .footer--contact svg {
+        width: 24px;
+        height: 24px;
+    }
+}

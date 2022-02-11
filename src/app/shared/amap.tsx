@@ -5,6 +5,7 @@
 
 import React, { useState, FunctionComponent, useEffect, useRef, useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import { useTheme } from './hooks';
 
 (window as any)._AMapSecurityConfig = {
     securityJsCode: 'ac9f17feb51213464455cde088a274df',
@@ -59,6 +60,7 @@ const Amap: FunctionComponent<AmapProps> = (props) => {
     const mapRef = useRef<any>(null);  // 高德地图JS API 2.0没有TypeScript类型定义文件
 
     const intl = useIntl();
+    const theme = useTheme();
 
     // 首次渲染挂载地图
     useEffect(() => {
@@ -73,6 +75,12 @@ const Amap: FunctionComponent<AmapProps> = (props) => {
             const map = mapRef.current = new Amap.Map(mapIdRef.current, {
                 zoom: 16,
                 center: markerLonLat
+            });
+            // 设置颜色主题
+            if (theme === 'dark')
+                map.setMapStyle("amap://styles/dark");
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                map.setMapStyle(`amap://styles/${event.matches ? "dark" : "light"}`);
             });
             //实时路况图层
             const trafficLayer = new Amap.TileLayer.Traffic({
@@ -104,7 +112,7 @@ const Amap: FunctionComponent<AmapProps> = (props) => {
             map.setLimitBounds(bounds);
 
         }).catch(() => { setMapFallback(true); })
-    }, [load]); // eslint-disable-line
+    }, [load, theme]); // eslint-disable-line
 
     const backBtn = useMemo(() => (onGoBack
         ? (
@@ -115,7 +123,7 @@ const Amap: FunctionComponent<AmapProps> = (props) => {
         , [onGoBack])
 
     return (
-        <div id={mapIdRef.current} ref={innerRef} {...divProps}
+        <div id={mapIdRef.current} ref={innerRef} {...divProps} style={style}
             className={`amap-container ${className || ''}`}>
             {mapFallback
                 ? <img src={require('../../assets/map-fallback.svg')}

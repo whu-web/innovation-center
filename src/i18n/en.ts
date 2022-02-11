@@ -51,6 +51,15 @@ export default {
 
     'news.more': 'Read More',
 
-    'event.mapHint': 'Click to show location on AMap'
+    'event.mapHint': 'Click to show location on AMap',
+
+    'footer.copyright': 'Copyright © Innovation Center of Remote Sensing All rights reserved',
+    'footer.address': 'Wuhan University, Wuhan, Hubei, P.R. China',
+    'footer.icp': '备案 ｜ ICP',
+    'footer.whu': 'Wuhan University',
+    'footer.rs': 'The School of Remote Sensing',
+    'footer.devTeam': 'Web Development Team of Innovation Center'
 
 };
+
+// * 英文翻译文件

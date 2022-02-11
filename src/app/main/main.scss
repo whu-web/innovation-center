@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 .main {
 }
 
@@ -7,6 +9,25 @@
     width: 100%;
     position: fixed;
     user-select: none;
+
+    .ant-carousel {
+        height: 100%;
+        .slick-slider {
+            height: 100%;
+            .slick-list {
+                height: 100%;
+                .slick-track {
+                    height: 100%;
+                    .slick-slide {
+                        height: 100%;
+                    }
+                    .slick-slide > div {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
 
     // 轮播图内容指示器
     .main--carousel--dots {
@@ -49,6 +70,11 @@
             }
         }
     }
+}
+
+.main--carousel--splash {
+    width: 100vw;
+    height: 100vh;
 }
 
 // * 下拉指示器
@@ -101,7 +127,27 @@
     background-color: var(--clr-gs-0_5);
 }
 
-//*中心概况
+@include media("<large") {
+    .main--carousel {
+        position: static;
+        aspect-ratio: 4/3;
+    }
+
+    .main--scroll-down {
+        display: none;
+    }
+
+    .main--carousel--splash {
+        width: 100%;
+        height: 100%;
+    }
+
+    .main--content {
+        position: static;
+    }
+}
+
+//*-------中心概况--------*//
 .main--overview {
     padding: 60px 20px 30px 20px;
     height: 700px;
@@ -127,6 +173,62 @@
     transition: opacity 700ms ease-in-out, transform 1s ease-in-out;
 }
 
+@include media("<x-large") {
+    .main--overview {
+        height: auto;
+    }
+}
+@include media("<large") {
+    .main--overview--resources {
+        padding-left: 0;
+        padding-top: 24px;
+    }
+
+    .main--overview--purpose {
+        .purpose--function-heading,
+        .purpose--functions {
+            display: none;
+        }
+    }
+}
+
+@include media($lg...) {
+    .main--overview--purpose {
+        .purpose--sep-line {
+            margin: 24px 0;
+        }
+    }
+    .main--overview--resources {
+        height: 800px;
+    }
+}
+
+@include media($md...) {
+    .purpose--title {
+    }
+    .purpose--descrip {
+        font-size: var(--fsz-base);
+    }
+}
+
+@include media($sm...) {
+    .purpose--title {
+        font-size: calc(1.1 * var(--fsz-base));
+    }
+    .purpose--descrip {
+        font-size: calc(0.8 * var(--fsz-base));
+    }
+}
+
+@include media($xs...) {
+    .purpose--title {
+        font-size: calc(1 * var(--fsz-base));
+    }
+    .purpose--descrip {
+        font-size: calc(0.55 * var(--fsz-base));
+    }
+}
+
 //* 用来展示过渡动画
 .main--elem--visible {
     opacity: 1;
@@ -142,18 +244,60 @@
     margin: 24px 0;
     span {
         font-weight: bold;
-        font-size: calc(2.2 * var(--fsz-base));
+        font-size: calc(2.2 * var(--fsz-base-u));
         color: var(--clr-gs-6);
     }
 
     span.main--section--heading--plus {
         margin: 0 20px;
         color: var(--clr-gs-4);
-        font-size: calc(1.8 * var(--fsz-base));
+        font-size: calc(1.8 * var(--fsz-base-u));
     }
 }
 
-//* 新闻板块
+@include media($lg...) {
+}
+
+@include media($md...) {
+    .main--section {
+        padding: 20px 8px;
+    }
+    .main--section--heading {
+        margin: 20px 0;
+    }
+}
+
+@include media($sm...) {
+    .main--section {
+        padding: 16px 8px;
+    }
+    .main--section--heading {
+        margin: 16px 0;
+        span {
+            font-size: calc(2 * var(--fsz-base-u));
+        }
+        span.main--section--heading--plus {
+            font-size: calc(1.6 * var(--fsz-base-u));
+        }
+    }
+}
+
+@include media($xs...) {
+    .main--section {
+        padding: 12px 8px;
+    }
+    .main--section--heading {
+        margin: 12px 0;
+        span {
+            font-size: calc(1.8 * var(--fsz-base-u));
+        }
+        span.main--section--heading--plus {
+            font-size: calc(1.4 * var(--fsz-base-u));
+        }
+    }
+}
+
+//*-----新闻板块-----*//
 .main--news {
     background-color: var(--clr-bg-cream);
 }
@@ -171,7 +315,7 @@
     aspect-ratio: 16 / 9;
 }
 
-//* 活动板块
+//*-----活动板块-----*//
 
 .main--events--row {
     height: 550px;
@@ -190,7 +334,13 @@
     height: 100%;
 }
 
-//* 导师和成员板块
+@include media("<large") {
+    .main--events--row {
+        height: auto;
+    }
+}
+
+//*-----导师和成员板块-----*//
 .main--mentors-and-members {
     background-color: var(--clr-bg-cream);
 }

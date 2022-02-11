@@ -2,7 +2,7 @@
  * * 标签页面板组件
  * @author shepard
  */
-import React, { useState, FunctionComponent, LegacyRef } from 'react';
+import React, { FunctionComponent, LegacyRef } from 'react';
 
 // Components
 
@@ -18,7 +18,7 @@ export interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabPanel: FunctionComponent<TabPanelProps> = (props) => {
-    const { children, tab, className, innerRef, ...otherProps } = props;
+    const { children, className, innerRef, ...otherProps } = props;
 
     return (
         <div {...otherProps} ref={innerRef} className={`tab-panel ${className || ''}`}>

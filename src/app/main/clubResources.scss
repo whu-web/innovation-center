@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 .resouces {
     height: 100%;
     background: var(--clr-gs-0);
@@ -45,7 +47,7 @@
     span {
         color: var(--clr-gs-5);
         font-weight: bold;
-        font-size: calc(0.8 * var(--fsz-base));
+        font-size: calc(0.8 * var(--fsz-base-d));
         transition: transform 300ms ease-in-out, color 300ms ease-in-out;
     }
 
@@ -63,13 +65,13 @@
     background-color: var(--clr-gs-0);
     // 页签文本
     span {
-        color: var(--clr-blue);
+        color: var(--clr-blue-vary);
         transform: scale(1.1);
     }
 
     // 页签图标
     svg {
-        fill: var(--clr-blue-light);
+        fill: var(--clr-blue-vary);
         transform: scale(1.1);
     }
 }
@@ -94,5 +96,41 @@
     span,
     svg {
         transform: scale(1.1);
+    }
+}
+
+@include media($lg...) {
+    .resources--tab-wrapper--tab {
+        span {
+            font-size: calc(0.9 * var(--fsz-base-d));
+        }
+    }
+}
+
+@include media($md...) {
+    .resources--tab-wrapper--tab {
+        span {
+            font-size: calc(1.15 * var(--fsz-base-d));
+        }
+    }
+}
+
+@include media($sm...) {
+    .resources--tab-wrapper--tab {
+        span {
+            font-size: calc(1.15 * var(--fsz-base-d));
+        }
+    }
+}
+
+@include media($xs...) {
+    .resources--tab-wrapper--tab {
+        span {
+            font-size: calc(1.15 * var(--fsz-base-d));
+        }
+        svg {
+            width: 35px;
+            height: 35px;
+        }
     }
 }

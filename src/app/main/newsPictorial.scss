@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 $transitionTime: 0.9s;
 
 .news {
@@ -30,6 +32,8 @@ $transitionTime: 0.9s;
     width: 100%;
     margin-bottom: 10px;
     text-shadow: 0.1em 0.1em 2px var(--clr-blue-dark-op);
+
+    transition: font-size $transitionTime ease-in-out;
 }
 
 .news--layer--descrip {
@@ -38,6 +42,7 @@ $transitionTime: 0.9s;
     text-shadow: 0.1em 0.1em 2px var(--clr-blue-dark-op);
 
     font-weight: 300;
+    transition: font-size $transitionTime ease-in-out;
 }
 
 .news--layer--time {
@@ -111,5 +116,37 @@ $transitionTime: 0.9s;
     }
     .news--layer--time {
         margin-top: 10px;
+    }
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+}
+
+@include media($sm...) {
+}
+
+@include media($xs...) {
+    .news--layer--title {
+        font-size: calc(0.75 * var(--fsz-base));
+    }
+    .news--layer--descrip {
+        font-size: calc(0.4 * var(--fsz-base));
+    }
+    .news--layer--time {
+        font-size: calc(0.35 * var(--fsz-base));
+    }
+    .news--layer--more span {
+        font-size: calc(0.35 * var(--fsz-base));
+    }
+    .news:hover {
+        .news--layer--title {
+            font-size: calc(0.55 * var(--fsz-base));
+        }
+        .news--layer--descrip {
+            font-size: calc(0.25 * var(--fsz-base));
+        }
     }
 }

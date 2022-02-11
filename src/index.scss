@@ -1,4 +1,4 @@
-// Centralize elements
+@use "./include-media" as *;
 
 html,
 body,
@@ -15,7 +15,7 @@ body {
 
 * {
     box-sizing: border-box;
-    font-size: var(--fsz-base);
+    font-size: var(--fsz-base-u);
 }
 
 :root {
@@ -54,18 +54,86 @@ body {
 
     // 主题色
     --clr-blue: #287ecc;
+    --clr-blue-vary: #287ecc; //* 在夜间模式变为更亮的蓝色
+    --clr-blue-bg: #287ecc; // *在夜间模式变为灰色
+    --clr-blue-u: #287ecc; //* 在夜间模式不变
     --clr-blue-light: #bed8ef;
+    --clr-blue-light-u: #bed8ef;
     --clr-blue-dark: #165fa3;
+    --clr-blue-dark-u: #165fa3;
     --clr-blue-darker: #0f3a61;
+    --clr-blue-darker-u: #0f3a61;
     --clr-blue-dark-op: #165fa380;
+    --clr-blue-dark-op-u: #165fa380;
 
     --clr-megenta: #eb2f96;
+    --clr-megenta-vary: #eb2f96;
+    --clr-megenta-u: #eb2f96;
     --clr-megenta-dark: #c41d7f;
+    --clr-megenta-dark-u: #c41d7f;
 
     // 背景色
     --clr-bg-cream: #c6c2ba;
 
-    --fsz-base: 20px;
+    // 默认字号在xl区间上
+    --fsz-base: 20px; // 响应式字号：越窄越大
+    --fsz-base-u: 20px; // 非响应式字号
+    --fsz-base-d: 20px; // 响应式字号：越窄越小
+
+    @include media($lg...) {
+        --fsz-base: 24px;
+        --fsz-base-d: 16px;
+    }
+    @include media($md...) {
+        --fsz-base: 26px;
+        --fsz-base-d: 14px;
+    }
+    @include media($sm...) {
+        --fsz-base: 28px;
+        --fsz-base-d: 12px;
+    }
+    @include media($xs...) {
+        --fsz-base: 30px;
+        --fsz-base-d: 10px;
+    }
+
+    //* 黑暗模式
+    @media (prefers-color-scheme: dark) {
+        // 灰阶
+        --clr-gs-8: white;
+        --clr-gs-7: #efefef;
+        --clr-gs-6: #dfdfdf;
+        --clr-gs-5: #d8d8d8;
+        --clr-gs-4: #bfbfbf;
+        --clr-gs-3: #9f9f9f;
+        --clr-gs-2: #7f7f7f;
+        --clr-gs-1_5: #5f5f5f;
+        --clr-gs-1: #3f3f3f;
+        --clr-gs-0_5: #282828;
+        --clr-gs-0: #1f1f1f;
+
+        --clr-blue: white;
+        --clr-blue-vary: #77c9ff;
+        --clr-blue-bg: #3f3f3f;
+        --clr-megenta: white;
+        --clr-megenta-vary: #ff7bc4;
+
+        --clr-bg-cream: #353535;
+
+        // 透明灰
+        // --clr-gsop-0: rgba(255, 255, 255, 0);
+        // --clr-gsop-1: rgba(255, 255, 255, 0.1);
+        // --clr-gsop-2: rgba(255, 255, 255, 0.2);
+        // --clr-gsop-3: rgba(255, 255, 255, 0.3);
+        // --clr-gsop-4: rgba(255, 255, 255, 0.4);
+        // --clr-gsop-5: rgba(255, 255, 255, 0.5);
+        // --clr-gsop-5_5: rgba(255, 255, 255, 0.55);
+        // --clr-gsop-6: rgba(255, 255, 255, 0.6);
+        // --clr-gsop-7: rgba(255, 255, 255, 0.7);
+        // --clr-gsop-8: rgba(255, 255, 255, 0.8);
+        // --clr-gsop-9: rgba(255, 255, 255, 0.9);
+        // --clr-gsop-10: rgba(255, 255, 255, 1);
+    }
 }
 
 // * 配套设施
@@ -96,4 +164,18 @@ body {
 
 .text-line-clamp-5 {
     @include ClampText($lines: 5);
+}
+
+//* 响应式标题行裁剪，在sm及以下为两行，其余为一行
+.text-line-clamp-title-first {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@include media("<medium") {
+    .text-line-clamp-title-first {
+        @include ClampText($lines: 2);
+        white-space: normal;
+    }
 }

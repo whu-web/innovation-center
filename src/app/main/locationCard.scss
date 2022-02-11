@@ -1,3 +1,5 @@
+@use "../../include-media" as *;
+
 .loc-card {
     box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 8px;
     user-select: none;
@@ -10,9 +12,9 @@
 }
 
 .loc-card--image {
-    height: 250px;
     object-fit: cover;
     width: 100%;
+    aspect-ratio: 8/3;
 }
 
 .loc-card--content {
@@ -43,12 +45,12 @@
 
 .loc-card--content--location--text {
     color: var(--clr-gs-5);
-    font-size: calc(0.9 * var(--fsz-base));
+    font-size: calc(0.9 * var(--fsz-base-u));
     margin: 0 7px;
 }
 
 .loc-card--content--location--loc-icon {
-    fill: var(--clr-megenta);
+    fill: var(--clr-megenta-vary);
     width: 22px;
     height: 22px;
 }
@@ -56,11 +58,12 @@
 .loc-card--content--title {
     width: 100%;
     font-weight: bold;
-    color: var(--clr-blue);
-    font-size: calc(1.5 * var(--fsz-base));
+    color: var(--clr-blue-vary);
+    font-size: calc(1.5 * var(--fsz-base-u));
 }
 
 .loc-card--content--descrip {
+    font-size: calc(var(--fsz-base-u));
     color: var(--clr-gs-5);
     width: 100%;
     font-weight: 400;
@@ -106,9 +109,37 @@
 
 .loc-card--content-mask--text {
     color: white;
-    font-size: calc(1.25 * var(--fsz-base));
+    font-size: calc(1.25 * var(--fsz-base-u));
 }
 
 .loc-card--mask--visible {
     opacity: 1;
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+}
+
+@include media($sm...) {
+}
+
+@include media($xs...) {
+    .loc-card--content--location--text {
+        font-size: calc(0.75 * var(--fsz-base-u));
+    }
+    .loc-card--content-mask--text {
+        font-size: calc(1 * var(--fsz-base-u));
+    }
+    .loc-card--content--title {
+        font-size: calc(1.25 * var(--fsz-base-u));
+    }
+    .loc-card--content--descrip {
+        font-size: calc(0.75 * var(--fsz-base-u));
+    }
+
+    .loc-card .card--image-mask--text {
+        font-size: calc(1 * var(--fsz-base-u));
+    }
 }

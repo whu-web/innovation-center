@@ -1,11 +1,10 @@
-import React, { useState, useRef, FunctionComponent, useCallback, useEffect } from 'react';
+import React, { useRef, FunctionComponent, useCallback, useEffect } from 'react';
 
 // Components
 import SplashPictorial from './splashPictorial';
 import Container from '../shared/container';
 import { Col, Row, Carousel } from 'antd';
 import { IconDown } from '../shared/icons';
-import { FormattedMessage } from 'react-intl';
 import ClubPurpose from './clubPurpose';
 import ClubResources from './clubResources';
 import Text from '../shared/text';
@@ -25,13 +24,16 @@ import mentorMocks from '../../mocks/mentor.mocks';
 import EventCard from './eventCard';
 import { useIntersetionObserver } from '../shared/hooks';
 import MentorPictorial from './mentorPictorial';
+import Footer from '../footer';
 
 
 export interface MainProps {
-
+    onScrollSplash: (isTopWithinSplash: boolean) => void;
+    onSwitchNavbarVisibility: (shouldVisible: boolean) => void;
 }
 
 const Main: FunctionComponent<MainProps> = (props) => {
+    const { onScrollSplash, onSwitchNavbarVisibility } = props;
 
     // 处理向下滚动一屏的事件
     const handleScrollDownClick = useCallback(() => { window.scroll({ top: window.innerHeight, behavior: 'smooth' }); }, []);
@@ -41,7 +43,7 @@ const Main: FunctionComponent<MainProps> = (props) => {
     // 中心资源DOM node ref
     const overviewResourcesNodeRef = useRef<HTMLDivElement>(null);
 
-
+    // 香蕉检测动画
     useIntersetionObserver([overviewPurposeNodeRef, overviewResourcesNodeRef],
         (entries, inOb) => {
             let allAdded = true;
@@ -55,15 +57,44 @@ const Main: FunctionComponent<MainProps> = (props) => {
             if (allAdded) inOb.disconnect();
         });
 
+    //* 导航栏样式及收起判定
+    const carouselNodeRef = useRef<HTMLDivElement>(null);
+    // 当前视图区顶部处于首屏内还是外部
+    const isWithinSplash = useRef<boolean>(false);
+    // 此前滚动位置
+    const lastScrollY = useRef<number>(window.scrollY);
+
+    // 处理滚屏事件（在首屏前后切换导航栏样式）
+    useEffect(() => {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > carouselNodeRef.current.offsetHeight) {  // 当前已滚动超过首屏
+                if (isWithinSplash.current) // 之前在首屏内
+                    onScrollSplash(false);
+                isWithinSplash.current = false;
+                // 下滑时收起导航栏，上滑时显示导航栏
+                if (window.scrollY > lastScrollY.current) onSwitchNavbarVisibility(false);
+                else onSwitchNavbarVisibility(true);
+            } else {    // 当前还在首屏内
+                if (isWithinSplash.current) //之前在首屏外
+                    onScrollSplash(true);
+                isWithinSplash.current = true;
+            }
+            lastScrollY.current = window.scrollY;
+        });
+        // 对导航栏的初始样式进行判断
+        if (window.scrollY > carouselNodeRef.current.offsetHeight) onScrollSplash(false);
+        else onScrollSplash(true);
+    }, [onScrollSplash, onSwitchNavbarVisibility]); // 该effect仅在首次渲染后触发
+
     return (
         <div className='main'>
             {/* 首屏轮播图 */}
-            <div className='main--carousel'>
+            <div className='main--carousel' ref={carouselNodeRef}>
                 <Carousel autoplay={true} effect='fade' autoplaySpeed={5000}
                     dots={{ className: 'main--carousel--dots' }}
                     lazyLoad='progressive'>{
                         picMocks.map((elem) => (
-                            <SplashPictorial key={elem.id} {...elem} />))}
+                            <SplashPictorial className='main--carousel--splash' key={elem.id} {...elem} />))}
                 </Carousel>
                 {/* 向下滚动一屏指示按钮 */}
                 <Container direction='column' className='main--scroll-down' onClick={handleScrollDownClick}>
@@ -76,16 +107,16 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 {/* 中心概况区域 */}
                 <Row className='main--overview'>
                     {/* 中心简介 */}
-                    <Col xl={10} className='main--overview--purpose' ref={overviewPurposeNodeRef}>
+                    <Col xl={10} lg={12} md={24} className='main--overview--purpose' ref={overviewPurposeNodeRef}>
                         <ClubPurpose />
                     </Col>
                     {/* 中心资源详情区 */}
-                    <Col xl={14} className='main--overview--resources' ref={overviewResourcesNodeRef} >
+                    <Col xl={14} lg={12} md={24} className='main--overview--resources' ref={overviewResourcesNodeRef} >
                         <ClubResources />
                     </Col>
                 </Row>
                 {/* 新闻板块 */}
-                <section className='main--news main--section'>
+                <section className='main--news main--section' id='news'>
                     <h2 className='main--news--heading container-center main--section--heading'>
                         <Text id='rs' />
                         <span className='main--section--heading--plus'>+</span>
@@ -93,7 +124,7 @@ const Main: FunctionComponent<MainProps> = (props) => {
                     </h2>
                     <Row className='main--news--row'>{
                         newsMocks.map((elem, idx) => (
-                            <Col xl={8} key={elem.id} className='main--news--col'>
+                            <Col xl={8} lg={12} md={12} sm={24} key={elem.id} className='main--news--col'>
                                 <NewsPictorial className='main--news--col--news-pic' {...elem}
                                     transitionDelay={idx * 100} />
                             </Col>
@@ -101,27 +132,27 @@ const Main: FunctionComponent<MainProps> = (props) => {
                     }</Row>
                 </section>
                 {/* 活动板块 */}
-                <section className='main--events main--section'>
+                <section className='main--events main--section' id='events'>
                     <h2 className='main--events--heading container-center main--section--heading'>
                         <Text id='rs' />
                         <span className='main--section--heading--plus'>+</span>
                         <Text id='events' />
                     </h2>
                     <Row className='main--events--row'>
-                        <Col xl={12} className='main--events--col'>
+                        <Col xl={12} lg={12} md={24} sm={24} className='main--events--col'>
                             <EventPictorial {...eventMocks[0]} className='main--events--pic' />
                         </Col>
-                        <Col xl={6} className='main--events--col'>
+                        <Col xl={6} lg={6} md={12} sm={12} className='main--events--col'>
                             <EventCard {...eventMocks[1]} className='main--events--card' />
                         </Col>
-                        <Col xl={6} className='main--events--col'>
+                        <Col xl={6} lg={6} md={12} sm={12} className='main--events--col'>
                             <EventCard {...eventMocks[2]} className='main--events--card' />
                         </Col>
                     </Row>
                 </section>
                 {/* 导师板块和成员板块 */}
                 <Row className='main--mentors-and-members'>
-                    <Col xl={12}>
+                    <Col xl={12} lg={24}>
                         <section className='main--mentors main--section'>
                             <h2 className='main--mentors--heading container main--section--heading'>
                                 <Text id='rs' />
@@ -130,14 +161,14 @@ const Main: FunctionComponent<MainProps> = (props) => {
                             </h2>
                             <Row className='main--mentors--row'>{
                                 mentorMocks.map((elem, idx) => (
-                                    <Col xl={12} key={elem.id} className='main--mentors--row--col'>
+                                    <Col xl={12} lg={12} md={12} sm={24} key={elem.id} className='main--mentors--row--col'>
                                         <MentorPictorial transitionDelay={idx * 100}
                                             className='main--mentors--row--col--pic' {...elem} />
                                     </Col>))
                             }</Row>
                         </section>
                     </Col>
-                    <Col xl={12}>
+                    <Col xl={12} lg={24}>
                         <section className='main--members main--section'>
                             <h2 className='main--members--heading container main--section--heading'>
                                 <Text id='rs' />
@@ -147,6 +178,8 @@ const Main: FunctionComponent<MainProps> = (props) => {
                         </section>
                     </Col>
                 </Row>
+                {/* 页尾 */}
+                <Footer />
             </div>
         </div >
     );

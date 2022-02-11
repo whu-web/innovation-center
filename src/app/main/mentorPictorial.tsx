@@ -1,11 +1,7 @@
-import React, { useEffect, useRef, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Pictorial from '../shared/pictorial';
 
 // Components
-import Container from '../shared/container';
-import Text from '../shared/text';
-import { FormattedDate } from 'react-intl';
-import { IconArrowRight } from '../shared/icons';
 
 // Interfaces
 import { MentorInfo } from '../../types';

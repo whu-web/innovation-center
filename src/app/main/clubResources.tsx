@@ -1,4 +1,4 @@
-import React, { useState, Key, FunctionComponent, LegacyRef, useMemo, ReactNode, useCallback, useRef, useEffect, MutableRefObject } from 'react';
+import React, { useState, Key, FunctionComponent, LegacyRef, useMemo, ReactNode, useCallback } from 'react';
 
 // Components
 import Tabs from '../shared/tabs';
@@ -6,7 +6,7 @@ import TabPanel from '../shared/tabPanel';
 import LocationCard from './locationCard';
 import Text from '../shared/text';
 import { FormattedMessage } from 'react-intl';
-import { IconBuilding, IconRegulation, IconTeacher } from '../shared/icons';
+import { IconBuilding, IconRegulation } from '../shared/icons';
 
 // Interfaces
 import { TabsProps } from '../shared/tabs';

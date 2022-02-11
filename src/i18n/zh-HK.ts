@@ -4,17 +4,17 @@
  */
 
 export default {
-    'title': '"遙感+"俱樂部——遙感資訊大學生創新創業中心',
-    'innoCenter': '遙感資訊大學生創新創業中心',
+    'title': '"遙感+"俱樂部——遙感信息大學生創新創業中心',
+    'innoCenter': '遙感信息大學生創新創業中心',
     'rsClub': '"遙感+"俱樂部',
-    'rs': '遥感',
-    'news': '新闻',
-    'events': '活动',
-    'mentors': '导师',
-    'members': '成员',
-    'clubOverview': '武漢大學具有雄厚的遙感科學與技術學科優勢和師資優勢，為武漢大學的本科教學發展提供了強有力的支撐。 2021年，遙感資訊大學生創新創業中心成立，旨在創造師生可以利用的創新創業空間環境，探索有效的全過程大學生創新創業項目指導與管理措施，研究對大學生創新創業熱情的引導和激勵機制，培養培育出一批優秀大學生創新創業人才及專案成果。 ',
+    'rs': '遙感',
+    'news': '新聞',
+    'events': '活動',
+    'mentors': '導師',
+    'members': '成員',
+    'clubOverview': '武漢大學具有雄厚嘅遙感科學與技術學科優勢同師資優勢,為武漢大學嘅本科教學發展提供了強有力嘅撐。 2021年,遙感信息大學生創新創業中心成立,旨在創造師生可以利用嘅創新創業空間環境,探索有效的過程大學生創新創業項目指導與管理措施晒,研究對大學生創新創業熱情嘅引導和激勵機制,培養培育出一批優秀大學生創新創業人才及項目成果。 ',
     'clubFunction': '中心職能',
-    'clubFunction0': '創新創業專案孵化及俱樂部的組織管理',
+    'clubFunction0': '創新創業項目孵化及俱樂部的組織管理',
     'clubFunction1': '相關創新創業競賽的組織管理',
     'clubFunction2': '創新創業講座沙龍的組織管理',
     'clubFunction3': '大學生創新創業項目的組織管理',
@@ -31,25 +31,34 @@ export default {
     'navbar.menuitem.language.zh-HK': '繁體中文',
     'navbar.menuitem.language.en': 'English',
 
-    'clubResources.offices': '环境建设',
-    'clubResources.mentors': '导师介绍',
-    'clubResources.regulations': '规章制度',
+    'clubResources.offices': '環境建設',
+    'clubResources.mentors': '導師介紹',
+    'clubResources.regulations': '槼章製度',
 
-    'clubResources.offices.mainOffice.title': '大创中心入驻团队主要办公地',
-    'clubResources.offices.mainOffice.descrip': '欧式大别墅两套，电器设施齐全，办公桌电脑椅服务器，Mac电脑，XBOX，PS5',
-    'clubResources.offices.mainOffice.location': '光谷高新区',
+    'clubResources.offices.mainOffice.title': '大創中心入駐團隊主要辦公地',
+    'clubResources.offices.mainOffice.descrip': '歐式大別墅兩套,電器設施齊全,辦公桌電腦椅服務器,Mac電腦,XBOX,PS5',
+    'clubResources.offices.mainOffice.location': '光谷高新區',
 
-    'clubResources.offices.coffee.title': '“遥感+”咖啡馆',
-    'clubResources.offices.coffee.descrip': '大佬们讨论问题的休闲场所，闲人免进',
-    'clubResources.offices.coffee.location': '银泰第0层',
+    'clubResources.offices.coffee.title': '"遙感+"咖啡館',
+    'clubResources.offices.coffee.descrip': '哥哥們討論問題的休閒場所,閒人免進',
+    'clubResources.offices.coffee.location': '銀泰第0層',
 
     'card.panorama': '查看全景图',
 
-    'locationCard.showMap': '展开导航地图',
+    'locationCard.showMap': '展開導航地圖',
 
-    'amap.toNavigationMapApp': '点击在高德地图中打开',
+    'amap.toNavigationMapApp': '點擊在高德地圖中打開',
 
-    'news.more': '更多资讯',
+    'news.more': '更多資訊',
 
-    'event.mapHint': '点击查看导航地图'
+    'event.mapHint': '點擊查看導航地圖',
+
+    'footer.copyright': '版權所有 © 遙感資訊大學生創新創業中心',
+    'footer.address': '湖北省武漢市武漢大學',
+    'footer.icp': '备案 | ICP',
+    'footer.whu': '武漢大學',
+    'footer.rs': '遙感資訊工程學院',
+    'footer.devTeam': '大創中心網站開發工作組'
 };
+
+//* 繁体中文翻译文件

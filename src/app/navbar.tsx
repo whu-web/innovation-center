@@ -1,32 +1,33 @@
-import React, { useState, FunctionComponent, useEffect, useRef, useCallback, CSSProperties } from 'react';
+import React, { useState, FunctionComponent, useEffect, useRef, useCallback, CSSProperties, LegacyRef, useMemo } from 'react';
 
 // Components
-const logo = require('../assets/logo.webp');
-import { FormattedMessage } from 'react-intl';
 import { Locale } from '../types';
 import Container from './shared/container';
 import Text from './shared/text';
+import { IconDownOutlined, IconMenu, IconSearch } from './shared/icons';
+import Overlay from './shared/overlay';
+import { FormattedMessage } from 'react-intl';
+import Logo from './shared/logo';
 
 // Interfaces
 
 // Stylesheet
 import './navbar.scss';
-import { IconDownOutlined, IconSearch } from './shared/icons';
 
 type MenuItem = 'news' | 'events' | 'teams' | 'achievements' | 'membership' | 'about' | 'language';
 export interface NavBarProps {
-    logoAltText: string;
     onLocaleChange: (current: Locale, before: Locale) => void;
     locale: Locale;
     className?: string;
     style?: CSSProperties;
+    innerRef?: LegacyRef<HTMLElement>;
     availableLocales: Locale[];
 }
 
 const menuItems: MenuItem[] = ['news', 'events', 'teams', 'achievements', 'membership', 'about', 'language'];
 
 const NavBar: FunctionComponent<NavBarProps> = (props) => {
-    const { logoAltText, onLocaleChange, locale, availableLocales, className, style, } = props;
+    const { onLocaleChange, locale, availableLocales, className, style, innerRef } = props;
 
     // 当前语言选择菜单项显示的语言（该菜单项轮播除当前语言外的其他语言）
     const [curMenuDisplayLocaleIdx, setCurMenuDisplayLocaleIdx] = useState<number>(availableLocales[0] === locale ? 1 : 0);
@@ -65,29 +66,53 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
         langMenuActionNodeRef.current.style.opacity = null;
     }, []);
 
+    const menu = useMemo(() => (<>
+        {menuItems.map((elem) => (elem !== 'language' ? (
+            <a className='navbar--menu--item container-center' href={`#${elem}`} key={elem}>
+                <Text id={`navbar.menuitem.${elem}`} />
+                <div className='navbar--menu--item--line' />
+            </a>)
+            : null))}
+    </>), []);
+
     return (
-        <nav className={`navbar ${className || ''}`} style={style}>
+        <nav className={`navbar ${className || ''}`} style={style} ref={innerRef}>
             {/* LOGO */}
-            <img className='navbar--logo' src={logo} alt={logoAltText} />
+            <Logo className='navbar--logo' />
             {/* 菜单栏 */}
             <Container className='navbar--menu' justify='end'>
-                {menuItems.map((elem) => (elem !== 'language' ? (
-                    <div className='navbar--menu--item container-center' key={elem}>
-                        <Text id={`navbar.menuitem.${elem}`} />
-                        <div className='navbar--menu--item--line' />
-                    </div>)
-                    : null))}
+                {menu}
                 {/* 单独处理语言选择菜单项 */}
                 <div ref={langMenuActionNodeRef}
                     onMouseEnter={handleMouseEnterLang} onMouseLeave={handleMouseLeaveLang}
                     className='navbar--menu--item navbar--menu--item--language container-center navbar--menu--item--language--animation'>
                     <Text id={`navbar.menuitem.language.${availableLocales[curMenuDisplayLocaleIdx]}`} />
-                    <IconDownOutlined className='navbar--menu--item--language--icon' />
+                    <div className='navbar--menu--item--language--icon-wrapper container-center'>
+                        <IconDownOutlined className='navbar--menu--item--language--icon' />
+                    </div>
+                    <Overlay className='navbar--menu--item--language--overlay' trigger='hover'>{
+                        availableLocales.map(elem => (elem !== locale ? (
+                            <div key={elem} onClick={() => onLocaleChange(elem, locale)}
+                                className='navbar--menu--item--language--overlay--item'>
+                                <FormattedMessage id={`navbar.menuitem.language.${elem}`} />
+                            </div>
+                        ) : null))
+                    }</Overlay>
                 </div>
                 {/* 搜索 */}
-                <div className='navbar--menu--item navbar--menu--item--search container'>
-                    <IconSearch className='navbar--menu--item--search--icon' />
-                </div>
+                <Container className='navbar--menu--item navbar--menu--item--search'>
+                    <IconSearch />
+                </Container>
+                {/* 下拉菜单 */}
+                <Container className='navbar--menu--item navbar--menu--item--menu'>
+                    <IconMenu />
+                    <Overlay className='navbar--menu--item--menu--overlay' trigger='click'>
+                        <Container justify='center' className='navbar--menu--item--menu--overlay--logo-wrapper'>
+                            <Logo />
+                        </Container>
+                        {menu}
+                    </Overlay>
+                </Container>
             </Container>
         </nav>
     );

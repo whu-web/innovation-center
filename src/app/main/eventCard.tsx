@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, useRef, useContext, useCallback, useEffect } from 'react';
+import React, { useState, FunctionComponent, useRef, useCallback } from 'react';
 
 // Components
 import Card from '../shared/card';
@@ -9,7 +9,6 @@ import { EventType } from '../../types';
 // Stylesheet
 import './eventCard.scss';
 import Container from '../shared/container';
-import Text from '../shared/text';
 import { IconLocation, IconTime } from '../shared/icons';
 import FormattedDateTimeRangeBrief from '../shared/formattedDateTimeRangeBrief';
 import Amap from '../shared/amap';
@@ -18,7 +17,6 @@ import { useIntersetionObserver } from '../shared/hooks';
 
 export interface EventCardProps extends Omit<EventType, 'id'> {
     className?: string;
-    imageSide?: 'left' | 'right';
 }
 
 const EventCard: FunctionComponent<EventCardProps> = (props) => {
@@ -30,7 +28,6 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
         imgUrl,
         location,
         link,
-        imageSide,
         className,
         lonLat
     } = props;
@@ -68,7 +65,7 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
     return (
         <Card imgSrc={imgUrl} className={`event-card ${className || ''}`} imgPreview={false}>
             <a href={link} target='_blank' className='event-card--link-wrapper'>
-                <Container className={`event-card--content ${imageSide === 'right' ? 'event-card--content-left' : ''}`}
+                <Container className='event-card--content'
                     onClick={handleShowMap} innerRef={contentNodeRef} direction='column' align='start'>
                     <p className='event-card--content--title text-line-clamp-2'>{title}</p>
                     <p className='event-card--content--descrip text-line-clamp-2'>{descrip}</p>

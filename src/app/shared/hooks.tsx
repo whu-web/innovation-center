@@ -2,7 +2,7 @@
  * * 一些被封装的共享逻辑
  */
 
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject, useEffect, useContext } from "react";
 
 /**
  * 香蕉检测钩子
@@ -46,4 +46,10 @@ export function useTransition(
             }, transitionDelay ? transitionDelay : 0);
         }
     }, disabled);
+}
+
+//* 颜色主题狗子
+import themeCtx from "./theme";
+export function useTheme() {
+    return useContext(themeCtx);
 }

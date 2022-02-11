@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 // Components
 import Container from '../shared/container';

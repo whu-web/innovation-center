@@ -1,5 +1,6 @@
 /**
  * * 一些被封装的共享逻辑
+ * @author shepard
  */
 
 import { MutableRefObject, useEffect, useContext } from "react";
@@ -22,6 +23,9 @@ export function useIntersetionObserver(
         const inOb = new IntersectionObserver(cb, { threshold: threshold || 0.1 });
         for (const nodeRef of Array.isArray(target) ? target : [target])
             inOb.observe(nodeRef.current);
+
+        // 清理此前的检测器
+        return () => inOb.disconnect();
     }, [target, disabled]); // eslint-disable-line
 }
 
@@ -49,7 +53,7 @@ export function useTransition(
 }
 
 //* 颜色主题狗子
-import themeCtx from "./theme";
+import themeCtx from "../contexts/theme";
 export function useTheme() {
     return useContext(themeCtx);
 }

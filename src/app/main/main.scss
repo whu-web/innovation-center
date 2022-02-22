@@ -152,7 +152,6 @@
     padding: 60px 20px 30px 20px;
     height: 700px;
     overflow-x: clip; //*裁剪掉因过渡动画需求而translate出区域的元素
-    // overflow-y: scroll;
 }
 
 //*中心简介区域
@@ -240,19 +239,10 @@
     padding: 24px 10px;
 }
 
-.main--section--heading {
-    margin: 24px 0;
-    span {
-        font-weight: bold;
-        font-size: calc(2.2 * var(--fsz-base-u));
-        color: var(--clr-gs-6);
-    }
-
-    span.main--section--heading--plus {
-        margin: 0 20px;
-        color: var(--clr-gs-4);
-        font-size: calc(1.8 * var(--fsz-base-u));
-    }
+span.main--section--heading--plus {
+    margin: 0 16px;
+    color: var(--clr-gs-4);
+    font-size: calc(1.8 * var(--fsz-base-u));
 }
 
 @include media($lg...) {
@@ -262,23 +252,14 @@
     .main--section {
         padding: 20px 8px;
     }
-    .main--section--heading {
-        margin: 20px 0;
-    }
 }
 
 @include media($sm...) {
     .main--section {
         padding: 16px 8px;
     }
-    .main--section--heading {
-        margin: 16px 0;
-        span {
-            font-size: calc(2 * var(--fsz-base-u));
-        }
-        span.main--section--heading--plus {
-            font-size: calc(1.6 * var(--fsz-base-u));
-        }
+    span.main--section--heading--plus {
+        font-size: calc(1.6 * var(--fsz-base-u));
     }
 }
 
@@ -286,14 +267,8 @@
     .main--section {
         padding: 12px 8px;
     }
-    .main--section--heading {
-        margin: 12px 0;
-        span {
-            font-size: calc(1.8 * var(--fsz-base-u));
-        }
-        span.main--section--heading--plus {
-            font-size: calc(1.4 * var(--fsz-base-u));
-        }
+    span.main--section--heading--plus {
+        font-size: calc(1.4 * var(--fsz-base-u));
     }
 }
 

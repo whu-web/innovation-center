@@ -5,7 +5,7 @@
 
 import React, { useState, FunctionComponent, useEffect, useRef, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { useTheme } from './hooks';
+import { useTheme } from '../hooks/many';
 
 (window as any)._AMapSecurityConfig = {
     securityJsCode: 'ac9f17feb51213464455cde088a274df',

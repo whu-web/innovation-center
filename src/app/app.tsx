@@ -1,10 +1,10 @@
-import React, { useState, FunctionComponent, useRef, useMemo, useCallback, useEffect } from 'react';
-import themeCtx from './shared/theme';
+import React, { useState, FunctionComponent, useMemo, useCallback, useEffect } from 'react';
+import themeCtx from './contexts/theme';
+import localeCtx from './contexts/locale';
 
 // Components
-import Main, { MainProps } from './main/main';
 import { IntlProvider } from 'react-intl';
-import NavBar from './navbar';
+import { Outlet } from 'react-router-dom';
 
 // Messages
 import en from '../i18n/en';
@@ -13,7 +13,6 @@ import zhHK from '../i18n/zh-HK';
 import { Locale } from '../types';
 
 // Interfaces
-import { NavBarProps } from './navbar';
 
 // Stylesheet
 import './app.scss';
@@ -29,9 +28,6 @@ const App: FunctionComponent<AppProps> = (props) => { // eslint-disable-line
     const [locale, setLocale] = useState<Locale>((availableLocales.includes(navigator.language as Locale) ? navigator.language : 'zh-CN') as Locale);
     const [theme, setTheme] = useState<'light' | 'dark'>(getCurrentTheme());
 
-    const navbarNodeRef = useRef<HTMLElement>(null);
-    const isNavbarWithinSplash = useRef<boolean>(true);
-
     // 颜色主题
     useEffect(() => {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
@@ -42,31 +38,21 @@ const App: FunctionComponent<AppProps> = (props) => { // eslint-disable-line
     // 国际化翻译文本
     const message = useMemo(() => locale2Message(locale), [locale]);
 
-    // 处理语言/地区切换事件
-    const handleLocaleChange = useCallback<NavBarProps['onLocaleChange']>((current) => { setLocale(current) }, []);
-
-    // 处理导航栏样式改变事件
-    const handleScrollThroughSplash = useCallback<MainProps['onScrollSplash']>((isTopWithinSplash: boolean) => {
-        if (isNavbarWithinSplash.current !== isTopWithinSplash) {
-            navbarNodeRef.current.classList.toggle('app--navbar--outof-splash');
-            navbarNodeRef.current.classList.toggle('app--navbar--within-splash');
-        }
-        isNavbarWithinSplash.current = isTopWithinSplash;
-    }, []);
-
-    const handleSwitchNavbarVisibility = useCallback<MainProps['onSwitchNavbarVisibility']>((shouldVisible) => {
-        navbarNodeRef.current.style.transform = shouldVisible ? 'none' : 'translate(0,-100%)';
+    // 处理由嵌套上下文切换语言/地区的事件
+    const handleLocaleChange = useCallback((current: Locale) => {
+        setLocale(current);
     }, []);
 
     return (
         <IntlProvider locale={locale}
             key={locale} messages={message}
             defaultLocale='zh-CN'>
-            <themeCtx.Provider value={theme}>
-                <NavBar onLocaleChange={handleLocaleChange} locale={locale} innerRef={navbarNodeRef}
-                    availableLocales={availableLocales} className='app--navbar--within-splash' />
-                <Main onScrollSplash={handleScrollThroughSplash} onSwitchNavbarVisibility={handleSwitchNavbarVisibility} />
-            </themeCtx.Provider>
+            <localeCtx.Provider value={{ locale, availableLocales, setLocale: handleLocaleChange }}>
+                <themeCtx.Provider value={theme}>
+                    {/* 路由出口 */}
+                    <Outlet />
+                </themeCtx.Provider>
+            </localeCtx.Provider>
         </IntlProvider>
     );
 

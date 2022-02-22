@@ -1,0 +1,100 @@
+@use "../../include-media" as *;
+
+.news-card {
+    height: 140px;
+    box-shadow: var(--clr-gsop-1_5) 0px 7px 29px 0px;
+
+    .ant-image {
+        height: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    border-bottom: solid var(--clr-blue-vary) 4px;
+    background-color: var(--clr-gs-0_5);
+    transition: all 400ms ease-in-out;
+}
+
+.news-card--link-wrapper {
+    padding: 10px 15px;
+    height: 100%;
+    flex: 1;
+}
+
+.news-card--image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.news-card--time {
+    color: var(--clr-blue-vary);
+    font-size: calc(0.8 * var(--fsz-base));
+    font-weight: bold;
+}
+
+.news-card--title {
+    color: var(--clr-gs-6);
+    font-weight: bold;
+    font-size: calc(1 * var(--fsz-base));
+}
+
+.news-card:hover {
+    box-shadow: var(--clr-gsop-4) 0px 3px 15px 2px;
+    transform: scale(1.03);
+}
+
+@include media($lg...) {
+    .news-card {
+        height: 200px;
+    }
+
+    .news-card--time {
+        font-size: calc(1.1 * var(--fsz-base));
+    }
+
+    .news-card--title {
+        font-size: calc(1.27 * var(--fsz-base));
+    }
+
+    .news-card--link-wrapper {
+        padding: 10px 25px;
+    }
+}
+
+@include media($md...) {
+    .news-card {
+        height: 180px;
+    }
+}
+
+@include media($sm...) {
+    .news-card {
+        height: 190px;
+    }
+}
+
+@include media($xs...) {
+    .news-card {
+        height: 100px;
+        border-bottom-width: 2px;
+    }
+
+    .news-card--link-wrapper {
+        padding: 5px 10px;
+    }
+
+    .news-card--time {
+        font-size: calc(0.22 * var(--fsz-base));
+    }
+
+    .news-card--title {
+        font-size: calc(0.44 * var(--fsz-base));
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .news-card--link-wrapper {
+        padding-top: 0;
+    }
+}

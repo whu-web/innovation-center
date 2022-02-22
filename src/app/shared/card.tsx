@@ -4,7 +4,7 @@
  */
 
 import React, { useMemo, FunctionComponent, LegacyRef, useRef } from 'react';
-import { useTransition } from './hooks';
+import { useTransition } from '../hooks/many';
 
 // Components
 import { Image } from 'antd';

@@ -84,10 +84,10 @@ module.exports = (env) => {
             // Improves building performance as it does type checking in a separate process
             new ForkTsCheckerWebpackPlugin(),
             // ESLint plugin for checking code styles
-            new EslintWebpackPlugin({
-                extensions: ['.tsx', '.ts', '.js'],
-                exclude: ['node_modules'],
-            }),
+            // new EslintWebpackPlugin({
+            //     extensions: ['.tsx', '.ts', '.js'],
+            //     exclude: ['node_modules'],
+            // }),
             // Show pretty error overlay when app crashes in development
             // This plugin is currently not available with Webpack 5 (Webpack Dev Server v4)
             // new ErrorOverlayWebpackPlugin(),

@@ -13,7 +13,7 @@ import { IconLocation, IconTime } from '../shared/icons';
 import FormattedDateTimeRangeBrief from '../shared/formattedDateTimeRangeBrief';
 import Amap from '../shared/amap';
 import { FormattedMessage } from 'react-intl';
-import { useIntersetionObserver } from '../shared/hooks';
+import { useIntersetionObserver } from '../hooks/many';
 
 export interface EventCardProps extends Omit<EventType, 'id'> {
     className?: string;

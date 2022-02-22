@@ -1,0 +1,14 @@
+.section-heading {
+    .section-heading--line {
+        margin-left: 15px;
+        height: 20px;
+        width: 2.5px;
+        background-color: var(--clr-blue-u);
+    }
+
+    .section-heading--more {
+        margin-left: 6px;
+        color: var(--clr-blue-u);
+        font-size: calc(0.75 * var(--fsz-base));
+    }
+}

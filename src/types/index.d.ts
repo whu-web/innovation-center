@@ -16,6 +16,13 @@ export interface EventType extends ContentBase {
 
 export interface NewsType extends ContentBase {
     publishTime: Date;
+    author: string;
+    tag: 'competition' | 'center' | 'research';
+}
+
+// 包含内容的新闻对象
+export interface NewsContent extends NewsType {
+    content: string;
 }
 
 export interface MentorInfo {

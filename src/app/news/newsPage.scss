@@ -1,0 +1,118 @@
+@use "../../include-media" as *;
+
+.news-page {
+}
+
+//* 页面主要内容（除了图片）
+.news-page--main {
+    padding: 0 100px;
+    position: relative;
+    top: -40vh;
+}
+
+.news-page--bg {
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
+    position: sticky;
+    top: 0;
+}
+
+.news-page--news {
+    align-items: flex-start;
+    padding: 36px 24px;
+    background-color: var(--clr-gs-0);
+    border-radius: 15px;
+    box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
+}
+
+.news-page--news--share-bar--docked {
+    padding-top: 10px;
+    position: sticky;
+    top: 100px;
+}
+
+.news-page--news--share-bar--inline {
+    float: right;
+    margin-bottom: 36px;
+    display: none;
+}
+
+.news-page--news--content {
+    * {
+        color: var(--clr-gs-6);
+    }
+    width: 1px;
+    flex: 1;
+    padding-left: 36px;
+}
+
+.news-page--news--heading {
+    font-size: calc(1.5 * var(--fsz-base));
+    font-weight: bold;
+}
+
+.news-page--news--info {
+    margin: 24px 0 36px 0;
+
+    // 作者
+    span:first-child {
+        margin-right: 20px;
+    }
+}
+
+.news-page--news--markdown {
+    clear: both;
+    margin-bottom: 24px;
+    img {
+        width: 100%;
+    }
+}
+
+.news-page--news--more-btn {
+    width: 100%;
+    display: block;
+    padding-top: 12px;
+    div {
+        color: var(--clr-blue-vary);
+        transition: color 400ms ease-in-out;
+        font-size: calc(1.15 * var(--fsz-base));
+    }
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--clr-blue-vary);
+        transition: fill 400ms ease-in-out;
+    }
+}
+
+.news-page--news--more-btn:hover {
+    div {
+        color: white;
+    }
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+    }
+}
+
+.news-page--more {
+    background-color: var(--clr-gs-0);
+    border-radius: 15px;
+    padding: 48px 24px;
+    box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
+}
+
+.news-page--more--card {
+    margin-bottom: 24px;
+}
+
+@include media($xs...) {
+    .news-page--news--share-bar--docked {
+        display: none;
+    }
+    .news-page--news--share-bar--inline {
+        display: flex;
+    }
+}

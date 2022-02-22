@@ -1,0 +1,27 @@
+.btn {
+    padding: 5px 10px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: var(--clr-gsop-3) 0px 3px 20px 1px;
+    transition: all 400ms ease-in-out;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: var(--clr-gsop-4) 0px 5px 10px 0px;
+}
+
+.btn-solid {
+    color: white;
+    background-color: var(--clr-blue-u);
+}
+
+.btn-hollow {
+    color: var(--clr-blue-u);
+    border: 2px solid var(--clr-blue-u);
+}
+
+.btn-hollow:hover {
+    background-color: var(--clr-blue-u);
+    color: white;
+}

@@ -49,7 +49,7 @@ export default {
 
     'amap.toNavigationMapApp': '点击在高德地图中打开',
 
-    'news.more': '更多资讯',
+    'newsPic.more': '更多资讯',
 
     'event.mapHint': '点击查看导航地图',
 
@@ -58,8 +58,17 @@ export default {
     'footer.icp': '备案 ｜ ICP',
     'footer.whu': '武汉大学',
     'footer.rs': '遥感信息工程学院',
-    'footer.devTeam': '大创中心网站开发工作组'
+    'footer.devTeam': '大创中心网站开发工作组',
 
+    'newsList.heading': '俱乐部新闻',
+    'newsList.competition': '学科竞赛',
+    'newsList.research': '学术科研',
+    'newsList.center': '中心建设',
+    'newsList.more': '更多新闻',
+    'newsList.more__news': '更多{tag}新闻',
+
+    'newsPage.author': '作者',
+    'newsPage.more': '查看更多',
 };
 
 //* 简体中文翻译文件

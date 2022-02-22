@@ -40,5 +40,18 @@
 			"export default ${1:ComponentName};"
 		],
 		"description": "Create a react function component from template"
+	},
+	"Destructuring Props": {
+		"prefix": "deprop",
+		"body": [
+			"const {$0} = props;"
+		],
+		"description": "Destrutureing the props of a component"
+	},
+	"Add prop className": {
+		"prefix": "propcls",
+		"body": [
+			"className?: string"
+		]
 	}
 }

@@ -1,0 +1,37 @@
+@use "../../include-media" as *;
+
+.sub-heading {
+    margin: 18px 0;
+    span {
+        font-weight: bold;
+        font-size: calc(1.6 * var(--fsz-base-u));
+        color: var(--clr-gs-6);
+    }
+}
+
+@include media($lg...) {
+}
+
+@include media($md...) {
+    .sub-heading {
+        margin: 15px 0;
+    }
+}
+
+@include media($sm...) {
+    .sub-heading {
+        margin: 12px 0;
+        span {
+            font-size: calc(1.3 * var(--fsz-base-u));
+        }
+    }
+}
+
+@include media($xs...) {
+    .sub-heading {
+        margin: 8px 0;
+        span {
+            font-size: calc(1.1 * var(--fsz-base-u));
+        }
+    }
+}

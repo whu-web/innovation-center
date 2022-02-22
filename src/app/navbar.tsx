@@ -1,7 +1,7 @@
-import React, { useState, FunctionComponent, useEffect, useRef, useCallback, CSSProperties, LegacyRef, useMemo } from 'react';
+import React, { useState, FunctionComponent, useEffect, useRef, useContext, useCallback, CSSProperties, LegacyRef, useMemo } from 'react';
+import localeCtx from './contexts/locale';
 
 // Components
-import { Locale } from '../types';
 import Container from './shared/container';
 import Text from './shared/text';
 import { IconDownOutlined, IconMenu, IconSearch } from './shared/icons';
@@ -13,21 +13,30 @@ import Logo from './shared/logo';
 
 // Stylesheet
 import './navbar.scss';
+import { Link } from 'react-router-dom';
 
 type MenuItem = 'news' | 'events' | 'teams' | 'achievements' | 'membership' | 'about' | 'language';
 export interface NavBarProps {
-    onLocaleChange: (current: Locale, before: Locale) => void;
-    locale: Locale;
     className?: string;
     style?: CSSProperties;
     innerRef?: LegacyRef<HTMLElement>;
-    availableLocales: Locale[];
 }
 
-const menuItems: MenuItem[] = ['news', 'events', 'teams', 'achievements', 'membership', 'about', 'language'];
+const menuItems: { name: MenuItem, route?: string }[] = [
+    { name: 'news', route: '/news' },
+    { name: 'events' },
+    { name: 'teams' },
+    { name: 'achievements' },
+    { name: 'membership' },
+    { name: 'about' },
+    { name: 'language' }
+];
 
 const NavBar: FunctionComponent<NavBarProps> = (props) => {
-    const { onLocaleChange, locale, availableLocales, className, style, innerRef } = props;
+    const { className, style, innerRef } = props;
+
+    // 使用语言上下文
+    const { locale, setLocale, availableLocales } = useContext(localeCtx);
 
     // 当前语言选择菜单项显示的语言（该菜单项轮播除当前语言外的其他语言）
     const [curMenuDisplayLocaleIdx, setCurMenuDisplayLocaleIdx] = useState<number>(availableLocales[0] === locale ? 1 : 0);
@@ -67,18 +76,23 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
     }, []);
 
     const menu = useMemo(() => (<>
-        {menuItems.map((elem) => (elem !== 'language' ? (
-            <a className='navbar--menu--item container-center' href={`#${elem}`} key={elem}>
-                <Text id={`navbar.menuitem.${elem}`} />
-                <div className='navbar--menu--item--line' />
-            </a>)
-            : null))}
+        {menuItems.map((elem) => {
+            const { name, route } = elem;
+            return (name !== 'language' ? (
+                <Link to={route ? route : '/'} className='navbar--menu--item container-center' key={name}>
+                    <Text id={`navbar.menuitem.${name}`} />
+                    <div className='navbar--menu--item--line' />
+                </Link>)
+                : null);
+        })}
     </>), []);
 
     return (
         <nav className={`navbar ${className || ''}`} style={style} ref={innerRef}>
             {/* LOGO */}
-            <Logo className='navbar--logo' />
+            <Link to='/' className='navbar--logo-link-wrapper'>
+                <Logo className='navbar--logo' />
+            </Link>
             {/* 菜单栏 */}
             <Container className='navbar--menu' justify='end'>
                 {menu}
@@ -92,7 +106,7 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
                     </div>
                     <Overlay className='navbar--menu--item--language--overlay' trigger='hover'>{
                         availableLocales.map(elem => (elem !== locale ? (
-                            <div key={elem} onClick={() => onLocaleChange(elem, locale)}
+                            <div key={elem} onClick={() => setLocale(elem, locale)}
                                 className='navbar--menu--item--language--overlay--item'>
                                 <FormattedMessage id={`navbar.menuitem.language.${elem}`} />
                             </div>

@@ -49,7 +49,7 @@ export default {
 
     'amap.toNavigationMapApp': 'Click to open in AMap',
 
-    'news.more': 'Read More',
+    'newsPic.more': 'Read More',
 
     'event.mapHint': 'Click to show location on AMap',
 
@@ -58,8 +58,17 @@ export default {
     'footer.icp': '备案 ｜ ICP',
     'footer.whu': 'Wuhan University',
     'footer.rs': 'The School of Remote Sensing',
-    'footer.devTeam': 'Web Development Team of Innovation Center'
+    'footer.devTeam': 'Web Development Team of Innovation Center',
 
+    'newsList.heading': 'Club News',
+    'newsList.competition': 'Competition',
+    'newsList.research': 'Research',
+    'newsList.center': 'Center Construction',
+    'newsList.more': 'More',
+    'newsList.more__news': 'More {tag} News',
+
+    'newsPage.author': 'Author',
+    'newsPage.more': 'Show More',
 };
 
 // * 英文翻译文件

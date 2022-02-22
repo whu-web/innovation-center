@@ -5,7 +5,7 @@
  * @author shepard
  */
 import React, { useRef, FunctionComponent, LegacyRef } from 'react';
-import { useTransition } from './hooks';
+import { useTransition } from '../hooks/many';
 
 // Components
 

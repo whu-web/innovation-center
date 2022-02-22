@@ -67,7 +67,6 @@ const Overlay: FunctionComponent<OverlayProps> = (props) => {
                 if (isMeVisible) hideMe(); else showMe();
             });
             document.addEventListener('click', ev => {
-                console.log(ev.target, isMeVisible)
                 if (isMeVisible && !myParentNode.contains(ev.target as any))
                     hideMe();
             })

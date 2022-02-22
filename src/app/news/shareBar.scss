@@ -1,0 +1,48 @@
+$wechat:rgb(43,174,103);
+$weibo: rgb(213,44,43);
+
+
+.share-bar--hollow{
+    svg{
+        width: 48px;
+        height: 48px;
+        fill: white;
+    }
+    .share-bar--qq{
+        background-color: #555;
+    }
+
+    .share-bar--wechat{
+        background-color: $wechat;
+    }
+
+    .share-bar--weibo{
+        background-color: $weibo;
+    }
+
+    .share-bar--share{
+        background-color: var(--clr-blue-u);
+    }
+}
+
+.share-bar--solid{
+    svg{
+        width: 48px;
+        height: 48px;
+    }
+    .share-bar--qq{
+    }
+
+    .share-bar--wechat{
+        fill: $wechat;
+    }
+
+    .share-bar--weibo{
+        fill: $weibo;
+    }
+
+    .share-bar--share{
+        fill: var(--clr-blue-u);
+    }
+}
+

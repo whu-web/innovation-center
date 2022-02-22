@@ -49,7 +49,7 @@ export default {
 
     'amap.toNavigationMapApp': '點擊在高德地圖中打開',
 
-    'news.more': '更多資訊',
+    'newsPic.more': '更多資訊',
 
     'event.mapHint': '點擊查看導航地圖',
 
@@ -58,7 +58,17 @@ export default {
     'footer.icp': '备案 | ICP',
     'footer.whu': '武漢大學',
     'footer.rs': '遙感資訊工程學院',
-    'footer.devTeam': '大創中心網站開發工作組'
+    'footer.devTeam': '大創中心網站開發工作組',
+
+    'newsList.heading': '俱乐部新闻',
+    'newsList.competition': '学科竞赛',
+    'newsList.research': '学术科研',
+    'newsList.center': '中心建设',
+    'newsList.more': '更多新闻',
+    'newsList.more__news': '更多{tag}新闻',
+
+    'newsPage.author': '作者',
+    'newsPage.more': '查看更多',
 };
 
 //* 繁体中文翻译文件

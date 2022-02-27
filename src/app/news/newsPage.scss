@@ -1,11 +1,13 @@
 @use "../../include-media" as *;
 
 .news-page {
+    //*字体缩放级别
+    --fontScale: 1;
 }
 
 //* 页面主要内容（除了图片）
 .news-page--main {
-    padding: 0 100px;
+    padding: 0 8vw;
     position: relative;
     top: -40vh;
 }
@@ -18,9 +20,20 @@
     top: 0;
 }
 
+@include media("<large") {
+    .news-page--bg {
+        height: auto;
+        position: static;
+    }
+
+    .news-page--main {
+        top: -10vw;
+    }
+}
+
 .news-page--news {
     align-items: flex-start;
-    padding: 36px 24px;
+    padding: calc(var(--fontScale) * 36px) calc(var(--fontScale) * 24px);
     background-color: var(--clr-gs-0);
     border-radius: 15px;
     box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
@@ -34,7 +47,7 @@
 
 .news-page--news--share-bar--inline {
     float: right;
-    margin-bottom: 36px;
+    margin-bottom: calc(var(--fontScale) * 36px);
     display: none;
 }
 
@@ -44,28 +57,20 @@
     }
     width: 1px;
     flex: 1;
-    padding-left: 36px;
+    padding-left: calc(var(--fontScale) * 36px);
 }
 
 .news-page--news--heading {
-    font-size: calc(1.5 * var(--fsz-base));
+    font-size: calc(var(--fontScale) * 1.5 * var(--fsz-base));
     font-weight: bold;
 }
 
 .news-page--news--info {
-    margin: 24px 0 36px 0;
+    margin: calc(var(--fontScale) * 24px) 0 calc(var(--fontScale) * 36px) 0;
 
     // 作者
-    span:first-child {
-        margin-right: 20px;
-    }
-}
-
-.news-page--news--markdown {
-    clear: both;
-    margin-bottom: 24px;
-    img {
-        width: 100%;
+    div span:first-child {
+        margin-right: calc(var(--fontScale) * 20px);
     }
 }
 
@@ -76,7 +81,7 @@
     div {
         color: var(--clr-blue-vary);
         transition: color 400ms ease-in-out;
-        font-size: calc(1.15 * var(--fsz-base));
+        font-size: calc(1.15 * var(--fsz-base-d));
     }
     svg {
         width: 24px;
@@ -100,19 +105,164 @@
 .news-page--more {
     background-color: var(--clr-gs-0);
     border-radius: 15px;
-    padding: 48px 24px;
+    padding: calc(var(--fontScale) * 48px) calc(var(--fontScale) * 24px);
     box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
 }
 
 .news-page--more--card {
     margin-bottom: 24px;
+    height: 100px;
+    //* 仅对news-card生效
+    --fontScale: 0.7;
+}
+
+.news-page--news--markdown {
+    clear: both;
+    margin-bottom: calc(var(--fontScale) * 24px);
+    //1.5倍行距
+    line-height: calc(var(--fontScale) * 1.6 * var(--fsz-base));
+
+    p,
+    a,
+    th,
+    td,
+    li {
+        font-size: calc(var(--fontScale) * 0.8 * var(--fsz-base));
+        word-wrap: break-word;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-weight: bold;
+        line-height: 1.5em;
+    }
+
+    h1 {
+        margin-top: calc(var(--fontScale) * 36px);
+        font-size: calc(var(--fontScale) * 1.4 * var(--fsz-base));
+    }
+
+    h2 {
+        margin-top: calc(var(--fontScale) * 30px);
+        font-size: calc(var(--fontScale) * 1.2 * var(--fsz-base));
+    }
+
+    h3 {
+        margin-top: calc(var(--fontScale) * 24px);
+        font-size: calc(var(--fontScale) * 1.1 * var(--fsz-base));
+    }
+
+    h4 {
+        margin-top: calc(var(--fontScale) * 18px);
+        font-size: calc(var(--fontScale) * 1.05 * var(--fsz-base));
+    }
+
+    h5 {
+        margin-top: calc(var(--fontScale) * 18px);
+        font-size: calc(var(--fontScale) * 1 * var(--fsz-base));
+    }
+
+    img {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    table {
+        th {
+            border: 2px solid var(--clr-gs-6);
+            font-weight: bold;
+            padding: 10px 5px;
+        }
+        td {
+            border: 1px solid var(--clr-gs-6);
+            padding: 5px;
+        }
+    }
+
+    a {
+        text-decoration: underline;
+        color: var(--clr-blue-vary);
+    }
+
+    a:hover {
+        color: var(--clr-blue-dark);
+    }
+
+    li {
+        margin: calc(var(--fontScale) * 12px) 0;
+    }
+}
+
+@include media("<400px") {
+    .news-page--more--card {
+        height: 100px;
+        --fontScale: 0.5;
+    }
+}
+
+@include media(">=400px", "<small") {
+    .news-page--more--card {
+        height: 110px;
+        --fontScale: 0.55;
+    }
 }
 
 @include media($xs...) {
+    .news-page {
+        --fontScale: 0.6;
+    }
+
+    .news-page--news--content {
+        padding-left: 0;
+    }
+
+    .news-page--news--heading {
+        --fontScale: 0.5;
+    }
+
     .news-page--news--share-bar--docked {
         display: none;
     }
     .news-page--news--share-bar--inline {
         display: flex;
+    }
+
+    .news-page--news--info {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+@include media($sm...) {
+    .news-page {
+        --fontScale: 0.7;
+    }
+    .news-page--more--card {
+        height: 130px;
+        --fontScale: 0.7;
+    }
+}
+
+@include media($md...) {
+    .news-page {
+        --fontScale: 0.9;
+    }
+    .news-page--more--card {
+        height: 140px;
+        --fontScale: 0.8;
+    }
+}
+
+@include media($lg...) {
+    .news-page {
+        --fontScale: 0.9;
+    }
+
+    .news-page--more--card {
+        height: 100px;
+        --fontScale: 0.6;
     }
 }

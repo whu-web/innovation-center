@@ -29,68 +29,19 @@
 
 .news-card--time {
     color: var(--clr-blue-vary);
-    font-size: calc(0.8 * var(--fsz-base));
+    font-size: calc(0.8 * var(--fsz-base) * var(--fontScale));
     font-weight: bold;
 }
 
 .news-card--title {
     color: var(--clr-gs-6);
     font-weight: bold;
-    font-size: calc(1 * var(--fsz-base));
+    font-size: calc(1 * var(--fsz-base) * var(--fontScale));
 }
 
 .news-card:hover {
     box-shadow: var(--clr-gsop-4) 0px 3px 15px 2px;
     transform: scale(1.03);
-}
-
-@include media($lg...) {
-    .news-card {
-        height: 200px;
-    }
-
-    .news-card--time {
-        font-size: calc(1.1 * var(--fsz-base));
-    }
-
-    .news-card--title {
-        font-size: calc(1.27 * var(--fsz-base));
-    }
-
-    .news-card--link-wrapper {
-        padding: 10px 25px;
-    }
-}
-
-@include media($md...) {
-    .news-card {
-        height: 180px;
-    }
-}
-
-@include media($sm...) {
-    .news-card {
-        height: 190px;
-    }
-}
-
-@include media($xs...) {
-    .news-card {
-        height: 100px;
-        border-bottom-width: 2px;
-    }
-
-    .news-card--link-wrapper {
-        padding: 5px 10px;
-    }
-
-    .news-card--time {
-        font-size: calc(0.22 * var(--fsz-base));
-    }
-
-    .news-card--title {
-        font-size: calc(0.44 * var(--fsz-base));
-    }
 }
 
 @media (prefers-color-scheme: dark) {

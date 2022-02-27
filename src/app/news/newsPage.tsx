@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNews, useNewsList } from '../hooks/news';
+import remarkGfm from 'remark-gfm';
 
 // Components
 import Container from '../shared/container';
@@ -33,12 +34,21 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
         setExpanded(true);
     }, []);
 
+    const newsContentMd = useMemo(() => (
+        <ReactMarkdown skipHtml={true} remarkPlugins={[
+            [remarkGfm]
+        ]}
+            className='news-page--news--markdown' >
+            {content}
+        </ReactMarkdown >
+    ), [expanded]);
+
     return (
         <div className='news-page'>
             <img className='news-page--bg'
                 src={imgUrl} alt={require('../../assets/image-fallback.svg')} />
             <Row className='news-page--main'>
-                <Col xl={16} lg={24} md={24} sm={24} xs={24} className='news-page--news container'>
+                <Col xl={16} lg={16} md={24} sm={24} xs={24} className='news-page--news container'>
                     {/* 分享栏 */}
                     <ShareBar className='news-page--news--share-bar--docked' direction='column' />
                     {/* 新闻主内容栏 */}
@@ -59,10 +69,7 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
                         {/* 分享栏「仅在large以下出现」 */}
                         <ShareBar justify='end' align='start' type='solid' className='news-page--news--share-bar--inline' />
                         {/* 新闻文章内容 */}
-                        <ReactMarkdown skipHtml={true}
-                            className='news-page--news--markdown'>
-                            {content}
-                        </ReactMarkdown>
+                        {newsContentMd}
                         {/* 查看更多 */}
                         <Button onClick={handleShowMore} style={{ display: expanded ? 'none' : null }}
                             type='hollow' className='news-page--news--more-btn'>
@@ -72,7 +79,7 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
                     </div>
                 </Col>
                 {/* 其他新闻 */}
-                <Col xl={8} lg={24} md={24} sm={24} xs={24} className='news-page--more'>{
+                <Col xl={8} lg={8} md={24} sm={24} xs={24} className='news-page--more'>{
                     moreNews.map((elem) => (
                         <NewsCard key={elem.id} {...elem} className='news-page--more--card' />
                     ))

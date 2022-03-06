@@ -18,12 +18,15 @@ body {
     background-color: var(--clr-gs-0_5);
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
-    font-size: calc(var(--fontScale) * 1 * var(--fsz-base-u));
+    font-size: calc(var(--scale) * 1 * var(--fsz-base-u));
 }
 
 :root {
+    --scale: 1; // 内容缩放级别
     // 功能色
     --clr-fn-error: #f53d3d;
     --clr-fn-warn: #f9af2f;
@@ -78,14 +81,10 @@ body {
     --clr-megenta-dark: #c41d7f;
     --clr-megenta-dark-u: #c41d7f;
 
-    // 背景色
-    --clr-bg-cream: #c6c2ba;
-
     // 默认字号在xlarge区间上
     --fsz-base: 20px; // 响应式字号：越窄越大
     --fsz-base-u: 20px; // 非响应式字号
     --fsz-base-d: 20px; // 响应式字号：越窄越小
-    --fontScale: 1; // 具体情况定义的字体缩放级别
 
     @include media($lg...) {
         --fsz-base: 24px;
@@ -128,8 +127,6 @@ body {
         --clr-blue-bg: #3f3f3f;
         --clr-megenta: white;
         --clr-megenta-vary: #ff7bc4;
-
-        --clr-bg-cream: #353535;
 
         // 透明灰
         // --clr-gsop-0: rgba(255, 255, 255, 0);
@@ -186,6 +183,18 @@ body {
 
 .text-line-clamp-5 {
     @include ClampText($lines: 5);
+}
+
+.text-line-clamp-6 {
+    @include ClampText($lines: 6);
+}
+
+.text-line-clamp-7 {
+    @include ClampText($lines: 7);
+}
+
+.text-line-clamp-8 {
+    @include ClampText($lines: 8);
 }
 
 //* 响应式标题行裁剪，在sm及以下为两行，其余为一行

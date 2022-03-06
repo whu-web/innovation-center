@@ -7,7 +7,7 @@
 //* 首屏画报上层内容样式
 .splash--content {
     width: 100%;
-    padding: 30px 20px 60px 20px;
+    padding: 30px calc(var(--scale) * 40px) calc(var(--scale) * 72px) calc(var(--scale) * 40px);
     color: white;
 
     background-image: linear-gradient(
@@ -19,13 +19,14 @@
 }
 
 .splash--content--title {
-    font-size: calc(var(--fsz-base-d) * 2.5);
+    font-size: calc(var(--scale) * var(--fsz-base-u) * 2.5);
     text-shadow: 2px 4px 6px var(--clr-gsop-5);
     font-weight: 500;
+    margin-bottom: calc(var(--scale) * 30px);
 }
 
 .splash--content--descrip {
-    font-size: calc(var(--fsz-base-d) * 1.25);
+    font-size: calc(var(--scale) * var(--fsz-base-u) * 1.25);
     text-shadow: 1px 2px 3px var(--clr-gsop-5);
     font-weight: 300;
 }
@@ -38,30 +39,18 @@
     color: white;
 }
 
+//* 在xs下隐藏画报中的内容简介
 @include media($lg...) {
-    .splash--content {
-        padding: 25px 15px 50px 15px;
-    }
 }
 
 @include media($md...) {
-    .splash--content {
-        padding: 25px 12px 45px 12px;
-    }
 }
 
 @include media($sm...) {
-    .splash--content {
-        padding: 20px 10px 35px 10px;
-    }
 }
 
 @include media($xs...) {
     .splash--content--descrip {
         display: none;
-    }
-
-    .splash--content {
-        padding: 15px 10px 30px 10px;
     }
 }

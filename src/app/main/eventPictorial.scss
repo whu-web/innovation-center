@@ -57,15 +57,16 @@ $mapTransitionTime: 0.4s;
 .event-pic--layer--title {
     color: white;
     text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
-    font-size: calc(1.5 * var(--fsz-base));
+    font-size: calc(var(--scale) * 1.5 * var(--fsz-base-u));
     letter-spacing: 2px;
+    text-align: center;
 }
 
 .event-pic--layer--time {
 }
 
 .event-pic--layer--time--line {
-    height: 1.5px;
+    height: calc(var(--scale) * 2px);
     width: 40px;
     background-color: white;
 }
@@ -74,7 +75,7 @@ $mapTransitionTime: 0.4s;
     margin: 0 10px;
     color: white;
     text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
-    font-size: calc(0.8 * var(--fsz-base));
+    font-size: calc(var(--scale) * 0.85 * var(--fsz-base-u));
 }
 
 .event-pic--layer--location {
@@ -94,8 +95,8 @@ $mapTransitionTime: 0.4s;
 }
 
 .event-pic--layer--location--icon {
-    width: 20px;
-    height: 20px;
+    width: calc(var(--scale) * 24px);
+    height: calc(var(--scale) * 24px);
     fill: white;
     filter: drop-shadow(0px 1px 3px var(--clr-gsop-4));
     margin-right: 5px;
@@ -103,37 +104,4 @@ $mapTransitionTime: 0.4s;
 
 .event-pic--layer--location--text {
     text-shadow: 0.05em 0.05em 2px var(--clr-gsop-6);
-}
-
-@include media($lg...) {
-}
-
-@include media($md...) {
-}
-
-@include media($sm...) {
-    .event-pic--layer--title {
-        font-size: calc(1.05 * var(--fsz-base));
-    }
-    .event-pic--layer--time--text {
-        font-size: calc(0.6 * var(--fsz-base));
-    }
-    .event-pic--layer--location--text {
-    }
-}
-
-@include media($xs...) {
-    .event-pic {
-        aspect-ratio: 5/4;
-    }
-
-    .event-pic--layer--title {
-        font-size: calc(0.75 * var(--fsz-base));
-    }
-    .event-pic--layer--time--text {
-        font-size: calc(0.4 * var(--fsz-base));
-    }
-    .event-pic--layer--location--text {
-        font-size: calc(0.5 * var(--fsz-base));
-    }
 }

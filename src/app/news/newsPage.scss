@@ -1,8 +1,6 @@
 @use "../../include-media" as *;
 
 .news-page {
-    //*字体缩放级别
-    --fontScale: 1;
 }
 
 //* 页面主要内容（除了图片）
@@ -33,7 +31,7 @@
 
 .news-page--news {
     align-items: flex-start;
-    padding: calc(var(--fontScale) * 36px) calc(var(--fontScale) * 24px);
+    padding: calc(var(--scale) * 36px) calc(var(--scale) * 24px);
     background-color: var(--clr-gs-0);
     border-radius: 15px;
     box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
@@ -47,7 +45,7 @@
 
 .news-page--news--share-bar--inline {
     float: right;
-    margin-bottom: calc(var(--fontScale) * 36px);
+    margin-bottom: calc(var(--scale) * 36px);
     display: none;
 }
 
@@ -57,20 +55,20 @@
     }
     width: 1px;
     flex: 1;
-    padding-left: calc(var(--fontScale) * 36px);
+    padding-left: calc(var(--scale) * 36px);
 }
 
 .news-page--news--heading {
-    font-size: calc(var(--fontScale) * 1.5 * var(--fsz-base));
+    font-size: calc(var(--scale) * 1.5 * var(--fsz-base));
     font-weight: bold;
 }
 
 .news-page--news--info {
-    margin: calc(var(--fontScale) * 24px) 0 calc(var(--fontScale) * 36px) 0;
+    margin: calc(var(--scale) * 24px) 0 calc(var(--scale) * 36px) 0;
 
     // 作者
     div span:first-child {
-        margin-right: calc(var(--fontScale) * 20px);
+        margin-right: calc(var(--scale) * 20px);
     }
 }
 
@@ -105,29 +103,37 @@
 .news-page--more {
     background-color: var(--clr-gs-0);
     border-radius: 15px;
-    padding: calc(var(--fontScale) * 48px) calc(var(--fontScale) * 24px);
+    padding: calc(var(--scale) * 48px) calc(var(--scale) * 24px);
     box-shadow: rgb(0 0 0 / 50%) 0 0 10px 2px;
+    overflow-y: hidden;
+}
+
+.news-page--more-wrapper {
+    width: 100%;
+}
+
+@include media(">=large") {
 }
 
 .news-page--more--card {
     margin-bottom: 24px;
     height: 100px;
     //* 仅对news-card生效
-    --fontScale: 0.7;
+    --scale: 0.7;
 }
 
 .news-page--news--markdown {
     clear: both;
-    margin-bottom: calc(var(--fontScale) * 24px);
+    margin-bottom: calc(var(--scale) * 24px);
     //1.5倍行距
-    line-height: calc(var(--fontScale) * 1.6 * var(--fsz-base));
+    line-height: calc(var(--scale) * 1.6 * var(--fsz-base));
 
     p,
     a,
     th,
     td,
     li {
-        font-size: calc(var(--fontScale) * 0.8 * var(--fsz-base));
+        font-size: calc(var(--scale) * 0.8 * var(--fsz-base));
         word-wrap: break-word;
     }
 
@@ -141,28 +147,28 @@
     }
 
     h1 {
-        margin-top: calc(var(--fontScale) * 36px);
-        font-size: calc(var(--fontScale) * 1.4 * var(--fsz-base));
+        margin-top: calc(var(--scale) * 36px);
+        font-size: calc(var(--scale) * 1.4 * var(--fsz-base));
     }
 
     h2 {
-        margin-top: calc(var(--fontScale) * 30px);
-        font-size: calc(var(--fontScale) * 1.2 * var(--fsz-base));
+        margin-top: calc(var(--scale) * 30px);
+        font-size: calc(var(--scale) * 1.2 * var(--fsz-base));
     }
 
     h3 {
-        margin-top: calc(var(--fontScale) * 24px);
-        font-size: calc(var(--fontScale) * 1.1 * var(--fsz-base));
+        margin-top: calc(var(--scale) * 24px);
+        font-size: calc(var(--scale) * 1.1 * var(--fsz-base));
     }
 
     h4 {
-        margin-top: calc(var(--fontScale) * 18px);
-        font-size: calc(var(--fontScale) * 1.05 * var(--fsz-base));
+        margin-top: calc(var(--scale) * 18px);
+        font-size: calc(var(--scale) * 1.05 * var(--fsz-base));
     }
 
     h5 {
-        margin-top: calc(var(--fontScale) * 18px);
-        font-size: calc(var(--fontScale) * 1 * var(--fsz-base));
+        margin-top: calc(var(--scale) * 18px);
+        font-size: calc(var(--scale) * 1 * var(--fsz-base));
     }
 
     img {
@@ -192,27 +198,27 @@
     }
 
     li {
-        margin: calc(var(--fontScale) * 12px) 0;
+        margin: calc(var(--scale) * 12px) 0;
     }
 }
 
 @include media("<400px") {
     .news-page--more--card {
         height: 100px;
-        --fontScale: 0.5;
+        --scale: 0.5;
     }
 }
 
 @include media(">=400px", "<small") {
     .news-page--more--card {
         height: 110px;
-        --fontScale: 0.55;
+        --scale: 0.55;
     }
 }
 
 @include media($xs...) {
     .news-page {
-        --fontScale: 0.6;
+        --scale: 0.6;
     }
 
     .news-page--news--content {
@@ -220,7 +226,7 @@
     }
 
     .news-page--news--heading {
-        --fontScale: 0.5;
+        --scale: 0.5;
     }
 
     .news-page--news--share-bar--docked {
@@ -238,31 +244,31 @@
 
 @include media($sm...) {
     .news-page {
-        --fontScale: 0.7;
+        --scale: 0.7;
     }
     .news-page--more--card {
         height: 130px;
-        --fontScale: 0.7;
+        --scale: 0.7;
     }
 }
 
 @include media($md...) {
     .news-page {
-        --fontScale: 0.9;
+        --scale: 0.9;
     }
     .news-page--more--card {
         height: 140px;
-        --fontScale: 0.8;
+        --scale: 0.8;
     }
 }
 
 @include media($lg...) {
     .news-page {
-        --fontScale: 0.9;
+        --scale: 0.9;
     }
 
     .news-page--more--card {
         height: 100px;
-        --fontScale: 0.6;
+        --scale: 0.6;
     }
 }

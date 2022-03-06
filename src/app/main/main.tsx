@@ -1,5 +1,8 @@
-import React, { useRef, FunctionComponent, useCallback, useEffect } from 'react';
-import { useIntersetionObserver } from '../hooks/many';
+import React, { useRef, FunctionComponent, useCallback, useEffect, useState } from 'react';
+import { SimpleScrollAnimationOption, useIntersectionObserver, useScrollAnimation, useSimpleScrollAnimation } from '../hooks/many';
+import { useNewsList } from '../hooks/news';
+import { responsiveGutter33211, responsiveGutter44221 } from '../utils/responsive';
+import { useDebounce } from '../hooks/d&t';
 
 // Components
 import SplashPictorial from './splashPictorial';
@@ -9,12 +12,14 @@ import { IconDown } from '../shared/icons';
 import ClubPurpose from './clubPurpose';
 import ClubResources from './clubResources';
 import Text from '../shared/text';
-import NewsPictorial from '../shared/newsPictorial';
+import NewsPictorial from '../news/newsPictorial';
 import EventPictorial from './eventPictorial';
 import EventCard from './eventCard';
 import MentorPictorial from './mentorPictorial';
 import NavBar from '../navbar';
 import Footer from '../footer';
+import HeadNews from '../news/headNews';
+import Heading from '../shared/heading';
 
 // Interfaces
 
@@ -25,31 +30,54 @@ import './main.scss';
 import picMocks from '../../mocks/pictorial.mocks';
 import eventMocks from '../../mocks/event.mocks';
 import mentorMocks from '../../mocks/mentor.mocks';
-import Heading from '../shared/heading';
-import { useNewsList } from '../hooks/news';
+import AnimatedHeading from './animatedHeading';
+import { useMentors } from '../hooks/mentors';
+import MoreMentors from './moreMentors';
+import MembersVideo from './membersVideo';
 
 
 export interface MainProps {
 }
 
+//* 板块分割线滚动触发动画配置
+const sepLineScrollAnimiationOptions: SimpleScrollAnimationOption = {
+    ruleName: 'transform',
+    ruleValTemplate: 'scale({}%,100%)',
+    ruleValMin: 100,
+    ruleValMax: 350,
+    scrollTrigStartOffsetFromTargetTop: -window.innerHeight,
+    scrollTrigEndOffsetFromTargetBottom: -window.innerHeight / 4,
+    interpMethod: 'ease-in-out',
+    direction: 'vertical',
+    throttle: 10
+};
+
 const Main: FunctionComponent<MainProps> = (props) => {
     // 处理向下滚动一屏的事件
-    const handleScrollDownClick = useCallback(() => { window.scroll({ top: window.innerHeight, behavior: 'smooth' }); }, []);
+    const handleScrollDownClick = useCallback(() => { window.scroll({ top: window.innerHeight + 1, behavior: 'smooth' }); }, []);
 
+    //* 香蕉检测动画
     // 中心简介DOM node ref
     const overviewPurposeNodeRef = useRef<HTMLDivElement>(null);
     // 中心资源DOM node ref
     const overviewResourcesNodeRef = useRef<HTMLDivElement>(null);
 
-    // 香蕉检测动画
-    useIntersetionObserver([overviewPurposeNodeRef, overviewResourcesNodeRef],
+    const inOb = useIntersectionObserver(
         (entries, inOb) => {
-            entries.forEach((entry) => {
+            entries.forEach((entry: any) => {
                 if (!entry.isIntersecting) return;
                 entry.target.classList.add('main--elem--visible');
                 inOb.unobserve(entry.target);
             });
         });
+    useEffect(() => {
+        [overviewPurposeNodeRef, overviewResourcesNodeRef].
+            forEach((elem) => inOb.observe(elem.current));
+        return () => inOb.disconnect();
+    }, [inOb]);
+
+    //* 滚动触发动画
+    const eventSepLineRef = useSimpleScrollAnimation<HTMLDivElement>(sepLineScrollAnimiationOptions);
 
     //* 导航栏样式及收起判定
     const carouselNodeRef = useRef<HTMLDivElement>(null);
@@ -59,7 +87,12 @@ const Main: FunctionComponent<MainProps> = (props) => {
     const lastScrollY = useRef<number>(window.scrollY);
 
     const navbarNodeRef = useRef<HTMLElement>(null);
+    const isMenuOverlayVisibleRef = useRef<boolean>(false);
     const isNavbarWithinSplash = useRef<boolean>(true);
+
+    const handleMenuOverlayVisibleChange = useCallback((visible: boolean) => {
+        isMenuOverlayVisibleRef.current = visible;
+    }, []);
 
     // 处理导航栏样式改变事件
     const handleScrollThroughSplash = useCallback((isTopWithinSplash: boolean) => {
@@ -70,13 +103,22 @@ const Main: FunctionComponent<MainProps> = (props) => {
         isNavbarWithinSplash.current = isTopWithinSplash;
     }, []);
 
-    const handleSwitchNavbarVisibility = useCallback((shouldVisible) => {
-        navbarNodeRef.current.style.transform = shouldVisible ? 'none' : 'translate(0,-100%)';
-    }, []);
+    // 处理导航栏展开/收起事件
+    const isNavbarVisible = useRef<boolean>(true);
+    const hideNavbar = useDebounce((shouldVisible: boolean) => {
+        if (!shouldVisible && !isMenuOverlayVisibleRef.current) navbarNodeRef.current.style.transform = 'translate(0,-100%)';
+    }, 500);
+    const handleSwitchNavbarVisibility = useCallback((shouldVisible: boolean) => {
+        if (shouldVisible === isNavbarVisible.current) return;
+        if (shouldVisible) navbarNodeRef.current.style.transform = 'none';
+        hideNavbar(shouldVisible);
+        isNavbarVisible.current = shouldVisible;
+    }, [hideNavbar]);
 
     // 处理滚屏事件（在首屏前后切换导航栏样式）
     useEffect(() => {
         const scrollListener = () => {
+            if (!carouselNodeRef.current) return;
             if (window.scrollY > carouselNodeRef.current.offsetHeight) {  // 当前已滚动超过首屏
                 if (isWithinSplash.current) // 之前在首屏内
                     handleScrollThroughSplash(false);
@@ -103,11 +145,14 @@ const Main: FunctionComponent<MainProps> = (props) => {
     }, [handleScrollThroughSplash, handleSwitchNavbarVisibility]); // 该effect仅在首次渲染后触发
 
     // 请求新闻数据
-    const news = useNewsList({ limit: 6 });
+    const [headNews, ...otherNews] = useNewsList({ limit: 5 });
+    // 请求导师数据
+    const mentors = useMentors();
 
     return (
         <div className='main'>
-            <NavBar innerRef={navbarNodeRef} className='navbar--within-splash' />
+            <NavBar className='navbar--within-splash' innerRef={navbarNodeRef}
+                onMenuOverlayVisibleChange={handleMenuOverlayVisibleChange} />
             {/* 首屏轮播图 */}
             <div className='main--carousel' ref={carouselNodeRef}>
                 <Carousel autoplay={true} effect='fade' autoplaySpeed={5000}
@@ -125,7 +170,7 @@ const Main: FunctionComponent<MainProps> = (props) => {
             {/* 主页内容区 */}
             <div className='main--content'>
                 {/* 中心概况区域 */}
-                <Row className='main--overview'>
+                <Row className='main--overview main--section' gutter={{ xl: 48, lg: 36 }}>
                     {/* 中心简介 */}
                     <Col xl={10} lg={12} md={24} className='main--overview--purpose' ref={overviewPurposeNodeRef}>
                         <ClubPurpose />
@@ -137,15 +182,12 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 </Row>
                 {/* 新闻板块 */}
                 <section className='main--news main--section' id='news'>
-                    <Heading justify='center'>
-                        <Text id='rs' />
-                        <span className='main--section--heading--plus'>+</span>
-                        <Text id='news' />
-                    </Heading>
-                    <Row className='main--news--row'>{
-                        news.map((elem, idx) => (
-                            <Col xl={8} lg={12} md={12} sm={24} key={elem.id} className='main--news--col'>
-                                <NewsPictorial className='main--news--col--news-pic' {...elem}
+                    <AnimatedHeading msgId='news' justify='center' className='main--section--heading' />
+                    <HeadNews className='main--news--head-news' {...headNews} />
+                    <Row className='main--news--row' gutter={responsiveGutter33211}>{
+                        otherNews.map((elem, idx) => (
+                            <Col xl={8} lg={8} md={12} sm={24} xs={24} key={elem.id} className='main--news--col'>
+                                <NewsPictorial className='main--news--news-pic' {...elem}
                                     transitionDelay={idx * 100} />
                             </Col>
                         ))
@@ -153,12 +195,9 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 </section>
                 {/* 活动板块 */}
                 <section className='main--events main--section' id='events'>
-                    <Heading justify='center'>
-                        <Text id='rs' />
-                        <span className='main--section--heading--plus'>+</span>
-                        <Text id='events' />
-                    </Heading>
-                    <Row className='main--events--row'>
+                    <AnimatedHeading msgId='events' justify='center' className='main--section--heading' />
+                    <div className='main--section--sep-line' ref={eventSepLineRef}></div>
+                    <Row className='main--events--row' gutter={responsiveGutter44221}>
                         <Col xl={12} lg={12} md={24} sm={24} className='main--events--col'>
                             <EventPictorial {...eventMocks[0]} className='main--events--pic' />
                         </Col>
@@ -172,29 +211,27 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 </section>
                 {/* 导师板块和成员板块 */}
                 <Row className='main--mentors-and-members'>
-                    <Col xl={12} lg={24}>
+                    <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                         <section className='main--mentors main--section'>
-                            <Heading className='main--mentors--heading'>
-                                <Text id='rs' />
-                                <span className='main--section--heading--plus'>+</span>
-                                <Text id='mentors' />
-                            </Heading>
-                            <Row className='main--mentors--row'>{
-                                mentorMocks.map((elem, idx) => (
-                                    <Col xl={12} lg={12} md={12} sm={24} key={elem.id} className='main--mentors--row--col'>
+                            <AnimatedHeading msgId='mentors' className='main--section--heading main--mentors--heading' />
+                            <Row className='main--mentors--row' gutter={responsiveGutter44221}>{
+                                mentors.slice(0, 3).map((elem, idx) => (
+                                    <Col xl={12} lg={12} md={12} sm={12} xs={24} key={elem.id} className='main--mentors--col'>
                                         <MentorPictorial transitionDelay={idx * 100}
-                                            className='main--mentors--row--col--pic' {...elem} />
-                                    </Col>))
-                            }</Row>
+                                            className='main--mentors--pic' {...elem} />
+                                    </Col>)
+                                )}
+                                <Col xl={12} lg={12} md={12} sm={12} xs={24} key={-1} className='main--mentors--col'>
+                                    <MoreMentors mentors={mentors.slice(3)} className='main--mentors--more' />
+                                </Col>
+                            </Row>
                         </section>
                     </Col>
-                    <Col xl={12} lg={24}>
+                    <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                         <section className='main--members main--section'>
-                            <Heading className='main--members--heading'>
-                                <Text id='rs' />
-                                <span className='main--section--heading--plus'>+</span>
-                                <Text id='members' />
-                            </Heading>
+                            <AnimatedHeading msgId='members' className='main--section--heading main--members--heading' />
+                            <MembersVideo className='main--members--video'
+                                videoUrl={require('../../assets/flash.webm')} />
                         </section>
                     </Col>
                 </Row>

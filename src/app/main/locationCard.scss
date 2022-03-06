@@ -14,12 +14,12 @@
 .loc-card--image {
     object-fit: cover;
     width: 100%;
-    aspect-ratio: 8/3;
+    aspect-ratio: 2/1;
 }
 
 .loc-card--content {
     background-color: var(--clr-gs-0);
-    padding: 10px 15px 15px 15px;
+    padding: calc(var(--scale) * 18px);
     cursor: pointer;
     transition: transform 300ms ease-in-out;
 }
@@ -35,6 +35,7 @@
 
 .loc-card--content--location {
     width: 100%;
+    margin-bottom: calc(var(--scale) * 28px);
 }
 
 .loc-card--content--location--expand-icon {
@@ -45,25 +46,26 @@
 
 .loc-card--content--location--text {
     color: var(--clr-gs-5);
-    font-size: calc(0.9 * var(--fsz-base-u));
+    font-size: calc(var(--scale) * 1.1 * var(--fsz-base-u));
     margin: 0 7px;
 }
 
 .loc-card--content--location--loc-icon {
     fill: var(--clr-megenta-vary);
-    width: 22px;
-    height: 22px;
+    width: calc(var(--scale) * 20px);
+    height: calc(var(--scale) * 20px);
 }
 
 .loc-card--content--title {
     width: 100%;
     font-weight: bold;
     color: var(--clr-blue-vary);
-    font-size: calc(1.5 * var(--fsz-base-u));
+    font-size: calc(var(--scale) * 1.75 * var(--fsz-base-u));
+    margin-bottom: calc(var(--scale) * 10px);
 }
 
 .loc-card--content--descrip {
-    font-size: calc(var(--fsz-base-u));
+    font-size: calc(var(--scale) * 1.25 * var(--fsz-base-u));
     color: var(--clr-gs-5);
     width: 100%;
     font-weight: 400;
@@ -109,7 +111,7 @@
 
 .loc-card--content-mask--text {
     color: white;
-    font-size: calc(1.25 * var(--fsz-base-u));
+    font-size: calc(var(--scale) * 1.25 * var(--fsz-base-u));
 }
 
 .loc-card--mask--visible {
@@ -126,20 +128,4 @@
 }
 
 @include media($xs...) {
-    .loc-card--content--location--text {
-        font-size: calc(0.75 * var(--fsz-base-u));
-    }
-    .loc-card--content-mask--text {
-        font-size: calc(1 * var(--fsz-base-u));
-    }
-    .loc-card--content--title {
-        font-size: calc(1.25 * var(--fsz-base-u));
-    }
-    .loc-card--content--descrip {
-        font-size: calc(0.75 * var(--fsz-base-u));
-    }
-
-    .loc-card .card--image-mask--text {
-        font-size: calc(1 * var(--fsz-base-u));
-    }
 }

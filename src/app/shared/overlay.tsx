@@ -2,7 +2,7 @@
  * * 悬浮菜单组件
  * @author shepard
  */
-import React, { FunctionComponent, useRef, useEffect } from 'react';
+import React, { FunctionComponent, useRef, useEffect, LegacyRef, useCallback } from 'react';
 
 // Components
 
@@ -14,13 +14,16 @@ import './overlay.scss';
 export interface OverlayProps {
     className?: string;
     trigger?: 'hover' | 'click';
+    innerRef?: LegacyRef<HTMLDivElement>;
+    onVisibleChange?: (visible: boolean) => void;
 }
 
 const Overlay: FunctionComponent<OverlayProps> = (props) => {
     const {
         className,
         children,
-        trigger
+        trigger,
+        onVisibleChange,
     } = props;
 
     const myNodeRef = useRef<HTMLDivElement>(null);
@@ -36,12 +39,14 @@ const Overlay: FunctionComponent<OverlayProps> = (props) => {
                 myNode.style.visibility = 'hidden';
             }, 600);
             myNode.style.opacity = '0';
+            if (onVisibleChange) onVisibleChange(isMeVisible);
         }
         function showMe() {
             isMeVisible = true;
             clearTimeout(hideTimeout);
             myNode.style.visibility = 'visible';
             myNode.style.opacity = '1';
+            if (onVisibleChange) onVisibleChange(isMeVisible);
         }
 
         if ((trigger || 'hover') === 'hover') {

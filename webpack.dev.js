@@ -16,7 +16,7 @@ module.exports = merge(common(env), {
     devServer: {
         static: path.join(__dirname, 'dist'),
         port: 3000,
-        host: 'localhost',
+        host: '0.0.0.0',
         // With this enabled, page refreshes automatically when rebuilt
         hot: true,
     },

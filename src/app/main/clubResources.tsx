@@ -24,7 +24,7 @@ export interface ClubResourcesProps {
 
 //* 环境建设内容源
 const offices: { msgSubId: string, lonlat: [number, number], imgUrl: string }[] = [
-    { msgSubId: 'mainOffice', lonlat: [114.361301, 30.527711], imgUrl: require('../../assets/overview/offices/main-office.webp') },
+    { msgSubId: 'mainOffice', lonlat: [114.361489, 30.524742], imgUrl: require('../../assets/overview/offices/main-office.webp') },
     { msgSubId: 'coffee', lonlat: [114.357219, 30.526007], imgUrl: require('../../assets/overview/offices/coffee.webp') }
 ];
 
@@ -44,19 +44,12 @@ const clubResourceInfoList: ClubResourceInfo[] = [{
             />
         ))
     }
-},
-// {
-//     tab: { msgId: 'clubResources.mentors', icon: <IconTeacher /> },
-//     panel: {
-//         key: 'mentors',
-//         content: null
-//     }
-// },
-{
+}, {
     tab: { msgId: 'clubResources.regulations', icon: <IconRegulation /> },
     panel: {
         key: 'regulations',
-        content: null
+        // TODO：增加规章制度的内容
+        content: <div style={{ color: 'var(--clr-blue-vary)', textAlign: 'center', }}>正在商定当中！</div>
     }
 }];
 

@@ -29,14 +29,14 @@
 
 .news-card--time {
     color: var(--clr-blue-vary);
-    font-size: calc(0.8 * var(--fsz-base) * var(--fontScale));
+    font-size: calc(0.8 * var(--fsz-base) * var(--scale));
     font-weight: bold;
 }
 
 .news-card--title {
     color: var(--clr-gs-6);
     font-weight: bold;
-    font-size: calc(1 * var(--fsz-base) * var(--fontScale));
+    font-size: calc(1 * var(--fsz-base) * var(--scale));
 }
 
 .news-card:hover {

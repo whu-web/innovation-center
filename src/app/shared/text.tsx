@@ -32,12 +32,14 @@ const Text: FunctionComponent<IconTextProps> = (props) => {
 
     const textFinalClass = icon ? textClass : textClass || className;
     const textFinalStyle = icon ? textStyle : textStyle || style;
-    const textComponent = (<span className={textFinalClass} style={textFinalStyle}>
+    const textComponent = (<span className={textFinalClass} style={textFinalStyle} ref={icon ? null : innerRef}>
         <FormattedMessage {...msgProps} />
     </span >);
 
+
     return icon ? (
-        <Container className={className} justify={justify} align={align} direction={direction} innerRef={innerRef}>
+        <Container className={className} justify={justify}
+            align={align} direction={direction} innerRef={innerRef}>
             {icon}
             {textComponent}
         </Container>

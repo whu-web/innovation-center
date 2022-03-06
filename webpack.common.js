@@ -68,6 +68,11 @@ module.exports = (env) => {
                     test: /\.(woff|woff2|eot|ttf|otf|ttc)$/i,
                     type: 'asset/resource',
                 },
+                // Video Assets
+                {
+                    test: /\.(webm|mp4)/i,
+                    type: 'asset/resource'
+                },
             ],
         },
         plugins: [

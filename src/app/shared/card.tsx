@@ -3,7 +3,7 @@
  * @author shepard
  */
 
-import React, { useMemo, FunctionComponent, LegacyRef, useRef } from 'react';
+import React, { useMemo, FunctionComponent, LegacyRef, useRef, useCallback, useEffect } from 'react';
 import { useTransition } from '../hooks/many';
 
 // Components
@@ -16,6 +16,7 @@ import Text from './text';
 
 // Stylesheet
 import './card.scss';
+import { useNavigate } from 'react-router';
 
 export interface CardProps extends ContainerProps {
     className?: string;
@@ -24,6 +25,7 @@ export interface CardProps extends ContainerProps {
     imgFallback?: string;
     imgPreview?: boolean;
     imgMaskRef?: LegacyRef<HTMLDivElement>,
+    link?: string;
     // 香蕉检测过渡动画
     disableTransition?: boolean;
     // 香蕉检测过渡动画延时(ms)
@@ -43,12 +45,17 @@ const Card: FunctionComponent<CardProps> = (props) => {
         align,
         disableTransition,
         transitionDelay,
+        link,
         ...divProps
     } = props;
 
+    const navigate = useNavigate();
     const rootNodeRef = useRef<HTMLDivElement>(null);
 
-    useTransition(rootNodeRef, 'card--hidden', disableTransition, transitionDelay);
+    const inOb = useTransition('card--hidden', disableTransition, transitionDelay);
+    useEffect(() => {
+        if (!disableTransition) inOb.observe(rootNodeRef.current);
+    }, [inOb, disableTransition]);
 
     const previewMask = useMemo(() => (
         <Container className='card--image-mask' justify='center' direction='column' innerRef={imgMaskRef}>
@@ -57,9 +64,15 @@ const Card: FunctionComponent<CardProps> = (props) => {
         </Container>
     ), [imgMaskRef]);
 
+    const handleClick = useCallback(() => {
+        navigate(link);
+    }, [navigate, link]);
+
+
     return (
-        <Container className={`card ${className || ''} ${disableTransition ? '' : 'card--hidden'}`}
-            innerRef={rootNodeRef} align={align || 'start'} direction={direction || 'column'} {...divProps}>
+        <Container className={`card ${className || ''} ${disableTransition ? '' : 'card--hidden'}`} onClick={link ? handleClick : null}
+            style={{ cursor: link ? 'pointer' : 'auto' }}
+            innerRef={rootNodeRef} align={align || 'start'} direction={direction || null} {...divProps}>
             <Image src={imgSrc} preview={imgPreview ? {
                 mask: imgPreview ? previewMask : null,
             } : false}

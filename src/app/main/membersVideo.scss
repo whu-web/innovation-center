@@ -1,0 +1,74 @@
+$borderLen: 3vmin;
+
+.members-video {
+    position: relative;
+    cursor: pointer;
+    border-radius: 1px;
+}
+
+.members-video--vid {
+    border: 2px solid var(--clr-gs-4);
+    border-radius: 1px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+
+    // 让video在边框的上面
+    position: relative;
+    z-index: 2;
+}
+
+.members-video--border-tl,
+.members-video--border-br {
+    box-shadow: inset 0 0 0 1px var(--clr-gs-5);
+    margin: -2vmin;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transition: background-color 400ms ease-in-out, box-shadow 400ms ease-in-out, border-radius 400ms ease-in-out;
+    z-index: 0;
+}
+
+@keyframes borderAnimationTL {
+    from {
+        clip-path: inset(0 calc(100% - $borderLen) calc(100% - $borderLen) 0);
+    }
+    to {
+        clip-path: inset(-20px -20px -20px -20px);
+    }
+}
+@keyframes borderAnimationBR {
+    from {
+        clip-path: inset(calc(100% - $borderLen) 0 0 calc(100% - $borderLen));
+    }
+    to {
+        clip-path: inset(-20px -20px -20px -20px);
+    }
+}
+
+.members-video--border-tl {
+    clip-path: inset(0 calc(100% - $borderLen) calc(100% - $borderLen) 0);
+}
+
+.members-video--border-br {
+    clip-path: inset(calc(100% - $borderLen) 0 0 calc(100% - $borderLen));
+}
+
+.members-video:hover {
+    .members-video--border-br,
+    .members-video--border-tl {
+        clip-path: inset(-20px -20px -20px -20px);
+        box-shadow: inset 0 0 0 1px var(--clr-gs-5), 0 0 10px 1px rgba(255, 255, 255, 0.3);
+        background-color: var(--clr-gs-1);
+        border-radius: 3px;
+    }
+
+    .members-video--border-tl {
+        animation: borderAnimationTL 1s ease-in-out;
+    }
+    .members-video--border-br {
+        animation: borderAnimationBR 1s ease-in-out;
+    }
+}

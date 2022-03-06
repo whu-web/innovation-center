@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, useRef, useCallback } from 'react';
+import React, { useState, FunctionComponent, useRef, useCallback, useEffect } from 'react';
 
 // Components
 import Card from '../shared/card';
@@ -13,7 +13,7 @@ import { IconLocation, IconTime } from '../shared/icons';
 import FormattedDateTimeRangeBrief from '../shared/formattedDateTimeRangeBrief';
 import Amap from '../shared/amap';
 import { FormattedMessage } from 'react-intl';
-import { useIntersetionObserver } from '../hooks/many';
+import { useIntersectionObserver } from '../hooks/many';
 
 export interface EventCardProps extends Omit<EventType, 'id'> {
     className?: string;
@@ -48,7 +48,7 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
     }, [showMap]);
 
     // 香蕉检测特效
-    useIntersetionObserver(locationTextNodeRef, (entries, inOb) => {
+    const inOb = useIntersectionObserver((entries, inOb) => {
         const entry = entries[0];
         const animationTime = 6000;
         if (!entry.isIntersecting) return;
@@ -60,7 +60,10 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
             }, animationTime / 2);
         }, animationTime / 4);
         inOb.disconnect();
-    }, false, 0.9);
+    }, { disabled: false, threshold: 0.9 });
+
+    // TODO：已暂时停用，恢复或删除
+    // useEffect(() => { inOb.observe(locationTextNodeRef.current); return () => inOb.disconnect(); }, [inOb]);
 
     return (
         <Card imgSrc={imgUrl} className={`event-card ${className || ''}`} imgPreview={false}>

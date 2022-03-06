@@ -5,6 +5,7 @@
 }
 
 .mentor--layer {
+    
 }
 
 .mentor--link-wrapper::before {
@@ -36,22 +37,22 @@
 }
 
 .mentor--line1--name {
-    font-size: calc(1.35 * var(--fsz-base));
+    font-size: calc(var(--scale) * 1.35 * var(--fsz-base));
     font-weight: 600;
     margin-right: 10px;
 }
 
 .mentor--line1--titles {
     font-weight: 400;
-    font-size: calc(0.8 * var(--fsz-base));
+    font-size: calc(var(--scale) * 0.8 * var(--fsz-base));
 }
 
 .mentor--line2 {
-    font-size: calc(0.75 * var(--fsz-base));
+    font-size: calc(var(--scale) * 0.75 * var(--fsz-base));
 }
 
 .mentor--line3 {
-    font-size: calc(0.6 * var(--fsz-base));
+    font-size: calc(var(--scale) * 0.6 * var(--fsz-base));
     opacity: 0;
     max-height: 0;
     transition: max-height 800ms ease-in-out, margin 300ms ease-in-out, opacity 400ms ease-in-out;
@@ -75,16 +76,4 @@
 }
 
 @include media($xs...) {
-    .mentor--line1--name {
-        font-size: calc(1.15 * var(--fsz-base));
-    }
-    .mentor--line1--titles {
-        font-size: calc(0.65 * var(--fsz-base));
-    }
-    .mentor--line2 {
-        font-size: calc(0.6 * var(--fsz-base));
-    }
-    .mentor--line3 {
-        font-size: calc(0.45 * var(--fsz-base));
-    }
 }

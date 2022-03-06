@@ -18,7 +18,7 @@ export interface TabPanelProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const TabPanel: FunctionComponent<TabPanelProps> = (props) => {
-    const { children, className, innerRef, ...otherProps } = props;
+    const { children, className, innerRef, tab, ...otherProps } = props;
 
     return (
         <div {...otherProps} ref={innerRef} className={`tab-panel ${className || ''}`}>

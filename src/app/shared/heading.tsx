@@ -17,7 +17,7 @@ const Heading: FunctionComponent<HeadingProps> = (props) => {
     const { className, children, ...containerProps } = props;
 
     return (
-        <Container className={`heading ${className}`} {...containerProps}>
+        <Container className={`heading ${className || ''}`} {...containerProps}>
             {children}
         </Container>
     );

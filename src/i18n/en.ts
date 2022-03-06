@@ -8,10 +8,13 @@ export default {
     'innoCenter': 'Innovation Center of Remote Sensing',
     'rsClub': 'RS+ Club',
     'rs': 'RS',
+    'rs+': 'RS+',
     'news': 'News',
     'events': 'Events',
     'mentors': 'Mentors',
+    'allMentors': 'All Mentors',
     'members': 'Members',
+    'unavailable': '{section} is now unavailable.',
     'clubOverview': '武汉大学具有雄厚的遥感科学与技术学科优势和师资优势，为武汉大学的本科教学发展提供了强有力的支撑。2021年，遥感信息大学生创新创业中心成立，旨在创造师生可以利用的创新创业空间环境，探索有效的全过程大学生创新创业项目指导与管理措施，研究对大学生创新创业热情的引导和激励机制，培养培育出一批优秀大学生创新创业人才及项目成果。',
     'clubFunction': '中心职能',
     'clubFunction0': '创新创业项目孵化及俱乐部的组织管理',
@@ -32,16 +35,15 @@ export default {
     'navbar.menuitem.language.en': 'English',
 
     'clubResources.offices': 'Offices',
-    'clubResources.mentors': 'Mentors',
     'clubResources.regulations': 'Regulations',
 
-    'clubResources.offices.mainOffice.title': '大创中心入驻团队主要办公地',
-    'clubResources.offices.mainOffice.descrip': '欧式大别墅两套，电器设施齐全，办公桌电脑椅服务器，Mac电脑，XBOX，PS5',
-    'clubResources.offices.mainOffice.location': '光谷高新区',
+    'clubResources.offices.mainOffice.title': '“遥感+”俱乐部总部',
+    'clubResources.offices.mainOffice.descrip': '大创中心团队办公地点，一层包括活动室、会议室和俱乐部展廊，二层包括机房、团队研讨室等',
+    'clubResources.offices.mainOffice.location': '武汉大学信息学部双泽楼',
 
     'clubResources.offices.coffee.title': '“遥感+”咖啡馆',
-    'clubResources.offices.coffee.descrip': '大佬们讨论问题的休闲场所，闲人免进',
-    'clubResources.offices.coffee.location': '银泰第0层',
+    'clubResources.offices.coffee.descrip': '俱乐部成员享受早茶和下午茶的地方',
+    'clubResources.offices.coffee.location': '在建中',
 
     'card.panorama': 'Show Panorama',
 

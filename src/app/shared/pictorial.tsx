@@ -4,7 +4,7 @@
  * 
  * @author shepard
  */
-import React, { useRef, FunctionComponent, LegacyRef } from 'react';
+import React, { useRef, FunctionComponent, LegacyRef, useEffect } from 'react';
 import { useTransition } from '../hooks/many';
 
 // Components
@@ -42,7 +42,10 @@ const Pictorial: FunctionComponent<PictorialProps> = (props) => {
 
     const rootNodeRef = useRef<HTMLDivElement>(null);
 
-    useTransition(rootNodeRef, 'pictorial--hidden', disableTransition, transitionDelay);
+    const inOb = useTransition('pictorial--hidden', disableTransition, transitionDelay);
+    useEffect(() => {
+        if (!disableTransition) inOb.observe(rootNodeRef.current);
+    }, [inOb, disableTransition]);
 
     return (
         <div className={`pictorial ${className || ''} ${disableTransition ? '' : 'pictorial--hidden'}`} ref={rootNodeRef}>

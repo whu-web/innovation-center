@@ -37,6 +37,8 @@ $breakpoints: (
 ) !default;
 
 $xs: "<576px";
+$xsl: "<428px";
+$xsr: ">=428px", "<576px";
 $sm: ">=576px", "<768px";
 $md: ">=768px", "<992px";
 $lg: ">=992px", "<1200px";

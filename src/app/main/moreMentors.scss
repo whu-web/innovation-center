@@ -1,0 +1,58 @@
+@use "sass:math";
+
+.more-mentors {
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 400ms ease-in-out;
+    box-shadow: rgba(50, 50, 93, 0.4) 0px 13px 27px -5px, rgba(0, 0, 0, 0.5) 0px 8px 16px -8px;
+}
+
+.more-mentors:hover {
+    .more-mentors--image {
+        transform: scale(1.05);
+    }
+    .more-mentors--all-mentors span,
+    .more-mentors--all-mentors svg {
+        transform: scale(1.15);
+    }
+}
+
+.more-mentors--invisible {
+    transform: translate(0, 25%);
+    opacity: 1;
+}
+
+.more-mentors--area {
+    position: relative;
+    flex: 0 0 50%;
+    height: 50%;
+    clip-path: inset(0 0 0 0);
+}
+
+.more-mentors--image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 400ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+.more-mentors--all-mentors {
+    background-color: var(--clr-blue-u);
+    span {
+        color: white;
+        font-size: calc(var(--scale) * 1 * var(--fsz-base-u));
+        margin-bottom: calc(var(--scale) * 12px);
+        font-weight: bold;
+        transition: transform 400ms ease-in-out;
+    }
+    svg {
+        width: calc(var(--scale) * 30px);
+        height: calc(var(--scale) * 30px);
+        transition: transform 400ms ease-in-out;
+    }
+}

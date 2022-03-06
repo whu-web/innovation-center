@@ -4,6 +4,7 @@ $fadeInTime: 500ms;
 .card {
     opacity: 1;
     transform: none;
+    flex-direction: column;
     transition: transform $fadeInTime ease-in-out, opacity $fadeInTime ease-in-out;
 }
 
@@ -19,7 +20,7 @@ $fadeInTime: 500ms;
     width: 60px;
     height: 60px;
     stroke: white;
-    fill: white;
+    fill: transparent;
     stroke-width: 0.75px;
 }
 

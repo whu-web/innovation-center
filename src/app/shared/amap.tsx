@@ -126,7 +126,7 @@ const Amap: FunctionComponent<AmapProps> = (props) => {
         <div id={mapIdRef.current} ref={innerRef} {...divProps} style={style}
             className={`amap-container ${className || ''}`}>
             {mapFallback
-                ? <img src={require('../../assets/map-fallback.svg')}
+                ? <img className='amap-container--fallback' src={require('../../assets/map-fallback.svg')}
                     alt='Unable to load AMap services' />
                 : null}
             {backBtn}

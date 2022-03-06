@@ -11,5 +11,6 @@ const env = {
 module.exports = merge(common(env), {
     mode: 'production',
     devtool: 'source-map',
-    plugins: [new CompressionPlugin()]
+    plugins: [new CompressionPlugin()],
+
 });

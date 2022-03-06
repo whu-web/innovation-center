@@ -1,7 +1,7 @@
 @use "../../include-media" as *;
 
 .news-list {
-    padding: 0 60px;
+    padding: 5vh 5vw;
 }
 
 .news-list--heading {
@@ -14,10 +14,11 @@
 .news-list--section--more-btn {
     display: block;
     width: 50%;
-    margin: 36px auto;
-    padding: 15px 10px;
-    font-size: var(--fsz-base);
+    margin: calc(var(--scale) * 36px) auto;
+    padding: calc(var(--scale) * 15px) calc(var(--scale) * 10px);
     font-weight: bold;
+
+    font-size: calc(var(--scale) * 1.2 * var(--fsz-base-u));
 }
 
 .news-list--card-col {
@@ -47,10 +48,11 @@
 
 .news-list--section-more--more-btn {
     width: 25%;
-    min-width: 150px;
+    min-width: 250px;
     margin: 0 0 36px 0;
-    font-size: var(--fsz-base);
     font-weight: bold;
+
+    font-size: calc(var(--scale) * 1.2 * var(--fsz-base-u));
 }
 
 @include media(">=x-large") {
@@ -67,32 +69,86 @@
 
 @include media($lg...) {
     .news-list {
-        padding: 0 60px;
+        --scale: 0.9;
+    }
+
+    .news-list--heading {
+        --scale: 0.9;
+    }
+
+    .news-list--pic {
+        --scale: 0.75;
+    }
+
+    .news-list--card {
+        --scale: 0.85;
     }
 }
 
 @include media($md...) {
     .news-list {
-        padding: 0 48px;
+        --scale: 0.9;
+    }
+
+    .news-list--heading {
+        --scale: 0.8;
+    }
+
+    .news-list--pic {
+        --scale: 0.75;
+    }
+    .news-list--card {
+        --scale: 0.9;
     }
 }
 
 @include media($sm...) {
     .news-list {
-        padding: 0 36px;
+        --scale: 0.9;
+    }
+
+    .news-list--heading {
+        --scale: 0.7;
+    }
+
+    .news-list--pic {
+        --scale: 0.9;
+    }
+    .news-list--card {
+        --scale: 0.7;
     }
 }
 
-@include media($xs...) {
+@include media($xsr...) {
     .news-list {
-        padding: 0 24px;
+        --scale: 0.9;
     }
-    .news-list--section--more-btn,
-    .news-list--section-more--more-btn {
-        font-size: calc(0.75 * var(--fsz-base));
-        padding: 10px 5px;
-    }
+
     .news-list--heading {
-        margin-bottom: 30px;
+        --scale: 0.6;
+    }
+
+    .news-list--pic {
+        --scale: 0.55;
+    }
+    .news-list--card {
+        --scale: 0.7;
+    }
+}
+
+@include media($xsl...) {
+    .news-list {
+        --scale: 0.9;
+    }
+
+    .news-list--heading {
+        --scale: 0.6;
+    }
+
+    .news-list--pic {
+        --scale: 0.55;
+    }
+    .news-list--card {
+        --scale: 0.7;
     }
 }

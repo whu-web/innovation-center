@@ -18,6 +18,17 @@ body {
     background-color: var(--clr-gs-0_5);
 }
 
+.ant-skeleton-element {
+    width: 100%;
+    height: 100%;
+
+    .ant-skeleton-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
 *,
 *::before,
 *::after {

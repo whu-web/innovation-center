@@ -3,7 +3,7 @@
  * 
  */
 
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 
 // Components
 import Text from '../shared/text';

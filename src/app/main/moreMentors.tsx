@@ -5,6 +5,7 @@
 
 import { message } from 'antd';
 import React, { FunctionComponent, useCallback, useEffect, useMemo, useRef } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { MentorInfo } from '../../types';
 import { useTransition } from '../hooks/many';
 import { IconMore } from '../shared/icons';
@@ -34,7 +35,7 @@ const MoreMentors: FunctionComponent<MoreMentorsProps> = (props) => {
                 <img key={elem.id} src={elem.imgUrl} alt={elem.name} className='more-mentors--image' />
             ) : null)
         }</span>
-    ))), []);
+    ))), [mentors]);
 
     // 照片栈切换动画
     useEffect(() => {
@@ -75,7 +76,7 @@ const MoreMentors: FunctionComponent<MoreMentorsProps> = (props) => {
         antMsg.info((
             "更多导师页面暂时不可用噢"
         ), 1);
-    }, []);
+    }, [antMsg]);
 
     // 卡片过渡动画
     const inOb = useTransition('more-mentors--invisible', disableTransition, transitionDelay);
@@ -92,6 +93,9 @@ const MoreMentors: FunctionComponent<MoreMentorsProps> = (props) => {
             <span className='more-mentors--area more-mentors--all-mentors container-column-center'>
                 <Text id='allMentors' />
                 <IconMore />
+            </span>
+            <span className='more-mentors--wechat-fallback'>
+                <FormattedMessage id='wechat.fallback' />
             </span>
         </div>
     );

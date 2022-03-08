@@ -23,7 +23,6 @@ const EventPictorial: FunctionComponent<EventPictorialProps> = (props) => {
         imgUrl,
         location,
         title,
-        link,
         startTime,
         endTime,
         lonLat
@@ -43,7 +42,7 @@ const EventPictorial: FunctionComponent<EventPictorialProps> = (props) => {
     return (
         <Pictorial className={`event-pic ${className || ''}`} layerClass='event-pic--layer'
             imgAlt={title} imgUrl={imgUrl}>
-            <a href={link} target='_blank' className='event-pic--layer--link-wrapper container-column-center'>
+            <div className='event-pic--layer--wrapper container-column-center'>
                 <div className='event-pic--layer--info-wrapper' ref={infoNodeRef}>
                     <p className='event-pic--layer--title text-line-clamp-2'>{title}</p>
                     <Container className='event-pic--layer--time' justify='center'>
@@ -60,7 +59,7 @@ const EventPictorial: FunctionComponent<EventPictorialProps> = (props) => {
                     <IconLocation className='event-pic--layer--location--icon' />
                     <span className='event-pic--layer--location--text'>{location}</span>
                 </Container>
-            </a>
+            </div>
         </Pictorial>
     );
 };

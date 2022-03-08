@@ -22,7 +22,6 @@ type TagColor =
 export interface TagProps {
     color?: TagColor;
     className?: string;
-    borderRadius?: string;
 }
 
 const colorMap: Record<TagColor, { backgroundColor: string, color: string }> = {
@@ -43,11 +42,10 @@ const Tag: FunctionComponent<TagProps> = (props) => {
         color,
         className,
         children,
-        borderRadius
     } = props;
 
     return (
-        <Container style={{ ...colorMap[color], borderRadius }}
+        <Container style={{ ...colorMap[color] }}
             className={`tag ${className || ''}`}>
             {children}
         </Container>

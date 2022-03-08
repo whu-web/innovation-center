@@ -1,11 +1,12 @@
 @use "../../include-media" as *;
 
 .news-list {
-    padding: 5vh 5vw;
+    padding: 7vmin;
 }
 
 .news-list--heading {
-    margin-top: 100px;
+    margin-top: 10vh;
+    margin-bottom: 4vh;
 }
 
 .news-list--section {
@@ -22,11 +23,11 @@
 }
 
 .news-list--card-col {
-    padding: 24px 0;
+    padding: calc(var(--scale) * 24px) 0;
 }
 
 .news-list--pic-col {
-    padding: 18px 0;
+    padding: calc(var(--scale) * 24px) 0;
 }
 
 .news-list--pic {
@@ -67,88 +68,107 @@
     }
 }
 
+@include media($xl...) {
+    .news-list {
+        .news-list--pic {
+            --scale: 0.85;
+        }
+    }
+}
+
 @include media($lg...) {
     .news-list {
         --scale: 0.9;
-    }
 
-    .news-list--heading {
-        --scale: 0.9;
-    }
+        .news-list--heading {
+            --scale: 0.9;
+        }
 
-    .news-list--pic {
-        --scale: 0.75;
-    }
+        .news-list--pic {
+            --scale: 0.85;
+        }
 
-    .news-list--card {
-        --scale: 0.85;
+        .news-list--card {
+            --scale: 0.85;
+        }
     }
 }
 
 @include media($md...) {
     .news-list {
         --scale: 0.9;
-    }
 
-    .news-list--heading {
-        --scale: 0.8;
-    }
+        .news-list--heading {
+            --scale: 0.8;
+        }
 
-    .news-list--pic {
-        --scale: 0.75;
-    }
-    .news-list--card {
-        --scale: 0.9;
+        .news-list--pic {
+            --scale: 0.67;
+        }
+        .news-list--card {
+            --scale: 0.8;
+        }
     }
 }
 
 @include media($sm...) {
     .news-list {
         --scale: 0.9;
-    }
 
-    .news-list--heading {
-        --scale: 0.7;
-    }
+        .news-list--heading {
+            --scale: 0.7;
+        }
 
-    .news-list--pic {
-        --scale: 0.9;
-    }
-    .news-list--card {
-        --scale: 0.7;
+        .news-list--pic {
+            --scale: 1;
+        }
+        .news-list--card {
+            --scale: 0.7;
+        }
     }
 }
 
 @include media($xsr...) {
     .news-list {
         --scale: 0.9;
-    }
 
-    .news-list--heading {
-        --scale: 0.6;
-    }
+        .news-list--heading {
+            --scale: 0.6;
+        }
 
-    .news-list--pic {
-        --scale: 0.55;
-    }
-    .news-list--card {
-        --scale: 0.7;
+        .news-list--pic {
+            --scale: 0.65;
+        }
+        .news-list--card {
+            --scale: 0.52;
+            height: 110px;
+            // Polyfill aspect-ratio
+            .ant-image {
+                max-width: 110px;
+            }
+        }
     }
 }
 
 @include media($xsl...) {
     .news-list {
         --scale: 0.9;
-    }
 
-    .news-list--heading {
-        --scale: 0.6;
-    }
+        .news-list--heading {
+            --scale: 0.6;
+        }
 
-    .news-list--pic {
-        --scale: 0.55;
-    }
-    .news-list--card {
-        --scale: 0.7;
+        .news-list--pic {
+            --scale: 0.6;
+        }
+        .news-list--card {
+            height: 100px;
+            --scale: 0.48;
+
+            // Polyfill aspect-ratio
+            .ant-image {
+                max-width: 110px;
+            }
+        }
     }
 }

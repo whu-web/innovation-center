@@ -14,9 +14,8 @@ interface MentorsHookOptions {
  * @param options 导师数据钩子配置
  */
 export function useMentors(options?: MentorsHookOptions) {
-    let { limit, excludeIds } = options || {};
-    limit = limit || mentorMock.length;
+    const { limit, excludeIds } = options || {};
 
     const filteredMentors = excludeIds ? mentorMock.filter((elem) => !excludeIds.includes(elem.id)) : mentorMock;
-    return filteredMentors.slice(0, limit);
+    return filteredMentors.slice(0, limit || mentorMock.length);
 }

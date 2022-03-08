@@ -5,7 +5,7 @@ import Pictorial from '../shared/pictorial';
 import Container from '../shared/container';
 import Text from '../shared/text';
 import Tag from '../shared/tag';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { IconArrowRight } from '../shared/icons';
 import { Link } from 'react-router-dom';
 
@@ -32,7 +32,6 @@ const NewsPictorial: FunctionComponent<NewsPictorialProps> = (props) => {
         title,
         descrip,
         publishTime,
-        link,
         disableTransition,
         transitionDelay,
         tag,
@@ -53,11 +52,12 @@ const NewsPictorial: FunctionComponent<NewsPictorialProps> = (props) => {
                             year={publishTime.getFullYear() === new Date().getFullYear() ? null : 'numeric'}
                             month='short'
                             day='2-digit' />
-                    </span>{showTag === undefined ? true : showTag
-                        ? (<Container className='news-pic--layer--info--tag' justify='end'>
-                            <Tag color='blue' borderRadius='15px'>{tag}</Tag>
+                    </span>{showTag === false ? null :
+                        (<Container className='news-pic--layer--info--tag' justify='end'>
+                            <Tag color='blue'>
+                                <FormattedMessage id={`newsPic.tag.${tag}`} />
+                            </Tag>
                         </Container>)
-                        : null
                     }
                 </Container>
                 <Container className='news-pic--layer--more-wrapper' justify='end'>

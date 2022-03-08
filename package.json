@@ -1,7 +1,7 @@
 {
-  "name": "react-template",
-  "version": "1.0.0",
-  "description": "Minimum and flexible configuration for a react project",
+  "name": "innovation-center",
+  "version": "1.0.4",
+  "description": "Innovation center of remote sensing",
   "main": "./src/index.tsx",
   "scripts": {
     "test": "jest --env=jsdom",
@@ -39,6 +39,8 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "postcss-aspect-ratio-mini": "^1.1.0",
+    "postcss-preset-env": "^7.4.2",
     "sass": "^1.44.0",
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",

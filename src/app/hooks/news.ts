@@ -32,12 +32,12 @@ export function useNewsList(filter: {
 export function useNews(id: string, overviewOnly: boolean) {
     const news = newsMocks.find(elem => elem.id === id);
     const finalNews = overviewOnly ? Object.assign({}, news, { content: getContentOverview(news.content) }) : news;
-
     return finalNews;
 }
 
 // overview大致的字数
-const overviewApproxLength = 500;
+export const overviewApproxLength = 800;
 function getContentOverview(content: string) {
-    return content.slice(0, content.indexOf('\n', overviewApproxLength - 1));
+    const nextLineIdx = content.indexOf('\n', overviewApproxLength - 1);
+    return nextLineIdx === -1 ? content : content.slice(0, nextLineIdx + 1);
 }

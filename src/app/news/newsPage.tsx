@@ -1,29 +1,30 @@
-import React, { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FunctionComponent, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router';
-import { useNews, useNewsList } from '../hooks/news';
+import { overviewApproxLength, useNews, useNewsList } from '../hooks/news';
 import remarkGfm from 'remark-gfm';
+import { breakPoints } from '../utils/responsive';
+import { getAbsoluteBoundingRect, getComputerStyleValues } from '../utils/style';
+import { useThrottleSync } from '../hooks/d&t';
 
 // Components
 import Container from '../shared/container';
-import { FormattedDate, FormattedMessage } from 'react-intl'; import { Col, Row } from 'antd';
-import ReactMarkdown from 'react-markdown';
-import ShareBar from './shareBar';
+import { FormattedDate, FormattedMessage } from 'react-intl'; import { Col, Row, Skeleton } from 'antd';
 import Button from '../shared/button';
 import { IconMoreArrow } from '../shared/icons';
-import NewsCard from './newsCard';
+
+const NewsCard = React.lazy(() => import('./newsCard'));
+const ReactMarkdown = React.lazy(() => import('react-markdown'));
+const ShareBar = React.lazy(() => import('./shareBar'));
 
 // Interfaces
 
 // Stylesheet
 import './newsPage.scss';
-import { breakPoints } from '../utils/responsive';
-import { getAbsoluteBoundingRect, getComputerStyleValues } from '../utils/style';
-import { useThrottleSync } from '../hooks/d&t';
 
 export interface NewsPageProps {
 }
 
-const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
+const NewsPage: FunctionComponent<NewsPageProps> = (props) => { // eslint-disable-line @typescript-eslint/no-unused-vars
 
     const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -47,13 +48,23 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
         window.scrollBy(0, 1);  // 激活滚动事件，重新计算更多新闻滚动位置
     }, []);
 
+    // 当新闻id改变时重置展开状态。
+    // !注意，不符合节流逻辑。后端上线后改掉。
+    useEffect(() => {
+        setExpanded(false);
+        if (news.content.length < overviewApproxLength)
+            setExpanded(true);
+    }, [newsId]);   // eslint-disable-line
+
     const newsContentMd = useMemo(() => (
-        <ReactMarkdown skipHtml={true} remarkPlugins={[
-            [remarkGfm]
-        ]}
-            className='news-page--news--markdown' >
-            {content}
-        </ReactMarkdown >
+        <Suspense fallback={<Skeleton />}>
+            <ReactMarkdown skipHtml={true} remarkPlugins={[
+                [remarkGfm]
+            ]}
+                className='news-page--news--markdown' >
+                {content}
+            </ReactMarkdown >
+        </Suspense>
     ), [expanded, content]);    // eslint-disable-line
 
     // 首次渲染触发
@@ -102,7 +113,9 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
             <Row className='news-page--main'>
                 <Col xl={16} lg={16} md={24} sm={24} xs={24} className='news-page--news container'>
                     {/* 分享栏 */}
-                    <ShareBar className='news-page--news--share-bar--docked' direction='column' />
+                    <Suspense fallback={<Skeleton />}>
+                        <ShareBar className='news-page--news--share-bar--docked' direction='column' />
+                    </Suspense>
                     {/* 新闻主内容栏 */}
                     <div className='news-page--news--content'>
                         {/* 新闻文章标题 */}
@@ -119,11 +132,13 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
                             </Container>
                         </Container>
                         {/* 分享栏「仅在large以下出现」 */}
-                        <ShareBar justify='end' align='start' type='solid' className='news-page--news--share-bar--inline' />
+                        <Suspense fallback={<Skeleton />}>
+                            <ShareBar justify='end' align='start' type='solid' className='news-page--news--share-bar--inline' />
+                        </Suspense>
                         {/* 新闻文章内容 */}
                         {newsContentMd}
                         {/* 查看更多 */}
-                        <Button onClick={handleShowMore} style={{ display: expanded ? 'none' : null }}
+                        <Button onClick={handleShowMore} style={{ opacity: expanded ? '0' : null }}
                             type='hollow' className='news-page--news--more-btn'>
                             <div><FormattedMessage id='newsPage.more' /></div>
                             <IconMoreArrow />
@@ -134,7 +149,9 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => {
                 <Col xl={8} lg={8} md={24} sm={24} xs={24} className='news-page--more' ref={moreNodeRef}>
                     <div className='news-page--more-wrapper' ref={moreWrapperNodeRef}>{
                         moreNews.map((elem) => (
-                            <NewsCard key={elem.id} {...elem} className='news-page--more--card' />
+                            <Suspense fallback={<Skeleton />} key={elem.id} >
+                                <NewsCard {...elem} className='news-page--more--card' />
+                            </Suspense>
                         ))
                     }</div>
                 </Col>

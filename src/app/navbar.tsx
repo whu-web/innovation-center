@@ -80,11 +80,11 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
 
     // 处理悬浮菜单项出现动画
     const handleMenuOverlayVisibleChange = useCallback((visible: boolean) => {
-        document.querySelectorAll('.navbar--menu--item--menu--overlay .navbar--menu--item').forEach((elem, idx) => {
+        document.querySelectorAll('.navbar--menu--item--menu--overlay .navbar--menu--item').forEach((elem) => {
             elem.classList.toggle('navbar--menu--item--visible');
         });
-        onMenuOverlayVisibleChange(visible);
-    }, []);
+        if (onMenuOverlayVisibleChange) onMenuOverlayVisibleChange(visible);
+    }, [onMenuOverlayVisibleChange]);
 
     //*TODO 删除此临时解决方案
     const [antMsg, ctxHolder] = message.useMessage();
@@ -99,7 +99,7 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
                 }} />
             ), 1);
         }
-    }, []);
+    }, [antMsg]);
 
     const menu = useMemo(() => (<>
         {menuItems.map((elem) => {
@@ -112,7 +112,7 @@ const NavBar: FunctionComponent<NavBarProps> = (props) => {
                 </Link>)
                 : null);
         })}
-    </>), []);
+    </>), [handleIdRouting]);
 
     return (
         <nav className={`navbar ${className || ''}`} style={style} ref={innerRef}>

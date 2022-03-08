@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent, useRef, useCallback, useEffect } from 'react';
+import React, { useState, FunctionComponent, useRef, useCallback } from 'react';
 
 // Components
 import Card from '../shared/card';
@@ -27,7 +27,6 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
         endTime,
         imgUrl,
         location,
-        link,
         className,
         lonLat
     } = props;
@@ -48,7 +47,7 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
     }, [showMap]);
 
     // 香蕉检测特效
-    const inOb = useIntersectionObserver((entries, inOb) => {
+    const inOb = useIntersectionObserver((entries, inOb) => { // eslint-disable-line @typescript-eslint/no-unused-vars
         const entry = entries[0];
         const animationTime = 6000;
         if (!entry.isIntersecting) return;
@@ -66,8 +65,8 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
     // useEffect(() => { inOb.observe(locationTextNodeRef.current); return () => inOb.disconnect(); }, [inOb]);
 
     return (
-        <Card imgSrc={imgUrl} className={`event-card ${className || ''}`} imgPreview={false}>
-            <a href={link} target='_blank' className='event-card--link-wrapper'>
+        <Card imgSrc={imgUrl} imgAlt={title} className={`event-card ${className || ''}`} imgPreview={false}>
+            <div className='event-card--wrapper'>
                 <Container className='event-card--content'
                     onClick={handleShowMap} innerRef={contentNodeRef} direction='column' align='start'>
                     <p className='event-card--content--title text-line-clamp-2'>{title}</p>
@@ -87,7 +86,7 @@ const EventCard: FunctionComponent<EventCardProps> = (props) => {
                 </Container>
                 <Amap className='event-card--map' load={showMap} innerRef={mapNodeRef}
                     onGoBack={handleShowMap} markerLonLat={lonLat} markerName={location} />
-            </a>
+            </div>
         </Card>
     );
 };

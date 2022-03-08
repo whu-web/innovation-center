@@ -88,7 +88,7 @@ const LocationCard: FunctionComponent<LocationCardProps> = (props) => {
     }, [splash]);
 
     return (
-        <Card className={`loc-card ${className || ''}`} imgSrc={imgSrc} imgPreview={imgPreview}
+        <Card imgAlt='Image of the location is currently not availible.' className={`loc-card ${className || ''}`} imgSrc={imgSrc} imgPreview={imgPreview}
             imgClass='loc-card--image' imgMaskRef={imageMaskRef} disableTransition
             imgFallback={require('../../assets/location-image-fallback.svg')}>
             <div className='loc-card--content-wrapper'>

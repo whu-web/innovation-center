@@ -15,8 +15,8 @@
     transition: all 400ms ease-in-out;
 }
 
-.news-card--link-wrapper {
-    padding: 10px 15px;
+.news-card--wrapper {
+    padding: calc(var(--scale) * 10px) calc(var(--scale) * 15px);
     height: 100%;
     flex: 1;
 }
@@ -45,7 +45,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .news-card--link-wrapper {
+    .news-card--wrapper {
         padding-top: 0;
     }
 }

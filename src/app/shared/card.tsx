@@ -5,6 +5,7 @@
 
 import React, { useMemo, FunctionComponent, LegacyRef, useRef, useCallback, useEffect } from 'react';
 import { useTransition } from '../hooks/many';
+import { useNavigate } from 'react-router';
 
 // Components
 import { Image } from 'antd';
@@ -16,11 +17,11 @@ import Text from './text';
 
 // Stylesheet
 import './card.scss';
-import { useNavigate } from 'react-router';
 
 export interface CardProps extends ContainerProps {
     className?: string;
     imgSrc: string;
+    imgAlt: string;
     imgClass?: string;
     imgFallback?: string;
     imgPreview?: boolean;
@@ -46,6 +47,7 @@ const Card: FunctionComponent<CardProps> = (props) => {
         disableTransition,
         transitionDelay,
         link,
+        imgAlt,
         ...divProps
     } = props;
 
@@ -77,6 +79,7 @@ const Card: FunctionComponent<CardProps> = (props) => {
                 mask: imgPreview ? previewMask : null,
             } : false}
                 fallback={imgFallback}
+                alt={imgAlt}
                 className={`card--image ${imgClass} `} />
             {children}
         </Container>

@@ -23,7 +23,7 @@ const HeadNews: FunctionComponent<HeadNewsProps> = (props) => {
     } = props;
 
     return (
-        <Card className={`head-news ${className || ''}`} imgClass='head-news--image' link={`/news/${id}`}
+        <Card imgAlt={title} className={`head-news ${className || ''}`} imgClass='head-news--image' link={`/news/${id}`}
             imgFallback={descrip} imgSrc={imgUrl}>
             <div className='head-news--content'>
                 <p className='head-news--title text-line-clamp-3'>{title}</p>

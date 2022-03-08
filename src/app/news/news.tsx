@@ -2,12 +2,13 @@
  * * 新闻根路由
  * @author shepard
  */
-import React, { useState, FunctionComponent } from 'react';
+import { Skeleton } from 'antd';
+import React, { FunctionComponent, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // Components
-import Footer from '../footer';
 import NavBar from '../navbar';
+const Footer = React.lazy(() => import('../footer'));
 
 // Interfaces
 
@@ -18,13 +19,15 @@ export interface NewsProps {
 
 }
 
-const News: FunctionComponent<NewsProps> = (props) => {
+const News: FunctionComponent<NewsProps> = (props) => { // eslint-disable-line @typescript-eslint/no-unused-vars
 
     return (
         <div className='news'>
             <NavBar className='navbar--outof-splash' />
             <Outlet />
-            <Footer />
+            <Suspense fallback={<Skeleton />}>
+                <Footer />
+            </Suspense>
         </div>
     );
 };

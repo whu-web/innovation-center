@@ -1,9 +1,9 @@
 /**
  * * 分享栏
  */
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from '../shared/container';
-import { IconQQ, IconShare, IconWechat, IconWechatX, IconWeiboX } from '../shared/icons';
+import { IconQQ, IconShare, IconWechatX, IconWeiboX } from '../shared/icons';
 
 // Components
 

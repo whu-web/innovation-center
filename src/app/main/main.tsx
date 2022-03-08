@@ -1,25 +1,28 @@
-import React, { useRef, FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { SimpleScrollAnimationOption, useIntersectionObserver, useScrollAnimation, useSimpleScrollAnimation } from '../hooks/many';
+import React, { useRef, FunctionComponent, useCallback, useEffect, Suspense, } from 'react';
+import { SimpleScrollAnimationOption, useIntersectionObserver, useSimpleScrollAnimation } from '../hooks/many';
 import { useNewsList } from '../hooks/news';
 import { responsiveGutter33211, responsiveGutter44221 } from '../utils/responsive';
 import { useDebounce } from '../hooks/d&t';
 
 // Components
-import SplashPictorial from './splashPictorial';
-import Container from '../shared/container';
-import { Col, Row, Carousel } from 'antd';
+import { Col, Row, Carousel, Skeleton } from 'antd';
 import { IconDown } from '../shared/icons';
-import ClubPurpose from './clubPurpose';
-import ClubResources from './clubResources';
-import Text from '../shared/text';
-import NewsPictorial from '../news/newsPictorial';
-import EventPictorial from './eventPictorial';
-import EventCard from './eventCard';
-import MentorPictorial from './mentorPictorial';
+import Container from '../shared/container';
+import AnimatedHeading from './animatedHeading';
 import NavBar from '../navbar';
-import Footer from '../footer';
-import HeadNews from '../news/headNews';
-import Heading from '../shared/heading';
+
+const SplashPictorial = React.lazy(() => import('./splashPictorial'));
+const ClubPurpose = React.lazy(() => import('./clubPurpose'));
+const ClubResources = React.lazy(() => import('./clubResources'));
+const NewsPictorial = React.lazy(() => import('../news/newsPictorial'));
+const EventPictorial = React.lazy(() => import('./eventPictorial'));
+const EventCard = React.lazy(() => import('./eventCard'));
+const MentorPictorial = React.lazy(() => import('./mentorPictorial'));
+const HeadNews = React.lazy(() => import('../news/headNews'));
+const MoreMentors = React.lazy(() => import('./moreMentors'));
+const MembersVideo = React.lazy(() => import('./membersVideo'));
+const Footer = React.lazy(() => import('../footer'));
+
 
 // Interfaces
 
@@ -29,12 +32,7 @@ import './main.scss';
 // Mock data
 import picMocks from '../../mocks/pictorial.mocks';
 import eventMocks from '../../mocks/event.mocks';
-import mentorMocks from '../../mocks/mentor.mocks';
-import AnimatedHeading from './animatedHeading';
 import { useMentors } from '../hooks/mentors';
-import MoreMentors from './moreMentors';
-import MembersVideo from './membersVideo';
-
 
 export interface MainProps {
 }
@@ -52,7 +50,7 @@ const sepLineScrollAnimiationOptions: SimpleScrollAnimationOption = {
     throttle: 10
 };
 
-const Main: FunctionComponent<MainProps> = (props) => {
+const Main: FunctionComponent<MainProps> = (props) => { // eslint-disable-line @typescript-eslint/no-unused-vars
     // 处理向下滚动一屏的事件
     const handleScrollDownClick = useCallback(() => { window.scroll({ top: window.innerHeight + 1, behavior: 'smooth' }); }, []);
 
@@ -155,11 +153,15 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 onMenuOverlayVisibleChange={handleMenuOverlayVisibleChange} />
             {/* 首屏轮播图 */}
             <div className='main--carousel' ref={carouselNodeRef}>
-                <Carousel autoplay={true} effect='fade' autoplaySpeed={5000}
+                <Carousel autoplay={true} effect='fade' autoplaySpeed={5000} accessibility
                     dots={{ className: 'main--carousel--dots' }}
                     lazyLoad='progressive'>{
                         picMocks.map((elem) => (
-                            <SplashPictorial className='main--carousel--splash' key={elem.id} {...elem} />))}
+                            <Suspense fallback={<Skeleton.Image />} key={elem.id}>
+                                <SplashPictorial className='main--carousel--splash' {...elem} />
+                            </Suspense>
+                        ))
+                    }
                 </Carousel>
                 {/* 向下滚动一屏指示按钮 */}
                 <Container direction='column' className='main--scroll-down' onClick={handleScrollDownClick}>
@@ -173,22 +175,30 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 <Row className='main--overview main--section' gutter={{ xl: 48, lg: 36 }}>
                     {/* 中心简介 */}
                     <Col xl={10} lg={12} md={24} className='main--overview--purpose' ref={overviewPurposeNodeRef}>
-                        <ClubPurpose />
+                        <Suspense fallback={<Skeleton />}>
+                            <ClubPurpose />
+                        </Suspense>
                     </Col>
                     {/* 中心资源详情区 */}
                     <Col xl={14} lg={12} md={24} className='main--overview--resources' ref={overviewResourcesNodeRef} >
-                        <ClubResources />
+                        <Suspense fallback={<Skeleton />}>
+                            <ClubResources />
+                        </Suspense>
                     </Col>
                 </Row>
                 {/* 新闻板块 */}
                 <section className='main--news main--section' id='news'>
                     <AnimatedHeading msgId='news' justify='center' className='main--section--heading' />
-                    <HeadNews className='main--news--head-news' {...headNews} />
+                    <Suspense fallback={<Skeleton><Skeleton.Image /></Skeleton>}>
+                        <HeadNews className='main--news--head-news' {...headNews} />
+                    </Suspense>
                     <Row className='main--news--row' gutter={responsiveGutter33211}>{
                         otherNews.map((elem, idx) => (
                             <Col xl={8} lg={8} md={12} sm={24} xs={24} key={elem.id} className='main--news--col'>
-                                <NewsPictorial className='main--news--news-pic' {...elem}
-                                    transitionDelay={idx * 100} />
+                                <Suspense fallback={<Skeleton />}>
+                                    <NewsPictorial className='main--news--news-pic' {...elem}
+                                        transitionDelay={idx * 100} />
+                                </Suspense>
                             </Col>
                         ))
                     }</Row>
@@ -197,15 +207,21 @@ const Main: FunctionComponent<MainProps> = (props) => {
                 <section className='main--events main--section' id='events'>
                     <AnimatedHeading msgId='events' justify='center' className='main--section--heading' />
                     <div className='main--section--sep-line' ref={eventSepLineRef}></div>
-                    <Row className='main--events--row' gutter={responsiveGutter44221}>
+                    <Row className='main--events--row' gutter={{ xl: 36, lg: 32, md: 32, sm: 32, xs: 0 }}>
                         <Col xl={12} lg={12} md={24} sm={24} className='main--events--col'>
-                            <EventPictorial {...eventMocks[0]} className='main--events--pic' />
+                            <Suspense fallback={<Skeleton />}>
+                                <EventPictorial {...eventMocks[0]} className='main--events--pic' />
+                            </Suspense>
                         </Col>
                         <Col xl={6} lg={6} md={12} sm={12} className='main--events--col'>
-                            <EventCard {...eventMocks[1]} className='main--events--card' />
+                            <Suspense fallback={<Skeleton />}>
+                                <EventCard {...eventMocks[1]} className='main--events--card' />
+                            </Suspense>
                         </Col>
                         <Col xl={6} lg={6} md={12} sm={12} className='main--events--col'>
-                            <EventCard {...eventMocks[2]} className='main--events--card' />
+                            <Suspense fallback={<Skeleton />}>
+                                <EventCard {...eventMocks[2]} className='main--events--card' />
+                            </Suspense>
                         </Col>
                     </Row>
                 </section>
@@ -217,12 +233,16 @@ const Main: FunctionComponent<MainProps> = (props) => {
                             <Row className='main--mentors--row' gutter={responsiveGutter44221}>{
                                 mentors.slice(0, 3).map((elem, idx) => (
                                     <Col xl={12} lg={12} md={12} sm={12} xs={24} key={elem.id} className='main--mentors--col'>
-                                        <MentorPictorial transitionDelay={idx * 100}
-                                            className='main--mentors--pic' {...elem} />
+                                        <Suspense fallback={<Skeleton />}>
+                                            <MentorPictorial transitionDelay={idx * 100}
+                                                className='main--mentors--pic' {...elem} />
+                                        </Suspense>
                                     </Col>)
                                 )}
                                 <Col xl={12} lg={12} md={12} sm={12} xs={24} key={-1} className='main--mentors--col'>
-                                    <MoreMentors mentors={mentors.slice(3)} className='main--mentors--more' />
+                                    <Suspense fallback={<Skeleton />}>
+                                        <MoreMentors mentors={mentors.slice(3)} className='main--mentors--more' />
+                                    </Suspense>
                                 </Col>
                             </Row>
                         </section>
@@ -230,13 +250,18 @@ const Main: FunctionComponent<MainProps> = (props) => {
                     <Col xl={12} lg={12} md={24} sm={24} xs={24}>
                         <section className='main--members main--section'>
                             <AnimatedHeading msgId='members' className='main--section--heading main--members--heading' />
-                            <MembersVideo className='main--members--video'
-                                videoUrl={require('../../assets/flash.webm')} />
+                            <Suspense fallback={<Skeleton.Image />}>
+                                <MembersVideo className='main--members--video'
+                                    videoUrl={require('../../assets/flash.webm')}
+                                    videoUrlAlt={require('../../assets/flash.mp4')} />
+                            </Suspense>
                         </section>
                     </Col>
                 </Row>
-                {/* 页尾 */}
-                <Footer />
+                {/* Footer */}
+                <Suspense fallback={<Skeleton />}>
+                    <Footer />
+                </Suspense>
             </div>
         </div >
     );

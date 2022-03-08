@@ -29,6 +29,7 @@ module.exports = (env) => {
                     test: /\.(scss|css)$/,
                     use: [
                         'style-loader',
+                        //MiniCssExtractPlugin.loader,
                         'css-loader',
                         {
                             loader: 'sass-loader',
@@ -41,10 +42,9 @@ module.exports = (env) => {
                 {
                     test: /\.less$/,
                     use: [
-                        env.production
-                            ? 'style-loader'
-                            : MiniCssExtractPlugin.loader
-                        , 'css-loader',
+                        'style-loader',
+                        //MiniCssExtractPlugin.loader,
+                        'css-loader',
                         {
                             loader: 'less-loader',
                             options: {
@@ -84,18 +84,16 @@ module.exports = (env) => {
             }),
             // Using index.ejs from ./src/index.ejs
             new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, './src/index.ejs')
+                template: path.resolve(__dirname, './src/index.ejs'),
+                favicon: path.resolve(__dirname, './src/assets/favicon.ico')
             }),
             // Improves building performance as it does type checking in a separate process
             new ForkTsCheckerWebpackPlugin(),
             // ESLint plugin for checking code styles
-            // new EslintWebpackPlugin({
-            //     extensions: ['.tsx', '.ts', '.js'],
-            //     exclude: ['node_modules'],
-            // }),
-            // Show pretty error overlay when app crashes in development
-            // This plugin is currently not available with Webpack 5 (Webpack Dev Server v4)
-            // new ErrorOverlayWebpackPlugin(),
+            new EslintWebpackPlugin({
+                extensions: ['.tsx', '.ts', '.js'],
+                exclude: ['node_modules'],
+            }),
         ],
         resolve: {
             extensions: ['.tsx', '.ts', '.js'],

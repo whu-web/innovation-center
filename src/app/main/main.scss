@@ -58,12 +58,13 @@
                 width: 20px;
                 // 激活的内容项按钮
                 button {
+                    opacity: 1;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     width: 20px;
                     height: 20px;
-                    color: var(--clr-blue);
+                    color: var(--clr-blue-u);
                     font-size: 15px;
                     font-weight: bold;
                 }
@@ -125,7 +126,7 @@
     position: relative;
     top: 100vh;
     box-shadow: var(--clr-gsop-5) 0 -3px 18px 1px;
-
+    overflow-x: hidden;
     background-color: var(--clr-gs-0_5);
 }
 
@@ -151,7 +152,7 @@
 
 //* 板块通用样式类
 .main--section {
-    padding: 5vh 5vw;
+    padding: 7vmin 7vmin;
 }
 
 .main--section:nth-child(odd) {
@@ -177,7 +178,7 @@
 .main--overview {
     height: 700px;
     overflow-x: clip; //*裁剪掉因过渡动画需求而translate出区域的元素
-    --scale: 0.9;
+    box-sizing: content-box;
 }
 
 //*中心简介区域
@@ -204,6 +205,18 @@
     transform: none;
 }
 
+@include media($xxl...) {
+    .main--overview {
+        height: 700px;
+    }
+}
+
+@include media($lg...) {
+    .main--overview {
+        height: 600px;
+    }
+}
+
 @include media("<large") {
     .main--overview {
         height: auto;
@@ -223,7 +236,13 @@
     }
 }
 
-@include media("<medium") {
+@include media($sm...) {
+    .main--overview--resources {
+        height: 750px;
+    }
+}
+
+@include media($xs...) {
     .main--overview--resources {
         height: 600px;
     }
@@ -233,12 +252,13 @@
 .main--news {
 }
 
-.main--news--head-news {
-    margin-bottom: calc(var(--scale) * 30px);
+.main--news .main--news--head-news {
+    margin-bottom: calc(var(--scale) * 42px);
+    flex-direction: row-reverse;
 }
 
 @include media("<medium") {
-    .main--news--head-news {
+    .main--news .main--news--head-news {
         flex-direction: column-reverse;
         aspect-ratio: unset;
 
@@ -294,7 +314,7 @@
 
 @include media("<large") {
     .main--news--col {
-        margin-bottom: calc(var(--scale) * 30px);
+        margin-bottom: calc(var(--scale) * 42px);
     }
 }
 
@@ -306,6 +326,7 @@
 
 .main--events--col {
     height: 100%;
+    width: 100%;
 }
 
 .main--events--pic {
@@ -337,6 +358,7 @@
 
 @include media($xs...) {
     .main--events--row .main--events--card {
+        // 覆盖上面<large的情况
         flex-direction: row;
         aspect-ratio: 2/1;
         width: 100%;
@@ -345,8 +367,12 @@
             display: none;
         }
 
-        .event-card--link-wrapper {
+        .ant-image {
             height: 100%;
+            width: unset;
+
+            // Polyfill aspect-ratio 1/1
+            max-width: 50%;
         }
     }
 }
@@ -366,13 +392,26 @@
 
 .main--mentors--col {
     width: 100%;
-    padding: calc(var(--scale) * 18px) 0;
+    padding: 20px 0;
 }
 
 .main--mentors--pic,
 .main--mentors--more {
     width: 100%;
     aspect-ratio: 9/11;
+}
+
+@include media($xs...) {
+    .main--mentors {
+        // xs下区域左边距太小，需要调整
+        padding-left: 10vmin;
+        padding-right: 8vmin;
+    }
+
+    .main--mentors--more {
+        // Polyfill aspect-ratio
+        min-height: 100vw;
+    }
 }
 
 .main--members {
@@ -390,16 +429,18 @@
     }
 }
 
-@include media($xs...) {
-    .main--mentors--pic {
-        aspect-ratio: 9/10;
-    }
+//* 响应式缩放调整-------------
+
+@include media($xxl...) {
 }
 
-//* 响应式缩放调整-------------
 @include media($xl...) {
     .main--events--card {
         --scale: 0.9;
+    }
+
+    .main--overview--purpose {
+        --scale: 0.95;
     }
 }
 
@@ -425,14 +466,14 @@
     }
 
     .main--news--news-pic {
-        --scale: 0.75;
+        --scale: 0.66;
     }
 
     .main--events--pic {
         --scale: 0.75;
     }
     .main--events--card {
-        --scale: 0.75;
+        --scale: 0.6;
     }
     .main--mentors--pic {
         --scale: 0.5;
@@ -444,7 +485,7 @@
         --scale: 0.8;
     }
     .main--overview--purpose {
-        --scale: 1.1;
+        --scale: 1.2;
     }
     .main--overview--resources {
         --scale: 1.2;
@@ -458,13 +499,13 @@
     }
 
     .main--news--news-pic {
-        --scale: 0.75;
+        --scale: 0.66;
     }
     .main--events--pic {
         --scale: 1.15;
     }
     .main--events--card {
-        --scale: 1.1;
+        --scale: 1;
     }
     .main--mentors--pic {
         --scale: 1;
@@ -476,7 +517,7 @@
         --scale: 0.6;
     }
     .main--overview--purpose {
-        --scale: 1;
+        --scale: 1.1;
     }
     .main--overview--resources {
         --scale: 1;
@@ -489,10 +530,10 @@
         --scale: 0.7;
     }
     .main--news--news-pic {
-        --scale: 0.9;
+        --scale: 0.85;
     }
     .main--events--pic {
-        --scale: 0.85;
+        --scale: 0.8;
     }
     .main--events--card {
         --scale: 0.75;
@@ -540,7 +581,7 @@
         --scale: 0.4;
     }
     .main--overview--purpose {
-        --scale: 0.85;
+        --scale: 0.95;
     }
     .main--overview--resources {
         --scale: 0.55;
@@ -554,13 +595,13 @@
     }
 
     .main--news--news-pic {
-        --scale: 0.55;
+        --scale: 0.52;
     }
     .main--events--pic {
         --scale: 0.65;
     }
     .main--events--card {
-        --scale: 0.7;
+        --scale: 0.62;
     }
     .main--mentors--pic {
         --scale: 0.85;

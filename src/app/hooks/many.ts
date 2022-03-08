@@ -3,7 +3,7 @@
  * @author shepard
  */
 
-import { useEffect, useContext, useRef, useCallback, useDebugValue } from "react";
+import { useEffect, useContext, useRef, useCallback } from "react";
 import { DOMAbsRect, getAbsoluteBoundingRect } from "../utils/style";
 import _ from 'lodash';
 
@@ -81,8 +81,6 @@ import { cubicBezier } from "../utils/bezier";
 export function useTheme() {
     return useContext(themeCtx);
 }
-
-type CSSUnit = 'cm' | 'mm' | 'in' | 'px' | 'pt' | 'pc' | 'em' | '%' | 'ex' | 'ch' | 'rem' | 'vw' | 'vh' | 'vmin' | 'vmax';
 
 /**
  * 滚动动画钩子

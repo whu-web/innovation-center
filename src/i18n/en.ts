@@ -52,6 +52,9 @@ export default {
     'amap.toNavigationMapApp': 'Click to open in AMap',
 
     'newsPic.more': 'Read More',
+    'newsPic.tag.center': 'Center',
+    'newsPic.tag.competition': 'Competition',
+    'newsPic.tag.research': 'Research',
 
     'event.mapHint': 'Click to show location on AMap',
 
@@ -71,6 +74,8 @@ export default {
 
     'newsPage.author': 'Author',
     'newsPage.more': 'Show More',
+
+    'wechat.fallback': 'Please click top right and open in the browser for more content. ⤴️'
 };
 
 // * 英文翻译文件

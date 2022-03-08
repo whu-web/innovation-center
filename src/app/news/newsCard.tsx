@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 
 // Components
 import Card from '../shared/card';
-import { Link } from 'react-router-dom';
 
 // Interfaces
 import { NewsType } from '../../types';
@@ -31,11 +30,11 @@ const NewsCard: FunctionComponent<NewsCardProps> = (props) => {
     } = props;
 
     return (
-        <Card className={`news-card ${className || ''}`} imgSrc={imgUrl} imgFallback={title}
-            imgPreview={false} direction='row' transitionDelay={transitionDelay}
+        <Card imgAlt={title} className={`news-card ${className || ''}`} imgSrc={imgUrl} imgFallback={title}
+            imgPreview={false} direction='row' transitionDelay={transitionDelay} link={`/news/${id}`}
             imgClass='news-card--image'
             disableTransition={disableTransition} >
-            <Link to={`/news/${id}`} className='news-card--link-wrapper'>
+            <div className='news-card--wrapper'>
                 <p className='news-card--time'>
                     <FormattedDate value={publishTime}
                         year={publishTime.getFullYear() === new Date().getFullYear() ? null : 'numeric'}
@@ -43,8 +42,8 @@ const NewsCard: FunctionComponent<NewsCardProps> = (props) => {
                         day='2-digit' />
                 </p>
                 <p className='news-card--title text-line-clamp-3'>{title}</p>
-            </Link>
-        </Card >
+            </div>
+        </Card>
     );
 };
 

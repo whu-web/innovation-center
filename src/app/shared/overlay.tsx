@@ -2,7 +2,7 @@
  * * 悬浮菜单组件
  * @author shepard
  */
-import React, { FunctionComponent, useRef, useEffect, LegacyRef, useCallback } from 'react';
+import React, { FunctionComponent, useRef, useEffect, LegacyRef } from 'react';
 
 // Components
 
@@ -76,7 +76,7 @@ const Overlay: FunctionComponent<OverlayProps> = (props) => {
                     hideMe();
             })
         }
-    }, [trigger]);
+    }, [trigger, onVisibleChange]);
 
     return (
         <div style={{ visibility: 'hidden', opacity: '0' }}

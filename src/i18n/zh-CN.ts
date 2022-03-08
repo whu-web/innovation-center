@@ -54,6 +54,9 @@ export default {
     'amap.toNavigationMapApp': '点击在高德地图中打开',
 
     'newsPic.more': '更多资讯',
+    'newsPic.tag.center': '中心建设',
+    'newsPic.tag.competition': '学科竞赛',
+    'newsPic.tag.research': '学术科研',
 
     'event.mapHint': '点击查看导航地图',
 
@@ -73,6 +76,8 @@ export default {
 
     'newsPage.author': '作者',
     'newsPage.more': '查看更多',
+
+    'wechat.fallback': '查看更多内容请点击右上角在浏览器上打开⤴️'
 };
 
 //* 简体中文翻译文件

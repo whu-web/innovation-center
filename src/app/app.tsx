@@ -16,6 +16,7 @@ import { Locale } from '../types';
 
 // Stylesheet
 import './app.scss';
+import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
 
 export interface AppProps { // eslint-disable-line
 
@@ -44,16 +45,18 @@ const App: FunctionComponent<AppProps> = (props) => { // eslint-disable-line
     }, []);
 
     return (
-        <IntlProvider locale={locale}
-            key={locale} messages={message}
-            defaultLocale='zh-CN'>
-            <localeCtx.Provider value={{ locale, availableLocales, setLocale: handleLocaleChange }}>
-                <themeCtx.Provider value={theme}>
-                    {/* 路由出口 */}
-                    <Outlet />
-                </themeCtx.Provider>
-            </localeCtx.Provider>
-        </IntlProvider>
+        <ErrorBoundary>
+            <IntlProvider locale={locale}
+                key={locale} messages={message}
+                defaultLocale='zh-CN'>
+                <localeCtx.Provider value={{ locale, availableLocales, setLocale: handleLocaleChange }}>
+                    <themeCtx.Provider value={theme}>
+                        {/* 路由出口 */}
+                        <Outlet />
+                    </themeCtx.Provider>
+                </localeCtx.Provider>
+            </IntlProvider>
+        </ErrorBoundary>
     );
 
 };

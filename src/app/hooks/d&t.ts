@@ -44,7 +44,7 @@ export function useThrottle<T extends (...args: any) => unknown>
 }
 
 /**
- * 同步节流钩子函数，被节流函数在一段时间内首次调用将立即执行，建议搭配useCallback使用
+ * 同步节流钩子函数，被节流函数首次调用将立即执行，此后一段时间内只能执行一次
  * @param fn 被节流函数
  * @param ms 延迟时间milliseconds
  * @returns fn

@@ -17,6 +17,7 @@ export function getComputerStyleValues(styleNames: string[], elt: Element, pseud
  * @returns DOMAbsRect
  */
 export function getAbsoluteBoundingRect(elt: Element) {
+    if (!elt) return;
     const rect = elt.getBoundingClientRect();
     return {
         top: rect.top + window.scrollY,

@@ -2,6 +2,7 @@
 
 .heading {
     margin: calc(var(--scale) * 24px) 0;
+    &,
     span {
         font-weight: bold;
         font-size: calc(var(--scale) * 2.5 * var(--fsz-base-u));

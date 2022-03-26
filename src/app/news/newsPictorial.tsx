@@ -5,7 +5,7 @@ import Pictorial from '../shared/pictorial';
 import Container from '../shared/container';
 import Text from '../shared/text';
 import Tag from '../shared/tag';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { useIntl, FormattedMessage } from 'react-intl';
 import { IconArrowRight } from '../shared/icons';
 import { Link } from 'react-router-dom';
 
@@ -39,6 +39,8 @@ const NewsPictorial: FunctionComponent<NewsPictorialProps> = (props) => {
         id
     } = props;
 
+    const locale = useIntl().locale;
+
     return (
         <Pictorial className={`news-pic ${className || ''}`} disableTransition={disableTransition}
             layerClass='news-pic--layer' transitionDelay={transitionDelay} imageClass='news-pic--image'
@@ -48,10 +50,11 @@ const NewsPictorial: FunctionComponent<NewsPictorialProps> = (props) => {
                 <p className='news-pic--layer--descrip text-line-clamp-3'>{descrip}</p>
                 <Container className='news-pic--layer--info'>
                     <span className='news-pic--layer--info--time'>
-                        <FormattedDate value={publishTime}
-                            year={publishTime.getFullYear() === new Date().getFullYear() ? null : 'numeric'}
-                            month='short'
-                            day='2-digit' />
+                        {publishTime.toLocaleString(locale, {
+                            year: publishTime.getFullYear() === new Date().getFullYear() ? undefined : 'numeric',
+                            month: 'short',
+                            day: '2-digit'
+                        })}
                     </span>{showTag === false ? null :
                         (<Container className='news-pic--layer--info--tag' justify='end'>
                             <Tag color='blue'>
@@ -65,7 +68,7 @@ const NewsPictorial: FunctionComponent<NewsPictorialProps> = (props) => {
                         direction='row-reverse' className='news-pic--layer--more' />
                 </Container>
             </Link>
-        </Pictorial >
+        </Pictorial>
     );
 };
 

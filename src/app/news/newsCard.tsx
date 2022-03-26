@@ -8,7 +8,7 @@ import { NewsType } from '../../types';
 
 // Stylesheet
 import './newsCard.scss';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, useIntl } from 'react-intl';
 
 export interface NewsCardProps extends Omit<NewsType, 'tag'> {
     className?: string;
@@ -29,6 +29,8 @@ const NewsCard: FunctionComponent<NewsCardProps> = (props) => {
         id
     } = props;
 
+    const locale = useIntl().locale;
+
     return (
         <Card imgAlt={title} className={`news-card ${className || ''}`} imgSrc={imgUrl} imgFallback={title}
             imgPreview={false} direction='row' transitionDelay={transitionDelay} link={`/news/${id}`}
@@ -36,10 +38,11 @@ const NewsCard: FunctionComponent<NewsCardProps> = (props) => {
             disableTransition={disableTransition} >
             <div className='news-card--wrapper'>
                 <p className='news-card--time'>
-                    <FormattedDate value={publishTime}
-                        year={publishTime.getFullYear() === new Date().getFullYear() ? null : 'numeric'}
-                        month='short'
-                        day='2-digit' />
+                    {publishTime.toLocaleString(locale, {
+                        year: publishTime.getFullYear() === new Date().getFullYear() ? undefined : 'numeric',
+                        month: 'short',
+                        day: '2-digit'
+                    })}
                 </p>
                 <p className='news-card--title text-line-clamp-3'>{title}</p>
             </div>

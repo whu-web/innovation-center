@@ -2,6 +2,7 @@ import React, { FunctionComponent, Suspense, useCallback, useEffect, useMemo, us
 import { useParams } from 'react-router';
 import { overviewApproxLength, useNews, useNewsList } from '../hooks/news';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { breakPoints } from '../utils/responsive';
 import { getAbsoluteBoundingRect, getComputerStyleValues } from '../utils/style';
 import { useThrottleSync } from '../hooks/d&t';
@@ -58,9 +59,13 @@ const NewsPage: FunctionComponent<NewsPageProps> = (props) => { // eslint-disabl
 
     const newsContentMd = useMemo(() => (
         <Suspense fallback={<Skeleton />}>
-            <ReactMarkdown skipHtml={true} remarkPlugins={[
-                [remarkGfm]
-            ]}
+            <ReactMarkdown skipHtml={true}
+                remarkPlugins={[
+                    [remarkGfm]
+                ]}
+                rehypePlugins={
+                    [rehypeRaw]
+                }
                 className='news-page--news--markdown' >
                 {content}
             </ReactMarkdown >

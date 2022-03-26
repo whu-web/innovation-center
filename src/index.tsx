@@ -10,6 +10,7 @@ import './index.scss';
 
 import App from './app/app';
 import { Skeleton } from 'antd';
+const LogoCollect = React.lazy(() => import('./app/temporary/logoCollect'));
 const Main = React.lazy(() => import('./app/main/main'));
 const News = React.lazy(() => import('./app/news/news'));
 const NewsList = React.lazy(() => import('./app/news/newsList'));
@@ -30,9 +31,10 @@ ReactDOM.render(
                         <Main />
                     </Suspense>
                 } />
-                <Route path='/news' element={<Suspense fallback={fallback}>
-                    <News />
-                </Suspense>}>
+                <Route path='/news' element={
+                    <Suspense fallback={fallback}>
+                        <News />
+                    </Suspense>}>
                     <Route path='/news/' element={
                         <Suspense fallback={fallback}>
                             <NewsList />
@@ -42,6 +44,10 @@ ReactDOM.render(
                             <NewsPage />
                         </Suspense>} />
                 </Route>
+                <Route path='/events/logo' element={
+                    <Suspense fallback={fallback}>
+                        <LogoCollect />
+                    </Suspense>} />
             </Route>
         </Routes>
     </HashRouter>

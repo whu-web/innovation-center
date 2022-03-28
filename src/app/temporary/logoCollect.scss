@@ -120,7 +120,7 @@
     .logo-collect--submit,
     .logo-collect--reset {
         height: 50px;
-        width: 180px;
+        width: 250px;
         margin: 15px 0;
     }
 
@@ -130,6 +130,11 @@
             color: white;
             background-color: var(--clr-blue-u);
         }
+    }
+
+    input,
+    textarea {
+        font-size: 18px;
     }
 }
 

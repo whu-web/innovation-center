@@ -21,8 +21,8 @@ import { createForm } from "@formily/core"
 import { createSchemaField } from "@formily/react"
 
 // Interfaces
-import { ISubmitProps, IResetProps } from '@formily/antd';
-import { AxiosResponse } from 'axios';
+import { ISubmitProps, IResetProps, } from '@formily/antd';
+import { RadioGroupProps } from "antd";
 
 // Stylesheet
 import './logoCollect.scss';
@@ -66,22 +66,26 @@ const LogoCollect: FunctionComponent<LogoCollectProps> = (props) => { // eslint-
             : '{}')
     );
     const [showModal, setShowModal] = useState<boolean>(false);
+
+    const [group, setGroup] = useState<'slogan' | 'logo'>('logo');
+    const briefMinLen = group === 'logo' ? 50 : 10;
+    const briefMaxLen = group === 'logo' ? 200 : 100;
+
     const modalDialogContent = useRef({ title: '', content: '' });
 
-    const form = useMemo(() => createForm(), []);
+    const form = useMemo(() => createForm(), [group, formValueStore]);  // eslint-disable-line
 
     // 提交表单
     const handleSubmit = useCallback<ISubmitProps['onSubmit']>(async (values) => {
-        // 将表单数据保存到localstrage
+        // 将表单数据保存到localStorage
         localStorage.setItem('formValue', JSON.stringify(values));
         setFormValueStore(values);
-
         const modal = modalDialogContent.current;
 
         try {
             await Axios.post(`/api/submit/${values.group}`, values);
             modal.title = '您的作品已提交';
-            modal.content = '感谢您的参与，我们将会在3个工作日内给您发送确认邮件，如果您未收到确认邮件，请联系策划部负责人（邮箱：1298892323@qq.com）。请等待征集活动评委组的通知。';
+            modal.content = '感谢您的参与，我们将会在3个工作日内给您发送确认邮件，如果您未收到确认邮件，请联系策划部负责人（邮箱：1298892323@qq.com）。您还可以参与另一组的投稿。';
         } catch (err) {
             const errRes = err.response;
             if (errRes.status === 418 || errRes.status === 429) {
@@ -101,13 +105,18 @@ const LogoCollect: FunctionComponent<LogoCollectProps> = (props) => { // eslint-
 
     // 重置表单
     const handleReset = useCallback<IResetProps['onClick']>((ev) => {
-        localStorage.removeItem('formValue');
-        document.querySelectorAll('.logo-collect input:not(ant-radio-button-input)').forEach((elem) => {
-            (elem as HTMLInputElement).value = null;
-        })
-        setFormValueStore({});
-    }, []);
+        const resettedForm = Object.assign({}, formValueStore, { slogan: null, brief: null });
+        localStorage.setItem('formValue', JSON.stringify(resettedForm));
+        setFormValueStore(resettedForm);
+    }, [formValueStore]);
 
+    // 切换组别
+    const handleGroupChange = useCallback<RadioGroupProps['onChange']>((ev) => {
+        // 将创作理念的星号去掉
+        (document.querySelector('.ant-card:nth-child(3) .ant-formily-item-asterisk') as HTMLSpanElement)
+            .style.visibility = (group !== 'logo' ? 'visible' : 'hidden');
+        setGroup((ev.nativeEvent.target as any).value);
+    }, [group]);
 
     return (
         <div className="logo-collect">
@@ -258,13 +267,17 @@ const LogoCollect: FunctionComponent<LogoCollectProps> = (props) => { // eslint-
                     >
                         <SchemaField.Markup
                             title="参赛组别"
+                            x-value={group}
                             x-decorator="FormItem"
                             x-component="Radio.Group"
                             enum={[
                                 { children: [], label: "Logo征集组", value: "logo" },
                                 { children: [], label: "标语征集组", value: "slogan" },
                             ]}
-                            x-component-props={{ optionType: "button" }}
+                            x-component-props={{
+                                optionType: "button",
+                                onChange: handleGroupChange
+                            }}
                             x-decorator-props={{ labelAlign: "right" }}
                             default="logo"
                             x-index={0}
@@ -341,16 +354,16 @@ const LogoCollect: FunctionComponent<LogoCollectProps> = (props) => { // eslint-
                             default={formValueStore.slogan || null}
                             x-component-props={{
                                 autoSize: { minRows: 5, maxRows: 10 },
-                                placeholder: "请在此输入标语（8～50字）",
+                                placeholder: "请在此输入标语（8～25字）",
                                 defaultValue: formValueStore.slogan || null
                             }}
                             x-validator={[
                                 {
                                     minLength: 8,
-                                    maxLength: 50,
+                                    maxLength: 25,
                                     whitespace: true,
                                     required: true,
-                                    message: "请输入8～50字的标语",
+                                    message: "请输入8～25字的标语",
                                     triggerType: "onInput",
                                 },
                             ]}
@@ -383,21 +396,21 @@ const LogoCollect: FunctionComponent<LogoCollectProps> = (props) => { // eslint-
                             x-component="Input.TextArea"
                             x-validator={[
                                 {
-                                    message: "创作理念简介应在50～200字之内",
-                                    maxLength: 200,
-                                    minLength: 50,
-                                    required: true,
+                                    message: `创作理念简介应在${briefMinLen}～${briefMaxLen}字之内`,
+                                    maxLength: briefMaxLen,
+                                    minLength: briefMinLen,
+                                    required: group === 'logo',
                                     triggerType: "onInput",
                                 },
                             ]}
                             x-component-props={{
-                                maxLength: 200,
+                                maxLength: briefMaxLen,
                                 showCount: true,
                                 autoSize: { minRows: 5, maxRows: 10 },
-                                placeholder: "请输入创作理念简介（50～200字）",
+                                placeholder: `请输入创作理念简介（${briefMinLen}～${briefMaxLen}字）`,
                             }}
                             default={formValueStore.brief || null}
-                            x-decorator-props={{ labelAlign: "right" }}
+                            x-decorator-props={{ labelAlign: "right", asterisk: group === 'logo' }}
                             required={true}
                             x-index={0}
                             name="brief"

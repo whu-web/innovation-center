@@ -4,7 +4,7 @@ const picMocks: ContentBase[] = [
     {
         id: '1',
         title: "中心LOGO和标语征集活动开始啦～",
-        descrip: "遥感学院的才子才女们，快来提交你们的创意设计作品吧！",
+        descrip: "武汉大学的才子才女们，快来提交你们的创意设计作品吧！",
         imgUrl: require('./resources/news-mocks-5.webp'),
         link: '/news/16481664000006'
     },
